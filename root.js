@@ -1,8 +1,10 @@
 const src = document.currentScript.src
-const root = src.slice(0, src.length - 'root.js'.length)
+const baseUrl = src.slice(0, src.length - 'root.js'.length)
+const root = new URL(baseUrl).pathname
 
 window.__SITE__ = {
   title: 'specs.apollo.dev',
+  baseUrl,
   root,
 
   /**[begin sitemap]**/
@@ -28,7 +30,7 @@ window.__SITE__ = {
 }
 
 const main = Object.assign(document.createElement('script'), {
-  src: window.__SITE__.root + '/main.js',
+  src: window.__SITE__.root + 'main.js',
   type: 'module',
   async: true,
   defer: true,

@@ -94,8 +94,8 @@ function createNav() {
   addEventListener('popstate', onChange)
   onChange()
 
-  function onChange() {    
-    const self = window.__SITE__[location.pathname] || {}
+  function onChange() {
+    const self = window.__SITE__[location.pathname.slice(window.__SITE__.root.length - 1)] || {}
     const {path, parent} = self
     nav.innerHTML = ''
     if (!path) return
@@ -120,7 +120,7 @@ function createNav() {
 
 function navSlice(node) {
   return Object.assign(document.createElement('a'), {
-    href: node.href,
+    href: __SITE__.root + node.href.slice(1),
     className: 'slice',
     textContent: node.title,
   })
