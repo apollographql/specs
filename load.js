@@ -11,7 +11,6 @@ export async function script(src) {
   const script = document.createElement('script')
   script.async = true
   script.defer = true
-  console.log(script)
   script.__loadingPromise = new Promise((resolve, reject) => {
     script.onload = resolve
     script.onerror = reject
