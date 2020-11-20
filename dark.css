@@ -514,10 +514,12 @@ label.slice {
 
 nav a[href] {
   color: var(--midnight-darkest);
+  text-decoration: none;
 }
 
 nav > a[href]:hover {
   background: var(--pink-dark);
+  text-decoration: none;
 }
 
 .toc, main {
