@@ -157,8 +157,8 @@ body {
 
 main {
   max-width: 920px;
-  margin: 18px;
-  margin-left: 100px;
+  margin: 18px 100px;
+  /* margin-left: 100px; */
 }
 
 hr {
@@ -372,7 +372,7 @@ html {
 }
 
 .toc.measured {
-  width: var(--toc-width);
+  width: calc(min(100vw - 920px - 100px - 100px - 18px, var(--toc-width)));
   transform: none;
   opacity: 1;
   transition: opacity 1s, transform 1s;
@@ -529,4 +529,9 @@ nav > a[href]:hover {
   max-height: 100vh;
   overflow: auto;
   margin-right: 18px;
+}
+
+@media screen and (max-width: 1300px) {
+  .toc.measured { z-index: -100; opacity: 0; }
+  .toc-placeholder { display: none; }
 }
