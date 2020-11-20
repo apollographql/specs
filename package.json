@@ -1,8 +1,9 @@
 {
-  "name": "specs",
+  "name": "@apollo/specs.apollo.dev",
   "version": "1.0.0",
-  "description": "",
+  "description": "Apollo Specifications Library",
   "main": "index.js",
+  "bin": "./bin/library",
   "scripts": {
     "start": "http-server -c-1"
   },
@@ -10,6 +11,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "express": "^4.17.1",
     "http-server": "^0.12.3"
   }
 }

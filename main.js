@@ -51,17 +51,19 @@ const renderer = {
 
 marked.use({ renderer });
 
+import installNav from '/nav.js'
+
 async function main() {
   removeEventListener('load', main)
 
-  const theme = loadStyles(root('dark.css'))  
+  const theme = loadStyles('/dark.css')
 
   processMarkdown()
   await Promise.all([
     highlightCode(),
     result(theme).then(renderMermaid),
     createTableOfContents(),
-    createNav(),
+    installNav(),
     theme.then(async () => {
       while (!getComputedStyle(document.documentElement).getPropertyValue('--theme-loaded')) {
         await sleep(10)
@@ -72,74 +74,8 @@ async function main() {
   ])
 }
 
-function root(...parts) {
-  return window.__SITE__.root + parts.join('/')
-}
-
 addEventListener('load', main)
 
-function createNav() {   
-  compileRoutes(window.__SITE__)
-  // const container = document.createElement('nav')
-  // document.body.prepend(container)
-
-  // const rightNav = document.createElement('div')
-  // rightNav.className = 'slices top-right'
-  // container.prepend(rightNav)
-
-  const nav = document.createElement('nav')
-  nav.className = 'slices top-left'
-  document.body.prepend(nav)
-
-  addEventListener('popstate', onChange)
-  onChange()
-
-  function onChange() {
-    const self = window.__SITE__[location.pathname.slice(window.__SITE__.root.length - 1)] || {}
-    const {path, parent} = self
-    nav.innerHTML = ''
-    if (!path) return
-    for (const node of path) {
-      nav.appendChild(navSlice(node))
-    }
-
-    // nav.innerHTML = ''
-    if (parent.entries.length === 1) return
-
-    nav.appendChild(Object.assign(document.createElement('label'), {
-      textContent: 'see also:',
-      className: 'slice',
-    }))
-
-    for (const other of Object.values(parent.entries)) {
-      if (self === other) continue
-      nav.appendChild(navSlice(other))
-    }
-  }
-}
-
-function navSlice(node) {
-  return Object.assign(document.createElement('a'), {
-    href: __SITE__.root + node.href.slice(1),
-    className: 'slice',
-    textContent: node.title,
-  })
-}
-
-function compileRoutes(node=window.__SITE__, path=[], cache=window.__SITE__) {
-  node.path = [...path, node]
-  node.parent = path[path.length - 1]
-  const href = node.path.map(n => n.key || '').join('/')
-  cache[href] = node
-  node.href = href
-
-  if (!node.entries) return
-  for (const [k, n] of Object.entries(node.entries)) {
-    n.key = k
-    n.name = n.name || k
-    compileRoutes(n, node.path, cache)
-  }
-}
 
 function createTableOfContents() {
   const toc = document.createElement('ol')
