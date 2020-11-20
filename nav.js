@@ -3,10 +3,13 @@
  * @param {HTMLDocument} doc 
  */
 export function metadata(doc=document) {
-  const description = (doc.head.querySelector('meta[name="description"]') || {}).content
-  const href = new URL(document.location)
-  href.hash = ''
+  const description = (doc.head.querySelector('meta[name="description"]') || {}).content  
+  const href = doc.location.pathname
+  const path = href.split('/')  
+  const key = path.pop() || path.pop()
+
   return {
+    key,
     title: doc.title,
     description,
     href,
@@ -23,9 +26,9 @@ async function fetchMetadata(path, mdFile='__meta__.json') {
   const href = base || '/'
   return fetch(base + '/' + mdFile)
     .then(response => response.json())    
-    .then(md => ({ href, ...md }))
+    .then(md => ({ href, ...md, key: title }))
     .catch(() => ({
-      title, href
+      title, href, key: title
     }))
 }
 
@@ -50,50 +53,12 @@ export default function install(win=window) {
   }
 }
 
-function navSlice({ title, href }) {
+function navSlice(item) {
+  console.log(item)
+  const { key, title, href } = item
   return Object.assign(document.createElement('a'), {
     href,
     className: 'slice',
-    textContent: title,
+    textContent: key && key !== title ? `${key}: ${title}` : title,
   })
 }
-
-// function createNav() {   
-//   compileRoutes(window.__SITE__)
-//   // const container = document.createElement('nav')
-//   // document.body.prepend(container)
-
-//   // const rightNav = document.createElement('div')
-//   // rightNav.className = 'slices top-right'
-//   // container.prepend(rightNav)
-
-//   const nav = document.createElement('nav')
-//   nav.className = 'slices top-left'
-//   document.body.prepend(nav)
-
-//   addEventListener('popstate', onChange)
-//   onChange()
-
-//   function onChange() {
-//     const self = window.__SITE__[currentPath()] || {}
-//     const {path, parent} = self
-//     nav.innerHTML = ''
-//     if (!path) return
-//     for (const node of path) {
-//       nav.appendChild(navSlice(node))
-//     }
-
-//     // nav.innerHTML = ''    
-//     if (parent.entries.length === 1) return
-
-//     nav.appendChild(Object.assign(document.createElement('label'), {
-//       textContent: 'see also:',
-//       className: 'slice',
-//     }))
-
-//     for (const other of Object.values(parent.entries)) {
-//       if (self === other) continue
-//       nav.appendChild(navSlice(other))
-//     }
-//   }
-// }
