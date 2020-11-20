@@ -51,10 +51,10 @@ const renderer = {
 
 marked.use({ renderer });
 
-function mdDiv(md) {
+function render(md) {
   const container = document.createElement('div')
   container.innerHTML = marked(md)
-  return container
+  return container.childNodes
 }
 
 function processMarkdown() {
@@ -62,7 +62,7 @@ function processMarkdown() {
     el.removeAttribute('markdown')
     for (const child of el.childNodes) {
       if (child.nodeType === Node.TEXT_NODE) {
-        el.replaceChild(mdDiv(child.textContent), child)
+        child.replaceWith(...render(child.textContent))
       }
     }
   }

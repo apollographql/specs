@@ -108,6 +108,9 @@ html {
   --midnight-lightest: rgb(180, 195, 219);    
 }
 
+body {
+  transition: opacity 1s;
+}
 /** header **/
 
 header h1 {    

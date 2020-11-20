@@ -21,13 +21,22 @@ async function main() {
 }
 
 async function setTheme(name) {
-  await styles(`/${name}.css`)
-  let tries = 0
-  while (getComputedStyle(document.documentElement).getPropertyValue('--theme') !== name) {
-    await sleep(20)
-    if (++tries > 10) break
+  let failed = null
+  styles(`/${name}.css`).catch(err => failed = err)
+
+  const loaded = () =>
+    getComputedStyle(document.documentElement)
+      .getPropertyValue('--theme').trim() === name
+
+  while (!loaded()) {
+    console.log('theme not loaded, waiting...')
+    await sleep(100)
+    if (failed) {
+      console.error(failed)
+      break
+    }
   }
-  for (const fout of document.querySelectorAll('style.__bootstrap__')) {
-    fout.remove()
-  }
+  
+  const curtain = document.getElementById('__curtain__')
+  curtain && curtain.remove()
 }
