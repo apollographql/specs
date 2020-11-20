@@ -77,7 +77,7 @@ async function main() {
 addEventListener('load', main)
 
 
-function createTableOfContents() {
+function createTableOfContents(view=document.getElementById('view')) {
   const toc = document.createElement('ol')
   toc.className = 'toc'
 
@@ -123,7 +123,24 @@ function createTableOfContents() {
     }
   }
 
-  document.body.appendChild(toc)
+  
+  const placeholder = document.createElement('div')
+  placeholder.className = 'toc-placeholder'
+  placeholder.textContent=' '
+  view.prepend(toc)
+  view.prepend(placeholder)
+
+  setTimeout(layoutToc, 250)
+  addEventListener('resize', layoutToc)
+
+  async function layoutToc() {
+    toc.classList.remove('measured')
+    const box = toc.getBoundingClientRect()
+    console.log('toc size=', box)
+    view.style.setProperty('--toc-width', box.width + 'px')
+    await sleep(100)
+    toc.classList.add('measured')  
+  }
 
   function top() {
     return stack[stack.length - 1]

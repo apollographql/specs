@@ -145,18 +145,17 @@ header .spec-authors-list li {
   display: block;
 }
 
-
 /** Dark "theme" **/
 
 body {
-  /* transition: background 1s, color 1s; */
   background: var(--midnight-darkest);
   color: var(--grey-lighter);
 }
 
 main {
   max-width: 920px;
-  margin: auto;
+  margin: 18px;
+  margin-left: 100px;
 }
 
 hr {
@@ -347,9 +346,33 @@ blockquote {
   padding-left: 9px;
 }
 
+html {
+  --toc-width: 0;
+}
+
+.toc-placeholder {
+  display: block;
+  width: var(--toc-width);
+  padding-right: 9px;
+  transition: width 1s;
+}
+
 .toc {
+  position: fixed;
+  transform: translateX(-30vw);
+  opacity: 0;
+  max-width: 30%;
+
+  left: 0;
   color: var(--grey-darker);
   font-size: 14px;
+}
+
+.toc.measured {
+  width: var(--toc-width);
+  transform: none;
+  opacity: 1;
+  transition: opacity 1s, transform 1s;
 }
 
 .toc a.toc-link {
@@ -394,55 +417,19 @@ blockquote {
   content: attr(data-index-path) " ";
 }
 
-/* 
-.toc [data-heading-level="2"] {
-  counter-reset: toc-subsec toc-fig;
-  counter-increment: toc-sec 1;
-}
-
-.toc [data-heading-level="2"]::before {
-  display: inline-block;
-  content: counter(toc-sec);
-  min-width: var(--num-width);
-  margin-right: 9px;
-  text-align: left;
-}
-
-.toc [data-heading-level="3"] {
-  counter-reset: toc-fig;
-  counter-increment: toc-subsec 1;
-}
-
-.toc [data-heading-level="3"]::before {
-  display: inline-block;
-  content: counter(toc-sec) "." counter(toc-subsec);
-  min-width: var(--num-width);
-  margin-right: 9px;
-  text-align: left;
-}
-
-.toc a:not([data-heading-level]) {
-  counter-increment: toc-fig;
-}
-
-.toc a:not([data-heading-level])::before {
-  display: inline-block;
-  content: counter(toc-sec) "." counter(toc-subsec) "." counter(toc-fig);
-  min-width: var(--num-width);
-  margin-right: 9px;
-  text-align: left;
-} */
-
-
 html { margin: 0; padding: 0; }
 
 body {
   --nav-height: 28px;
   --nav-z: 1000;
 
-  display: flex;
   margin: 0; padding: 0;
-  height: 100vh;
+}
+
+#view {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
 }
 
 nav {
@@ -532,12 +519,6 @@ nav > a[href]:hover {
 
 .toc, main {
   margin-top: calc(var(--nav-height) + 3 * 9px);
-}
-
-#content {
-  max-height: 100vh;
-  overflow: auto;
-  flex-grow: 1;
 }
 
 .toc {
