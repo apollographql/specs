@@ -1,5 +1,5 @@
 document.write(`
-  <style id=bootstrap-styles>
+  <style class=__bootstrap__>
     body {
       background: rgb(6, 15, 47);
       color: rgb(178, 185, 195);

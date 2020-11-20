@@ -40,7 +40,7 @@ const renderer = {
           : ''}
         ${
           lang === 'mermaid'
-          ? `<div class='mermaid ${classes.div.join(' ')}'>${lines.join('\n')}</div>`
+          ? `<div id="${slug}_diagram" class='mermaid ${classes.div.join(' ')}'>${lines.join('\n')}</div>`
           : `<pre class='language-${lang} ${classes.pre.join(' ')}'><code class='language-${lang} ${classes.code.join(' ')}'>${lines.join('\n')}</code></pre>`
         }
       </figure>

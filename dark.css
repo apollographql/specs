@@ -2,7 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,400;0,700;1,300;1,700&display=swap');
 
 html {
-  --theme-loaded: true;
+  --theme: dark;
   font-family: 'Source Sans Pro';
   font-size: 18px;
   /* SpaceKit colors from https://space-kit.netlify.app/ */
