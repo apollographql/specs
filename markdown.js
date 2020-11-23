@@ -70,6 +70,12 @@ function processMarkdown() {
 
 export default function() {
   processMarkdown()
-  addEventListener('content-change', processMarkdown)
-  return () => removeEventListener('content-change', processMarkdown)
+  if (location.hash) {
+    const name = location.hash.slice(1)
+    const viewElement = document.getElementById(name) ||
+      document.getElementsByName(name)[0]
+    if (viewElement) setTimeout(() => {
+      viewElement.scrollIntoViewIfNeeded()
+    }, 100)
+  }
 }
