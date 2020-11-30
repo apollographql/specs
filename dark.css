@@ -537,3 +537,11 @@ nav > a[href]:hover {
   .toc.measured { z-index: -100; opacity: 0; }
   .toc-placeholder { display: none; }
 }
+
+h2 {
+  margin-top: 4em;
+}
+
+h3 { 
+  margin-top: 2em;
+}
