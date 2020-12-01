@@ -10,7 +10,7 @@ export default async function(view) {
   const hlLines = highlighted.split('\n')
 
   view.output.innerHTML = `
-    <figure ${title ? `id=${title}` : ''}>
+    <figure ${title ? `id="${title}"` : ''}>
       <figcaption>
         <a name="${title}" href="#${title}" class="a-header code">${title}</a>
       </figcaption>

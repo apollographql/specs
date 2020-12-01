@@ -180,6 +180,12 @@ h3, h4 {
 code[class*="language-"],
 pre[class*="language-"] {
   font-family: 'Source Code Pro';
+  padding: 0;
+  margin: 0;
+}
+
+figure + p {
+  margin-top: 0;
 }
 
 :not(pre) > code {
@@ -548,7 +554,7 @@ h3 {
 
 code[class*="language-"] > ol {
   counter-reset: line attr(start);
-  margin: 0;
+  margin-block-end: -2em;
 }
 
 code[class*="language-"] > ol > li {
