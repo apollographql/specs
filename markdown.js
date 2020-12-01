@@ -1,5 +1,6 @@
 
 import marked from 'https://unpkg.com/marked@^1/lib/marked.esm.js'
+import {highlight} from './highlight.js'
 
 const reAttr = /#::((\[(?<caption>.*)\])|((?<tag>[a-z]+)\.(?<class>[a-zA-Z_\-]+)))/
 
@@ -30,7 +31,6 @@ const renderer = {
         caption = attr.groups.caption
       }
     }
-
 
     const slug = slugger.slug(caption || 'code')    
     return `
@@ -68,8 +68,11 @@ function processMarkdown() {
   }
 }
 
+let Prism = null
+
 export default function() {
   processMarkdown()
+
   if (location.hash) {
     const name = location.hash.slice(1)
     const viewElement = document.getElementById(name) ||

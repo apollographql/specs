@@ -251,6 +251,8 @@ h1,h2,h3,h4 {
 
 figure {
   margin: 0;
+  margin-block-start: 2em;
+  margin-block-end: 2em;
 }
 
 a.a-header {
@@ -552,20 +554,33 @@ h3 {
   margin-top: 2em;
 }
 
-code[class*="language-"] > ol {
+pre > code > ol {
   counter-reset: line attr(start);
-  margin-block-end: -2em;
+  margin-block-end: -1em;
 }
 
-code[class*="language-"] > ol > li {
+pre > code {
+  line-height: 150%;
+}
+
+pre > code > ol > li {
   counter-increment: line 1;
 }
 
-.no-linum code[class*="language-"] > ol > li::marker {
+pre > code > ol > li.highlight::marker {
+  color: var(--pink-base);
+}
+
+pre > code > ol > li.lowlight {
+  filter: grayscale(100%);
+  opacity: 0.4;
+}
+
+.no-linum pre > code > ol > li::marker {
   content: '';
 }
 
-code[class*="language-"] > ol > li::marker {
+pre > code > ol > li::marker {
   content: counter(line) "\09";
   color: var(--midnight-dark);
   font-size: 80%;

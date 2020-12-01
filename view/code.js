@@ -9,17 +9,24 @@ export default async function(view) {
   const highlighted = await highlight(part.join('\n'), view.extension)
   const hlLines = highlighted.split('\n')
 
+  const highlightSelector = view.getAttribute('highlight')
+  const lineHighlight = highlightSelector
+    ? eval(highlightSelector)
+    : null
+
   view.output.innerHTML = `
     <figure ${title ? `id="${title}"` : ''}>
       <figcaption>
         <a name="${title}" href="#${title}" class="a-header code">${title}</a>
       </figcaption>
-      <pre
-        class='language-${extension}'><code class='language-${extension}'><ol
+      <pre><code><ol
           style='counter-reset: line ${region.start.line}'
           start=${region.start.line + 1}>${
           hlLines.map(line => 
-            `<li>${line}`
+            `<li ${
+              lineHighlight
+                ? (lineHighlight(line) ? 'class=highlight' : 'class=lowlight')
+                : ''}>${line}`
           ).join('\n')
         }</ol></code>
     </figure>
