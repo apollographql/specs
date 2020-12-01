@@ -7,13 +7,24 @@ const graphql = req => text(req)
   .then(ast => {
     const regions = {}
     for (const d of ast.definitions) {
-      if (!d.name) continue
-      const name = d.kind === 'DirectiveDefinition'
-        ? '@' + d.name.value
-        : d.name.value
+      const name =
+        d.kind === 'DirectiveDefinition'
+          ? '@' + d.name.value 
+          :
+        d.kind === 'SchemaDefinition'
+          ? 'schema'
+          : d.name && d.name.value
+      if (!name) continue
       regions[name] = {
         start: { line: d.loc.startToken.line - 1 },
         end: { line: d.loc.endToken.line },
+      }
+
+      for (const f of d.fields || []) {
+        regions[name + '.' + f.name.value] = {
+          start: { line: f.loc.startToken.line - 1 },
+          end: { line: f.loc.endToken.line },          
+        }
       }
     }
     return regions

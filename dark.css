@@ -181,7 +181,7 @@ code[class*="language-"],
 pre[class*="language-"] {
   font-family: 'Source Code Pro';
   padding: 0;
-  margin: 0;
+  /* margin: 0; */
 }
 
 figure + p {
