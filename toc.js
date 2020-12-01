@@ -1,7 +1,8 @@
 import {sleep} from './async.js'
+import {ViewOf} from './view-of.js'
 
 export default function install(win) {
-  createToC(win)
+  ViewOf.rendered.then(() => createToC(win))
 }
 
 export function createToC(win=window, doc=win.document, view=doc.getElementById('view')) {
@@ -50,7 +51,6 @@ export function createToC(win=window, doc=win.document, view=doc.getElementById(
     }
   }
 
-  
   const placeholder = doc.createElement('div')
   placeholder.className = 'toc-placeholder'
   placeholder.textContent=' '
