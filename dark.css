@@ -545,3 +545,22 @@ h2 {
 h3 { 
   margin-top: 2em;
 }
+
+code[class*="language-"] > ol {
+  counter-reset: line attr(start);
+  margin: 0;
+}
+
+code[class*="language-"] > ol > li {
+  counter-increment: line 1;
+}
+
+.no-linum code[class*="language-"] > ol > li::marker {
+  content: '';
+}
+
+code[class*="language-"] > ol > li::marker {
+  content: counter(line) "\09";
+  color: var(--midnight-dark);
+  font-size: 80%;
+}

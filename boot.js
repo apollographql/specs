@@ -1,3 +1,5 @@
+window.process = window.process || {env: {}}
+
 document.head.appendChild(Object.assign(
   document.createElement('style'), {
     textContent: `
@@ -32,6 +34,13 @@ document.head.appendChild(Object.assign(
         transition: opacity 1s;
       }
     `
+  }
+))
+
+document.head.appendChild(Object.assign(
+  document.createElement('script'), {
+    type: 'module',
+    src: '/view-of.js',
   }
 ))
 
