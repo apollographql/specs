@@ -5,6 +5,8 @@ import {highlight} from './highlight.js'
 const reAttr = /#::((\[(?<caption>.*)\])|((?<tag>[a-z]+)\.(?<class>[a-zA-Z_\-]+)))/
 
 const slugger = new marked.Slugger()
+
+const base = new marked.Renderer
 const renderer = {
   heading(text, level, _raw) {
     const slug = slugger.slug(text)
@@ -18,6 +20,20 @@ const renderer = {
              class=a-header-text>${text}</span></a>
       </h${level}>`;
   },
+
+  /**
+   * 
+   * @param {string} href 
+   * @param {string} title 
+   * @param {string} text 
+   */
+  image(href, title, text) {
+    if (!href.startsWith('view:')) {
+      return base.image(href, title, text)
+    }
+    return `<view-of src="${href.slice('view:'.length)}" title="${marked(text)}"></view-of>`
+  },
+
   code(code, lang, escaped) {
     const lines = code.split(/\n/g)
     let classes = {a: [], pre: [], code: [], div: []}
@@ -32,7 +48,7 @@ const renderer = {
       }
     }
 
-    const slug = slugger.slug(caption || 'code')    
+    const slug = slugger.slug(caption || 'code')  
     return `
       <figure id='${slug}'>
         ${caption ?
@@ -48,6 +64,7 @@ const renderer = {
   }
 
 };
+
 
 marked.use({ renderer });
 
