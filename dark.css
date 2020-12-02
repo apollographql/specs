@@ -536,7 +536,7 @@ nav > a[href]:hover {
 
 .toc {
   order: -1;
-  max-height: 100vh;
+  max-height: calc(100vh - (var(--nav-height) + 6 * 9px));
   overflow: auto;
   margin-right: 18px;
 }
