@@ -196,6 +196,10 @@ figure + p {
   padding: 0;
 }
 
+a > code {
+  color: var(--blue-base);
+}
+
 a[href] {
   color: var(--blue-base);
   text-decoration: none;
