@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Apollo Specifications Library",
   "main": "index.js",
+  "type": "module",
   "bin": "./bin/library",
   "scripts": {
     "start": "http-server -c-1"
@@ -12,6 +13,7 @@
   "license": "ISC",
   "devDependencies": {
     "express": "^4.17.1",
-    "http-server": "^0.12.3"
+    "http-server": "^0.12.3",
+    "jsdom": "^16.4.0"
   }
 }

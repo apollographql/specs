@@ -165,10 +165,6 @@ hr {
   background-color: var(--grey-darker);
 }
 
-aside {
-  border: none !important;
-}
-
 h1 { color: var(--silver-dark); }
 
 h2 { color: var(--grey-lighter); }
@@ -588,4 +584,64 @@ pre > code > ol > li::marker {
   content: counter(line) "\09";
   color: var(--midnight-dark);
   font-size: 80%;
+}
+
+code.anatomy {
+  font-size: 24px;
+  margin: 1em;
+  display: block;
+  --color: var(--orange-base);
+  --depth: 0;
+  margin-bottom: 72px;
+}
+
+code.anatomy span {
+  position: relative;
+  color: var(--color);  
+}
+
+
+.red {
+  --color: var(--red-base);
+}
+
+.pink {
+  --color: var(--pink-base);
+}
+
+.yellow {
+  --color: var(--yellow-base);
+}
+
+.green {
+  --color: var(--green-base);
+}
+
+code.anatomy > span > aside {
+  transform: translateY(calc(var(--depth) * 40%));
+}
+
+code.anatomy > span > span > aside {
+  transform: translateY(calc((var(--depth) - 1) * 40%));
+}
+
+code.anatomy > span > span > span > aside {
+  transform: translateY(calc((var(--depth) - 2) * 40%));
+}
+
+code.anatomy span > aside {
+  position: absolute;
+  top: 100%;
+  /* transform: translateY(calc(100% * var(--level))); */
+  left: 0;
+  font-size: 50%;
+  /* width: 100%; */
+  width: auto;
+  flex-grow: 1;
+  display: block;
+  margin-right: 1em;
+  border-bottom: 1px solid var(--color);
+  border-left: 1px solid var(--color);
+
+  padding: 4px;
 }

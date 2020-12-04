@@ -3,7 +3,7 @@ import {result, sleep} from './async.js'
 import markdown from './markdown.js'
 import highlight from './highlight.js'
 import mermaid from './mermaid.js'
-import nav from '/nav.js'
+import nav from './nav.js'
 import toc from './toc.js'
 
 addEventListener('load', main)
