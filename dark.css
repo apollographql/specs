@@ -632,16 +632,13 @@ code.anatomy > span > span > span > aside {
 code.anatomy span > aside {
   position: absolute;
   top: 100%;
-  /* transform: translateY(calc(100% * var(--level))); */
   left: 0;
   font-size: 50%;
-  /* width: 100%; */
-  width: auto;
+  width: 100%;
   flex-grow: 1;
   display: block;
   margin-right: 1em;
   border-bottom: 1px solid var(--color);
   border-left: 1px solid var(--color);
-
   padding: 4px;
 }
