@@ -1,7 +1,11 @@
 import * as defaultView from './view/code.js'
 
 export class ViewOf extends HTMLElement {
-  static rendering = new Set
+  constructor() {
+    this._fetchSource = null
+    this._fetch = null  
+    this.renderer = null
+  }
 
   static didStartRendering(element) {
     this.rendering.add(element)
@@ -16,8 +20,6 @@ export class ViewOf extends HTMLElement {
     }
   }
 
-  static _renderedPromise = null
-  static _resolveRendered = null  
   static get rendered() {
     if (!this._renderedPromise && !this.rendering.size) return Promise.resolve()
     if (this._renderedPromise) return this._renderedPromise
@@ -77,8 +79,6 @@ export class ViewOf extends HTMLElement {
     this.renderer = null
   }
 
-  _fetchSource = null
-  _fetch = null
   get fetch() {
     if (this.source === this._fetchSource)
       return this._fetch
@@ -105,14 +105,16 @@ export class ViewOf extends HTMLElement {
     this.appendChild(created)
     return created
   }
-
-  renderer = null
 }
+
+ViewOf.rendering = new Set
+ViewOf._renderedPromise = null
+ViewOf._resolveRendered = null  
 
 customElements.define('view-of', ViewOf)
 
 function index(...models) {
-  return async (view, name) => {
+  return async function(view, name) {
     for (const model of models) {
       try {
         const m = await model
