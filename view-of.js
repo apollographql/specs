@@ -2,6 +2,7 @@ import * as defaultView from './view/code.js'
 
 export class ViewOf extends HTMLElement {
   constructor() {
+    super()
     this._fetchSource = null
     this._fetch = null  
     this.renderer = null
@@ -13,10 +14,18 @@ export class ViewOf extends HTMLElement {
 
   static didFinishRendering(element) {
     this.rendering.delete(element)
-    if (!this.rendering.size && this._resolveRendered) {
-      this._resolveRendered()
-      this._resolveRendered = null
-      this._renderedPromise = null
+    if (!this.rendering.size) {
+      if (this._resolveRendered) {
+        this._resolveRendered()
+        this._resolveRendered = null
+        this._renderedPromise = null
+      }
+
+      if (typeof window.__didFinishRendering === 'function') {
+        window.__didFinishRendering()
+      } else {
+        window.__didFinishRendering = true
+      }
     }
   }
 
