@@ -1,5 +1,6 @@
 import marked from 'https://unpkg.com/marked@^1/lib/marked.esm.js'
 import {highlight} from './highlight.js'
+import {go} from './rendering.js'
 
 const reAttr = /#::((\[(?<caption>.*)\])|((?<tag>[a-z]+)\.(?<class>[a-zA-Z_\-]+)))/
 
@@ -86,8 +87,8 @@ function processMarkdown() {
 
 let Prism = null
 
-export default function() {
-  processMarkdown()
+export default async function() {
+  await go(processMarkdown)
 
   if (location.hash) {
     const name = location.hash.slice(1)

@@ -11,6 +11,7 @@ export async function script(src) {
   const script = document.createElement('script')
   script.async = true
   script.defer = true
+  script.setAttribute('::save', 'off')
   script.__loadingPromise = new Promise((resolve, reject) => {
     script.onload = resolve
     script.onerror = reject
@@ -33,6 +34,7 @@ export function styles(src) {
   const link = document.createElement('link')
   link.rel = 'stylesheet'
   link.media = 'print'
+  link.setAttribute('::save', 'off')
   link.__loadingPromise = new Promise((resolve, reject) => {
     link.onload = event => {
       link.media = 'all'

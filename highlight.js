@@ -9,7 +9,6 @@ const prism = script('https://unpkg.com/prismjs@^1/components/prism-core.min.js'
 
 export async function highlight(source, language) {
   const Prism = await prism
-  console.log('source=', source, 'language=', language)
   Prism.plugins.autoloader.loadLanguages([language])
   let tries = 0
   let lang = Prism.languages[language]

@@ -1,4 +1,5 @@
 import * as defaultView from './view/code.js'
+import {addTask} from './rendering.js'
 
 export class ViewOf extends HTMLElement {
   constructor() {
@@ -8,39 +9,9 @@ export class ViewOf extends HTMLElement {
     this.renderer = null
   }
 
-  static didStartRendering(element) {
-    this.rendering.add(element)
-  }
-
-  static didFinishRendering(element) {
-    this.rendering.delete(element)
-    if (!this.rendering.size) {
-      if (this._resolveRendered) {
-        this._resolveRendered()
-        this._resolveRendered = null
-        this._renderedPromise = null
-      }
-
-      if (typeof window.__didFinishRendering === 'function') {
-        window.__didFinishRendering()
-      } else {
-        window.__didFinishRendering = true
-      }
-    }
-  }
-
-  static get rendered() {
-    if (!this._renderedPromise && !this.rendering.size) return Promise.resolve()
-    if (this._renderedPromise) return this._renderedPromise
-    if (this.rendering.size) {
-      return this._renderedPromise
-        = new Promise(resolve => this._resolveRendered = resolve)      
-    }
-  }
-
   async connectedCallback() {
+    const done = addTask(this)
     try {
-      ViewOf.didStartRendering(this)
       if (!this.isConnected) return
       const src = this.getAttribute('src')
       if (!src) return
@@ -72,7 +43,7 @@ export class ViewOf extends HTMLElement {
           .catch(_ => defaultView)
       this.renderer = await renderer.default(this)
     } finally {
-      ViewOf.didFinishRendering(this)
+      done()
     }
   }
 

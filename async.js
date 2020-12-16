@@ -9,6 +9,24 @@ export function result(promise) {
 }
 
 /**
+ * Await a DOM event, then detach the listener.
+ * 
+ * @param {string} event name
+ * @param {HTMLElement} listen on
+ * @return {Promise<Event>}
+ */
+export function event(event='load', element=window) {
+  return new Promise(resolve => {
+    element.addEventListener(event, fire)
+
+    function fire(evt) {
+      resolve(evt)
+      element.removeEventListener(event, fire)
+    }
+  })
+}
+
+/**
  * Approximate timeout.
  * 
  * @param {number} ms 

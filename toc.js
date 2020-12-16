@@ -1,11 +1,31 @@
 import {sleep} from './async.js'
-import {ViewOf} from './view-of.js'
+import {enqueue, isPre} from './rendering.js'
 
-export default function install(win) {
-  ViewOf.rendered.then(() => createToC(win))
+export default function install(win=window) {
+  enqueue(() => {
+    const view = document.getElementById('view')
+    const doc = win.document
+    const toc = createToC(win, doc, view)
+
+    if (!isPre()) {
+      setTimeout(layoutToc, 250)
+      addEventListener('resize', layoutToc)
+    }
+
+    async function layoutToc() {
+      toc.classList.remove('measured')
+      const box = toc.getBoundingClientRect()
+      view.style.setProperty('--toc-width', box.width + 'px')
+      await sleep(100)
+      toc.classList.add('measured')  
+    }
+  })
 }
 
 export function createToC(win=window, doc=win.document, view=doc.getElementById('view')) {
+  const [existing] = view.getElementsByClassName('toc')
+  if (existing) return existing
+
   const toc = doc.createElement('ol')
   toc.className = 'toc'
 
@@ -36,7 +56,6 @@ export function createToC(win=window, doc=win.document, view=doc.getElementById(
       }
       top().el.appendChild(item)
 
-
       const children = doc.createElement('ol')
       item.appendChild(children)
       stack.push({
@@ -56,17 +75,7 @@ export function createToC(win=window, doc=win.document, view=doc.getElementById(
   placeholder.textContent=' '
   view.prepend(toc)
   view.prepend(placeholder)
-
-  setTimeout(layoutToc, 250)
-  addEventListener('resize', layoutToc)
-
-  async function layoutToc() {
-    toc.classList.remove('measured')
-    const box = toc.getBoundingClientRect()
-    view.style.setProperty('--toc-width', box.width + 'px')
-    await sleep(100)
-    toc.classList.add('measured')  
-  }
+  return toc
 
   function top() {
     return stack[stack.length - 1]

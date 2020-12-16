@@ -2,9 +2,9 @@ import {styles} from './load.js'
 import {result, sleep} from './async.js'
 import markdown from './markdown.js'
 import highlight from './highlight.js'
-import mermaid from './mermaid.js'
 import nav from './nav.js'
 import toc from './toc.js'
+import {go} from './rendering.js'
 
 addEventListener('load', main)
 
@@ -13,11 +13,18 @@ async function main() {
 
   const theme = setTheme('dark')
 
-  markdown()
+  if (!document.documentElement.dataset.rendered) {
+    const mermaid = import('./mermaid.js')
+    go(() => Promise.all([
+      markdown(),
+      nav(),
+      highlight(),
+      result(theme).then(() => mermaid)
+        .then(mermaid => mermaid.default()),
+    ]))
+  }
+
   toc()
-  nav()
-  highlight()
-  result(theme).then(mermaid)
 }
 
 async function setTheme(name) {
