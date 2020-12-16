@@ -665,3 +665,7 @@ code.anatomy span > aside {
   border-left: 1px solid var(--color);
   padding: 4px;
 }
+
+.counter-example figure { 
+  background: linear-gradient(-90deg, var(--red-darkest), transparent);
+}
