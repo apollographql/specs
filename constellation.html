@@ -1,0 +1,209 @@
+<!doctype html>
+<script src=/boot.js></script>
+<style>
+    html {
+      --radius: 3em;
+      --diameter: calc(var(--radius) * 2);
+      --outset: 10px;
+    }
+
+    .core {
+        width: var(--diameter);
+        height: var(--diameter);
+        border-radius: var(--radius);
+        line-height: var(--diameter);
+        text-align: center; 
+        background: var(--silver-dark);
+        color: var(--midnight-darkest);
+        font-variant: small-caps;
+        font-weight: bold;
+        font-size: 16pt;
+        position: relative;
+    }
+
+    .core::after {
+        --neg-outset: calc(0px - var(--outset));
+        --outer-radius: calc(var(--radius) + var(--outset));
+
+        position: absolute;
+        top: var(--neg-outset);
+        left: var(--neg-outset);
+        bottom: var(--neg-outset);
+        right: var(--neg-outset);
+        border: 2px solid var(--grey-base);
+        content: '';
+        border-radius: var(--outer-radius);
+    }
+
+    .processor {
+      --size: 7em;
+      width: calc(var(--size) - 0.5em);
+      height: var(--size);
+      line-height: var(--size);
+      position: relative;
+      z-index: 100;
+      color: fuchsia;
+      margin-left: 2em;
+      margin-right: 1em;
+      font-variant: small-caps;
+    }
+
+    .bg {
+      position: absolute;
+      top: 0; left: -0.5em; right: 0; bottom: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -100;
+    }
+
+    .bg polygon {
+      stroke: fuchsia;
+      stroke-width: 1px;
+      fill: transparent;
+    }
+
+    .data-core {
+      width: calc(2 * var(--diameter));
+      height: calc(2 * var(--diameter));
+      display: flex;
+      flex-flow: column;
+      padding: 0;
+      position: relative;
+      align-items: center;
+      justify-content: space-evenly;
+      background: transparent;
+      border: thin solid fuchsia;
+      color: fuchsia;
+      font-variant: small-caps;
+    }
+    
+    .data-core > .core::after {
+      border-color: fuchsia;
+    }
+    
+    a[href].core {
+      color: var(--midnight-darkest);
+    }
+
+    .flow-lr {
+      display: flex;
+      flex-flow: row;
+      align-items: center;
+      justify-content: center;
+    }
+</style>
+
+<div id=view>
+<main markdown>
+<header>
+  <h1>the state of constellation</h1>
+</header>
+
+Let's nail down some of the concepts and nomenclature circling around Project Constellation.
+
+## Core Schemas
+
+<div class=flow-lr>
+  <a href=using/pre-0 class=core>
+    core schema
+  </a>
+</div>
+
+A [core schema](using/pre-0) is a GraphQL schema which follows the [core specification](using/pre-0). It is a schema designed to function as a single document which configures a *data core*.
+
+Primarily, this means that it uses the `@core` directive to reference versioned specifications for the directives it contains:
+
+```graphql
+#::[Small core schema example]
+schema
+  @core(spec: "https://lib.apollo.dev/core/v0.1")
+  @core(spec: "https://lib.apollo.dev/someSpec/v0.4")
+{
+    query: Query
+}
+
+type SomeType {
+  # The behavior of the below @someSpec directive is specified by
+  # https://lib.apollo.dev/someSpec/v0.4  
+  someField: Int @someSpec 
+}
+
+# Directive signatures are never implicit, and must always
+# be defined by the document:
+directive @someSpec on FIELD_DEFINITION
+directive @core(spec: String) repeatable on SCHEMA_DEFINITION
+```
+
+It may seem that core schemas don't do much on their own, and that's they don't do very much on their own! The core specification simply provides a way to clearly identify what a document *means* by a directive of a particular name. The specification URLs which define this behavior are *not* themselves machine readable, but they are *semantically versioned*, which lets us detect breaking changes and make simplifying assumptions about the behavior of directives during processing.
+
+### Previous names
+
+- the `@core` directive was previously named the `@using` directive
+- "core schemas" have been known variously as "machine schemas", "using schemas", and "csdl".
+
+### Export schema &amp; machinery
+
+When talking about a core schema, we can broadly break it into two pieces:
+- an *export schema*, which contains all the elements (objects, interfaces, enums, directives, etc.) which **will** be visible to clients
+- *machinery*, typically consisting of directives and things that can be arguments to directives (like enums and input objects), which **will not** be visible to clients
+
+*Machinery* will generally be either directives which are referenced using the `@core` directive, or associated types which are prefixed with the name of their spec:
+
+```graphql
+#::[The join__Graphs enum is machinery and will not be visible to clients]
+schema
+  @core(spec: "https://lib.apollo.dev/core/v0.1")
+  @core(spec: "https://lib.apollo.dev/join/v0.4")
+{
+  query: Query
+}
+
+# The join__Graphs enum is machinery belonging to the join spec
+# referenced above. It will not be exported to clients.
+enum join__Graphs {
+  # ...
+}
+```
+
+Note that "should not be visible to clients" does not mean "will never be visible to any external system". We may want to provide an endpoint to inspect the core schema of a running service—for example, federated services might wish to make their core schemas available to the composer.
+
+## Processors
+
+<div class=flow-lr>
+  <a href=using/pre-0 class='core'>
+    input
+  </a>
+  <div class=processor>
+    <svg class=bg viewBox='0 0 100 100' height='100' width='100'><polygon points='1,0 100,50 1,100'/></svg>
+    processor
+  </div>
+  <a href=using/pre-0 class='core'>
+    intermediate 1
+  </a>
+  <div class=processor>
+    <svg class=bg viewBox='0 0 100 100' height='100' width='100'><polygon points='1,0 100,50 1,100'/></svg>
+    processor
+  </div>
+  <a href=using/pre-0 class='core'>
+    output
+  </a>
+</div>
+
+**Processors** read a core schema as input and produce a core schema as output. A processor may rename types and fields, perform validations, and so on.
+
+## Data core
+
+<div class=flow-lr>
+  <div class=data-core>
+    <a href=using/pre-0 class=core>
+      core schema
+    </a>
+    data core
+  </div>
+</div>
+
+
+A "data core" is some piece of software that picks up a core schema and uses it to provide some piece of the data layer. A graph router (or "gateway") is a data core; so is a server which understands core schemas. We can imagine other, future data cores: a batch processor, for example, might perform background processing tasks based on events and data in the schema, as defined by (some as yet undefined) directives. We might have caching data cores ("cache cores"), which only know how to securely serve previously cached results (taking the load off gateways or other backend services).
+
+It's our goal and intention that eventually data cores will get all their configuration information from the core schema they're loaded with. This is, however, not a firm requirement. In particular, the first products we release as data cores will almost continue to support various out-of-schema configuration methods.
+
