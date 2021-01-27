@@ -5,6 +5,7 @@
       --radius: 3em;
       --diameter: calc(var(--radius) * 2);
       --outset: 10px;
+      --tron: fuchsia;
     }
 
     .core {
@@ -19,6 +20,7 @@
         font-weight: bold;
         font-size: 16pt;
         position: relative;
+        transition: background 0.3s;
     }
 
     .core::after {
@@ -33,6 +35,8 @@
         border: 2px solid var(--grey-base);
         content: '';
         border-radius: var(--outer-radius);
+        z-index: -100;
+        background: var(--midnight-darkest);
     }
 
     .processor {
@@ -42,7 +46,7 @@
       line-height: var(--size);
       position: relative;
       z-index: 100;
-      color: fuchsia;
+      color: var(--tron);
       margin-left: 2em;
       margin-right: 1em;
       font-variant: small-caps;
@@ -50,16 +54,21 @@
 
     .bg {
       position: absolute;
-      top: 0; left: -0.5em; right: 0; bottom: 0;
+      top: 0; left: 0; right: 0; bottom: 0;
       width: 100%;
       height: 100%;
       z-index: -100;
     }
 
-    .bg polygon {
-      stroke: fuchsia;
+    .processor .bg {
+      left: -0.5em;
+    }
+
+    .bg polygon,rect,line {
+      stroke: var(--tron);
       stroke-width: 1px;
       fill: transparent;
+      transition: stroke 1s;
     }
 
     .data-core {
@@ -72,13 +81,36 @@
       align-items: center;
       justify-content: space-evenly;
       background: transparent;
-      border: thin solid fuchsia;
       color: fuchsia;
       font-variant: small-caps;
+      --tron: fuchsia;
     }
     
     .data-core > .core::after {
-      border-color: fuchsia;
+      border-color: var(--tron);      
+    }
+
+    .data-core:hover > a[href].core {
+      background: var(--midnight-darker);
+      color: var(--grey-base);
+    }
+
+    .data-core > a[href].core {
+      background: fuchsia;
+      color: var(--midnight-darker);
+    }
+
+    a[href].core:hover {
+      text-decoration: none;
+    }
+
+    .data-core > label {
+      color: var(--tron);
+      position: absolute;
+      bottom: -0.2em;
+      padding: 4px;
+      border: thin solid var(--tron);
+      background: var(--midnight-darkest);      
     }
     
     a[href].core {
@@ -90,6 +122,25 @@
       flex-flow: row;
       align-items: center;
       justify-content: center;
+    }
+
+
+    .corebox {
+      transition: transform 0.5s;
+      transform: rotate(45deg);
+    }
+
+    .data-core:hover {
+      --tron: var(--grey-lighter);
+    }
+
+    .data-core:hover .corebox {
+      transform: none;
+    }
+
+    @keyframes rotate {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
     }
 </style>
 
@@ -116,25 +167,44 @@ Primarily, this means that it uses the `@core` directive to reference versioned 
 ```graphql
 #::[Small core schema example]
 schema
-  @core(spec: "https://lib.apollo.dev/core/v0.1")
-  @core(spec: "https://lib.apollo.dev/someSpec/v0.4")
+  @core(using: "https://lib.apollo.dev/core/v1.0")
+  @core(using: "https://specs.example.com/myDirective/v0.9")
 {
     query: Query
 }
 
 type SomeType {
-  # The behavior of the below @someSpec directive is specified by
-  # https://lib.apollo.dev/someSpec/v0.4  
-  someField: Int @someSpec 
+  # The behavior of this directive is specified by
+  # https://specs.example.com/myDirective/v0.9
+  someField: Int @myDirective
 }
 
 # Directive signatures are never implicit, and must always
 # be defined by the document:
-directive @someSpec on FIELD_DEFINITION
+directive @myDirective on FIELD_DEFINITION
 directive @core(spec: String) repeatable on SCHEMA_DEFINITION
 ```
 
-It may seem that core schemas don't do much on their own, and that's because don't! The core specification simply provides a way to clearly identify what a document *means* by a directive of a particular name. The specification URLs which define this behavior are *not* themselves machine readable, but they are *semantically versioned*, which lets us detect breaking changes and make simplifying assumptions about the behavior of directives during processing.
+It may seem that core schemas don't do much on their own, and that's because don't! The core specification simply provides a way to clearly identify what a document *means* by a directive of a particular name. The `core` spec also provides clear rules for namespace resolution, and the `as` mechanism to change the name of a directive:
+
+```graphql
+schema
+  @core(using: "https://lib.apollo.dev/core/v1.0")
+  @core(using: "https://specs.example.com/myDirective/v0.9", as: "dir")
+{
+    query: Query
+}
+
+type SomeType {  
+  someField: Int @dir
+}
+
+# The directive signature changes too:
+directive @dir on FIELD_DEFINITION
+directive @core(spec: String) repeatable on SCHEMA_DEFINITION
+```
+
+The URLs we point to with `@core(using:)` are not currently machine readable. They are, however, *semantically versioned*. This lets us detect breaking changes and make simplifying assumptions about the behavior of directives during processing. For example, composers can coalesce the references for compatible versions of specs into one without knowing the details of the specs in question.
 
 ### Previous names
 
@@ -193,17 +263,26 @@ Note that "should not be visible to clients" does not mean "will never be visibl
 
 ## Data core
 
-<div class=flow-lr>
-  <div class=data-core>
-    <a href=using/pre-0 class=core>
-      core schema
-    </a>
-    data core
+<figure>
+  <div class=flow-lr>
+    <div class=data-core>
+      <svg class='bg corebox' viewBox='0 0 100 100' height='100' width='100'>
+        <rect x=0 y=0 width=100 height=100 />
+        <line x1=0 y1=0 x2=100 y2=100 />
+        <line x1=100 y1=0 x2=0 y2=100 />
+        <line x1=0 y1=50 x2=100 y2=50 />
+        <line x1=50 y1=0 x2=50 y2=100 />
+      </svg>    
+      <a href=using/pre-0 class=core>
+        core schema
+      </a>
+      <label>data core</label>
+    </div>
   </div>
-</div>
-
+</figure>
+<br>
 
 A "data core" is some piece of software that picks up a core schema and uses it to provide some piece of the data layer. A graph router (or "gateway") is a data core; so is a server which understands core schemas. We can imagine other, future data cores: a batch processor, for example, might perform background processing tasks based on events and data in the schema, as defined by (some as yet undefined) directives. We might have caching data cores ("cache cores"), which only know how to securely serve previously cached results (taking the load off gateways or other backend services).
 
-It's our goal and intention that eventually data cores will get all their configuration information from the core schema they're loaded with. This is, however, not a firm requirement. In particular, the first products we release as data cores will almost continue to support various out-of-schema configuration methods.
+Its our goal and intention that eventually data cores will get all their configuration information from the core schema they're loaded with. This is, however, not a firm requirement. In particular, the first products we release as data cores will almost continue to support various out-of-schema configuration methods.
 
