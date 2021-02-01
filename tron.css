@@ -1,0 +1,150 @@
+html {
+  --radius: 75px;
+  --diameter: calc(var(--radius) * 2);
+  --outset: 15px;
+  --tron: fuchsia;
+}
+
+.core {    
+  --neg-outset: calc(0px - var(--outset));
+  --outer-radius: calc(var(--radius) + var(--outset));
+  position: relative;
+}
+
+.core > .nucleus {
+  width: var(--diameter);
+  height: var(--diameter);
+  border-radius: var(--radius);
+  line-height: var(--diameter);
+  text-align: center; 
+  background: var(--silver-dark);
+  color: var(--midnight-darkest);
+  font-family: var(--family-code);
+  font-variant: small-caps;
+  font-weight: bold;
+  font-size: 26px;
+  position: relative;
+  transition: background 0.3s;
+  /* z-index: 1; */
+}
+
+.core > .ring {
+  position: absolute;
+  top: var(--neg-outset);
+  left: var(--neg-outset);
+  bottom: var(--neg-outset);
+  right: var(--neg-outset);
+  border: 4px solid var(--grey-base);
+  content: '';
+  border-radius: var(--outer-radius);
+  background: var(--midnight-darkest);
+}
+
+.hbox {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: center;
+  margin: 3em;
+}
+
+.processor {
+  --size: 7em;
+  width: calc(var(--size) - 0.5em);
+  height: var(--size);
+  line-height: var(--size);
+  position: relative;
+  z-index: 100;
+  color: var(--tron);
+  margin-left: 2em;
+  margin-right: 1em;
+  font-variant: small-caps;
+  font-family: var(--family-code);
+}
+
+.bg {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -100;
+}
+
+.processor .bg {
+  left: -0.5em;
+}
+
+.bg polygon,rect,line {
+  stroke: var(--tron);
+  stroke-width: 1px;
+  fill: transparent;
+  transition: stroke 1s;
+}
+
+.data-core {
+  width: calc(2 * var(--diameter));
+  height: calc(2 * var(--diameter));
+  display: flex;
+  flex-flow: column;
+  padding: 0;
+  position: relative;
+  align-items: center;
+  justify-content: space-evenly;
+  background: transparent;
+  color: fuchsia;
+  font-variant: small-caps;
+  --tron: fuchsia;
+
+  z-index: 100;
+
+  font-family: var(--family-code);
+}
+
+.data-core .ring {
+  border-color: var(--tron);      
+}
+
+.data-core:hover > a[href].core > .nucleus {
+  background: var(--midnight-darker);
+  color: var(--grey-base);
+}
+
+.data-core > a[href].core > .nucleus {
+  background: var(--tron);
+  color: var(--midnight-darker);
+}
+
+a[href].core:hover {
+  text-decoration: none;
+}
+
+.data-core > label {
+  color: var(--tron);
+  position: absolute;
+  bottom: -0.2em;
+  padding: 4px;
+  border: thin solid var(--tron);
+  background: var(--midnight-darkest);      
+}
+
+a[href].core {
+  color: var(--midnight-darkest);
+}
+
+.corebox {
+  transition: transform 0.5s;
+  transform: rotate(45deg);
+}
+
+.data-core:hover {
+  --tron: var(--grey-lighter);
+}
+
+.data-core:hover .corebox {
+  transform: none;
+}
+
+@keyframes rotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

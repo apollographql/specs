@@ -1,148 +1,6 @@
 <!doctype html>
 <script src=/boot.js></script>
-<style>
-    html {
-      --radius: 3em;
-      --diameter: calc(var(--radius) * 2);
-      --outset: 10px;
-      --tron: fuchsia;
-    }
-
-    .core {
-        width: var(--diameter);
-        height: var(--diameter);
-        border-radius: var(--radius);
-        line-height: var(--diameter);
-        text-align: center; 
-        background: var(--silver-dark);
-        color: var(--midnight-darkest);
-        font-variant: small-caps;
-        font-weight: bold;
-        font-size: 16pt;
-        position: relative;
-        transition: background 0.3s;
-    }
-
-    .core::after {
-        --neg-outset: calc(0px - var(--outset));
-        --outer-radius: calc(var(--radius) + var(--outset));
-
-        position: absolute;
-        top: var(--neg-outset);
-        left: var(--neg-outset);
-        bottom: var(--neg-outset);
-        right: var(--neg-outset);
-        border: 2px solid var(--grey-base);
-        content: '';
-        border-radius: var(--outer-radius);
-        z-index: -100;
-        background: var(--midnight-darkest);
-    }
-
-    .processor {
-      --size: 7em;
-      width: calc(var(--size) - 0.5em);
-      height: var(--size);
-      line-height: var(--size);
-      position: relative;
-      z-index: 100;
-      color: var(--tron);
-      margin-left: 2em;
-      margin-right: 1em;
-      font-variant: small-caps;
-    }
-
-    .bg {
-      position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -100;
-    }
-
-    .processor .bg {
-      left: -0.5em;
-    }
-
-    .bg polygon,rect,line {
-      stroke: var(--tron);
-      stroke-width: 1px;
-      fill: transparent;
-      transition: stroke 1s;
-    }
-
-    .data-core {
-      width: calc(2 * var(--diameter));
-      height: calc(2 * var(--diameter));
-      display: flex;
-      flex-flow: column;
-      padding: 0;
-      position: relative;
-      align-items: center;
-      justify-content: space-evenly;
-      background: transparent;
-      color: fuchsia;
-      font-variant: small-caps;
-      --tron: fuchsia;
-    }
-    
-    .data-core > .core::after {
-      border-color: var(--tron);      
-    }
-
-    .data-core:hover > a[href].core {
-      background: var(--midnight-darker);
-      color: var(--grey-base);
-    }
-
-    .data-core > a[href].core {
-      background: fuchsia;
-      color: var(--midnight-darker);
-    }
-
-    a[href].core:hover {
-      text-decoration: none;
-    }
-
-    .data-core > label {
-      color: var(--tron);
-      position: absolute;
-      bottom: -0.2em;
-      padding: 4px;
-      border: thin solid var(--tron);
-      background: var(--midnight-darkest);      
-    }
-    
-    a[href].core {
-      color: var(--midnight-darkest);
-    }
-
-    .flow-lr {
-      display: flex;
-      flex-flow: row;
-      align-items: center;
-      justify-content: center;
-    }
-
-
-    .corebox {
-      transition: transform 0.5s;
-      transform: rotate(45deg);
-    }
-
-    .data-core:hover {
-      --tron: var(--grey-lighter);
-    }
-
-    .data-core:hover .corebox {
-      transform: none;
-    }
-
-    @keyframes rotate {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-</style>
+<link rel=stylesheet href=/tron.css>
 
 <div id=view>
 <main markdown>
@@ -154,13 +12,14 @@ Let's nail down some concepts and nomenclature.
 
 ## Core Schemas
 
-<div class=flow-lr>
-  <a href=using/pre-0 class=core>
-    core schema
+<div class=hbox>
+  <a href=core/draft/pre-0 class=core>
+    <div class=ring></div>
+    <div class=nucleus>core schema</div>
   </a>
 </div>
 
-A [core schema](using/pre-0) is a GraphQL schema which follows the [core specification](using/pre-0). It is a schema designed to function as a single document which configures a *data core*.
+A [core schema](core/draft/pre-0) is a GraphQL schema which follows the [core specification](core/draft/pre-0). It is a schema designed to function as a single document which configures a *data core*.
 
 Primarily, this means that it uses the `@core` directive to reference versioned specifications for the directives it contains:
 
@@ -239,23 +98,26 @@ Note that "should not be visible to clients" does not mean "will never be visibl
 
 ## Processors
 
-<div class=flow-lr>
-  <a href=using/pre-0 class='core'>
-    input
+<div class=hbox>  
+  <a href=core/draft/pre-0 class='core'>
+    <div class=ring></div>
+    <div class=nucleus>input schema</div>
   </a>
   <div class=processor>
     <svg class=bg viewBox='0 0 100 100' height='100' width='100'><polygon points='1,0 100,50 1,100'/></svg>
     processor
   </div>
-  <a href=using/pre-0 class='core'>
-    intermediate 1
+  <a href=core/draft/pre-0 class='core'>
+    <div class=ring></div>
+    <div class=nucleus>intermediate 1</div>
   </a>
   <div class=processor>
     <svg class=bg viewBox='0 0 100 100' height='100' width='100'><polygon points='1,0 100,50 1,100'/></svg>
     processor
   </div>
-  <a href=using/pre-0 class='core'>
-    output
+  <a href=core/draft/pre-0 class='core'>
+    <div class=ring></div>
+    <div class=nucleus>output schema</div>
   </a>
 </div>
 
@@ -264,7 +126,7 @@ Note that "should not be visible to clients" does not mean "will never be visibl
 ## Data core
 
 <figure>
-  <div class=flow-lr>
+  <div class=hbox>
     <div class=data-core>
       <svg class='bg corebox' viewBox='0 0 100 100' height='100' width='100'>
         <rect x=0 y=0 width=100 height=100 />
@@ -273,8 +135,9 @@ Note that "should not be visible to clients" does not mean "will never be visibl
         <line x1=0 y1=50 x2=100 y2=50 />
         <line x1=50 y1=0 x2=50 y2=100 />
       </svg>    
-      <a href=using/pre-0 class=core>
-        core schema
+      <a href=core/draft/pre-0 class=core>
+        <div class=ring></div>
+        <div class=nucleus>core schema</div>
       </a>
       <label>data core</label>
     </div>
