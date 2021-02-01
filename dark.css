@@ -163,9 +163,19 @@ strong,b {
   color: var(--silver-dark);  
 }
 
-ul,ol > li,li {
+ul > li, ol > li {
   margin-top: 1em;
 }
+
+code > ol > li {
+  margin: 0;
+}
+
+code {
+  line-height: 100%;
+}
+
+
 
 main {
   max-width: 920px;
