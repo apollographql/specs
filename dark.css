@@ -175,12 +175,9 @@ code {
   line-height: 100%;
 }
 
-
-
 main {
   max-width: 920px;
   margin: 18px 100px;
-  /* margin-left: 100px; */
 }
 
 hr {

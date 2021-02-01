@@ -76,6 +76,8 @@
 
 Core schemas are standard GraphQL schemas which follow the [core specification](core/draft/pre-0). The [core spec]((core/draft/pre-0) provides machinery to reference namespaced, versioned directives to provide specified metadata to schema processors and data cores.
 
+All the other specifications in this library are core-compliant specs. They can be referenced within core schemas to provide specified metadata to processors and data cores.
+
 ### Joining and Linking
 <a class=spec href=join/draft/pre-0>
   <span class=name>@join</span>
@@ -109,23 +111,12 @@ Core schemas are standard GraphQL schemas which follow the [core specification](
     for referencing local named definitions
   </span>
 </a>
-
-
-<!-- 
-  <a href=core/draft/pre-0>
-    <td markdown>[`@core`](core/draft/pre-0)</td>
-    <td class=spec-desc>for GraphQL schemas with flexible metadata for powering data cores
-    </td>
-  </a>
-</tr>
-<tr class=spec>
-  <td markdown>[`@join`](join/draft/pre-0)</td>
-  <td class=spec-desc>for <code>@join</code>ing subgraphs into a supergraph</td>
-</tr>
-<tr class=spec>
-  <td markdown>[`@ref`](ref/draft/pre-0)</td>
-  <td class=spec-desc>for <code>@ref</code>erencing named definitions within a schema</td>
-</tr> -->
+<a class=spec href=error/draft/pre-0>
+  <span class=name>@error</span>
+  <span class=tag>
+    for marking errors in a schema
+  </span>
+</a>
 
 </main>
 </div>
