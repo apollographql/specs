@@ -2,18 +2,130 @@
 <script src=/boot.js></script>
 <title>Technical Specifications</title>
 <style>
-  img[src="astrolabe.svg"] {
-    position: fixed;
-    left: 50%; top: 50%;
-    transform: translate(-50%, -50%) scale(0.5);
+  body {
+    font-family: charter;
+  }
+
+  img[src="astrolabe.svg"] {    
+    display: table;
+    margin: auto;
+    width: 50%;
+    margin-top: 50px;
+  }  
+
+  header > h2 {    
+    font-style: italic;
+  }
+
+  table.specs {
+    vertical-align: top;
+    margin: auto;
+  }
+
+  tr.spec > td:first-of-type {
+    padding-right: 3em;
+  }
+
+  a.spec {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    width: 80%;
+    margin: auto;
+    margin-bottom: 2em;
+    font-size: 14pt;
+    font-family: charter;
+  }
+
+  a.spec[href] {
+    color: var(--yellow-base);
+  }
+
+  a.spec .name {
+    min-width: 25%;
+    text-align: right;    
+    padding-right: 2em;
+    font-size: 18pt;
+    font-family: var(--family-code);
+  }
+
+  .tag {
+    color: var(--silver-base);
+    font-style: italic;
   }
 </style>
 
 
 <div id=view>
-<main>
-<header>  
-  <img src=astrolabe.svg>
+<main markdown>
+<header>
+  <h1>Apollo Library</h1>
+  <h2>of Technical Specifications</h2>
+  <img src=astrolabe.svg>  
 </header>
+
+## Specifications
+
+### Core Schemas
+<a class=spec href=core/draft/pre-0>
+  <span class=name>@core</span>
+  <span class=tag>
+    GraphQL schemas with interoperable metadata
+  </span>
+</a>
+
+Core schemas are standard GraphQL schemas which follow the [core specification](core/draft/pre-0). The [core spec]((core/draft/pre-0) provides machinery to reference namespaced, versioned directives to provide specified metadata to schema processors and data cores.
+
+### Joining and Linking
+<a class=spec href=join/draft/pre-0>
+  <span class=name>@join</span>
+  <span class=tag>
+    for joining subgraphs into a supergraph
+  </span>
+</a>
+<a class=spec href=url/draft/pre-0>
+  <span class=name>@url</span>
+  <span class=tag>
+    for protocol-generic url metadata
+  </span>
+</a>
+<a class=spec href=url/http/draft/pre-0>
+  <span class=name>http</span>
+  <span class=tag>
+    for http url metadata
+  </span>
+</a>
+<a class=spec href=url/https/draft/pre-0>
+  <span class=name>https</span>
+  <span class=tag>
+    for https url metadata
+  </span>
+</a>
+
+### Common Schema Metadata
+<a class=spec href=ref/draft/pre-0>
+  <span class=name>ref</span>
+  <span class=tag>
+    for referencing local named definitions
+  </span>
+</a>
+
+
+<!-- 
+  <a href=core/draft/pre-0>
+    <td markdown>[`@core`](core/draft/pre-0)</td>
+    <td class=spec-desc>for GraphQL schemas with flexible metadata for powering data cores
+    </td>
+  </a>
+</tr>
+<tr class=spec>
+  <td markdown>[`@join`](join/draft/pre-0)</td>
+  <td class=spec-desc>for <code>@join</code>ing subgraphs into a supergraph</td>
+</tr>
+<tr class=spec>
+  <td markdown>[`@ref`](ref/draft/pre-0)</td>
+  <td class=spec-desc>for <code>@ref</code>erencing named definitions within a schema</td>
+</tr> -->
+
 </main>
 </div>

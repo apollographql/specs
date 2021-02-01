@@ -1,9 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,400;0,700;1,300;1,700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,400;0,700;1,300;1,700&display=swap');
+@import "/fonts/charter/charter.css";
 
 html {
   --theme: dark;
-  font-family: 'Source Sans Pro';
+  --family-code: 'Source Code Pro';
+  --family-text: charter;
+  font-family: var(--family-text);
   font-size: 18px;
   /* SpaceKit colors from https://space-kit.netlify.app/ */
   
@@ -153,6 +156,15 @@ header .spec-authors-list li {
 body {
   background: var(--midnight-darkest);
   color: var(--grey-lighter);
+  line-height: 130%;
+}
+
+strong,b {
+  color: var(--silver-dark);  
+}
+
+ul,ol > li,li {
+  margin-top: 1em;
 }
 
 main {
@@ -175,7 +187,7 @@ h3, h4 {
 
 code[class*="language-"],
 pre[class*="language-"] {
-  font-family: 'Source Code Pro';
+  font-family: var(--family-code);
   padding: 0;
   /* margin: 0; */
 }
@@ -188,7 +200,7 @@ figure + p {
   background: none;
   /* border: 1px solid var(--blue-light); */
   color: var(--silver-base);
-  font-family: 'Source Code Pro';
+  font-family: var(--family-code);
   padding: 0;
 }
 
@@ -377,6 +389,7 @@ html {
   left: 0;
   color: var(--grey-darker);
   font-size: 14px;
+  line-height: 130%;
 }
 
 .toc.measured {
@@ -427,6 +440,15 @@ html {
 .toc li::marker {
   content: attr(data-index-path) " ";
 }
+
+.toc li {
+  margin-top: 0;
+}
+
+.toc li + li {
+  margin-top: 0;
+}
+
 
 html { margin: 0; padding: 0; }
 
@@ -547,7 +569,11 @@ nav > a[href]:hover {
 }
 
 h2 {
-  margin-top: 4em;
+  margin: 3em auto;
+}
+
+header > h2 {
+  font-style: italic;
 }
 
 h3 { 
@@ -627,7 +653,7 @@ code.anatomy span {
 
 table.anatomy {
   white-space: pre-line;
-  font-family: 'Source Code Pro';
+  font-family: var(--family-code);
   font-size: 120%;
   border-spacing: 0;
 }

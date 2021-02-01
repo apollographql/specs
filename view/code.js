@@ -25,10 +25,16 @@ export default async function(view) {
           hlLines.map(line => 
             `<li ${
               lineHighlight
-                ? (lineHighlight(line) ? 'class=highlight' : 'class=lowlight')
+                ? (lineHighlight(textFromHtml(line), line) ? 'class=highlight' : 'class=lowlight')
                 : ''}>${line}`
           ).join('\n')
         }</ol></code>
     </figure>
   `
+}
+
+function textFromHtml(str) {
+  const d = document.createElement('div')
+  d.innerHTML = str
+  return d.textContent
 }
