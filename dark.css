@@ -6,6 +6,7 @@ html {
   --theme: dark;
   --family-code: 'Source Code Pro';
   --family-text: charter;
+  background: var(--midnight-darkest);
   font-family: var(--family-text);
   font-size: 18px;
   /* SpaceKit colors from https://space-kit.netlify.app/ */
