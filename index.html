@@ -141,15 +141,7 @@ The subset of a [core schema](#def-core-schema) which is served to clients. *Con
 The subset of a [core schema](#def-core-schema) which should *not* be served to clients. Machinery typically consists of [specified metadata](#def-metadata) and definitions to support that metadata which assist processing but which which are not relevant to clients.
 </dd>
 
-<dt id=def-join-schema><h3>join schema, n.</h3></dt>
-<dd markdown>
-A [core schema](#def-core-schema) which uses the [join spec](/join/draft/pre-0) to describe a [supergraph](#def-supergraph) which is made up of one or more [subgraphs](#def-subgraph).
-
-*aka: composed schema*
-</dd>
-
-
-<dt id=def-join>join, v.</dt>
+<dt id=def-join><h3>join, v.</h3></dt>
 <dd>
   <ol>
     <li>the act of combining multiple GraphQL schemas into a single schema
@@ -162,6 +154,13 @@ A [core schema](#def-core-schema) which uses the [join spec](/join/draft/pre-0) 
         <i>"Our API's <code>User</code> type <b>joins</b> fields from the <code>users</code> and <code>movies</code> graphs."</i>
       </p>
   </ol>
+</dd>
+
+<dt id=def-join-schema>join schema, n.</dt>
+<dd markdown>
+A [core schema](#def-core-schema) which uses the [join spec](/join/draft/pre-0) to describe a [supergraph](#def-supergraph) which is made up of one or more [subgraphs](#def-subgraph).
+
+*aka: composed schema*
 </dd>
 
 <dt id=def-subgraph>subgraph, n.</dt>
