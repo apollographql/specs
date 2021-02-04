@@ -53,6 +53,11 @@
     color: var(--silver-base);
     font-style: italic;
   }
+
+  .glossary dt {
+    font-size: 18pt;
+    font-style: italic;
+  }
 </style>
 
 
@@ -68,7 +73,7 @@
 
 ### Core Schemas
 <a class=spec href=core/draft/pre-0>
-  <span class=name>@core</span>
+  <span class=name>core</span>
   <span class=tag>
     GraphQL schemas with interoperable metadata
   </span>
@@ -80,13 +85,13 @@ All other specifications in this library are core-compliant specs, designed to b
 
 ### Joining and Linking
 <a class=spec href=join/draft/pre-0>
-  <span class=name>@join</span>
+  <span class=name>join</span>
   <span class=tag>
     for joining subgraphs into a supergraph
   </span>
 </a>
 <a class=spec href=url/draft/pre-0>
-  <span class=name>@url</span>
+  <span class=name>url</span>
   <span class=tag>
     for protocol-generic url metadata
   </span>
@@ -112,11 +117,68 @@ All other specifications in this library are core-compliant specs, designed to b
   </span>
 </a>
 <a class=spec href=error/draft/pre-0>
-  <span class=name>@error</span>
+  <span class=name>error</span>
   <span class=tag>
     for marking errors in a schema
   </span>
 </a>
+
+## Glossary
+
+<dl class=glossary>
+<dt id=def-core-schema><h3>core schema, n.</h3></dt>
+<dd markdown>
+A GraphQL schema document which follows the [core schema specification](/core/draft/pre-0). Core schemas provide [specified metadata](#def-metadata) to [processors](#def-processor) and [data core](#def-data-core) by [referencing specifications](/core/draft/pre-0#core__Using).
+</dd>
+
+<dt id=def-export-schema>export schema, n.</dt>
+<dd markdown>
+The subset of a [core schema](#def-core-schema) which is served to clients. *Contrast: [machinery](#def-machinery)*
+</dd>
+
+<dt id=def-machinery>machinery, n.</dt>
+<dd markdown>
+The subset of a [core schema](#def-core-schema) which should *not* be served to clients. Machinery typically consists of [specified metadata](#def-metadata) and definitions to support that metadata which assist processing but which which are not relevant to clients.
+</dd>
+
+<dt id=def-join-schema><h3>join schema, n.</h3></dt>
+<dd markdown>
+A [core schema](#def-core-schema) which uses the [join spec](/join/draft/pre-0) to describe a [supergraph](#def-supergraph) which is made up of one or more [subgraphs](#def-subgraph).
+
+*aka: composed schema*
+</dd>
+
+
+<dt id=def-join>join, v.</dt>
+<dd>
+  <ol>
+    <li>the act of combining multiple GraphQL schemas into a single schema
+      <p>
+        <i>"Our API <b>joins</b> our <code>auth</code>, <code>users</code>, and <code>movies</code> graphs."</i>
+      </p>
+
+    <li>the act of combining multiple GraphQL schema *definitions* into a single definition.
+      <p>
+        <i>"Our API's <code>User</code> type <b>joins</b> fields from the <code>users</code> and <code>movies</code> graphs."</i>
+      </p>
+  </ol>
+</dd>
+
+<dt id=def-subgraph>subgraph, n.</dt>
+<dd markdown>
+A graph which is [joined](#def-join) into a [supergraph](#def-supergraph).
+
+*aka: federated service graph*
+</dd>
+
+<dt id=def-supergraph>supergraph, n.</dt>
+<dd markdown>
+A graph which [joins](#def-join) multiple [subgraphs](#def-subgraph) together.
+<dd>
+</dd>
+
+
+</dl>
 
 </main>
 </div>
