@@ -625,7 +625,7 @@ code.anatomy {
   display: block;
   --color: var(--orange-base);
   --depth: 0;
-  margin-bottom: 72px;
+  margin-bottom: 128px;
 }
 
 code.anatomy span {
