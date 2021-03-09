@@ -97,11 +97,28 @@ article {
   box-sizing: border-box;
   padding-left: 1em;
   padding-right: 1em;
+  margin-left: auto;
+  margin-right: auto; 
+}
+
+p {
+  max-width: calc(100vw - 2em);
+}
+
+figure {
+  max-width: calc(100vw - 2em);
+}
+
+@media (min-width: 720px) {
+  article {
+    margin-left: 3em;
+  }
 }
 
 @media (min-width: 1220px) {
   article {
     padding-left: calc(50vw - var(--sidebar-width) + 5rem);
+    margin-left: auto;
     margin-right: calc(50vw - var(--sidebar-width));
   }
 }
@@ -166,18 +183,19 @@ code {
   background: none;
 }
 
-.spec-definition > pre {
-  display: table;
-  margin: auto;
-  transform: scaleX(1.05);
-}
-
 .spec-definition > pre > code {
   font-family: var(--body-font-family);
   font-style: italic;
   font-size: 130%;
   font-weight: bold;
   line-height: 120%;
+}
+
+@media (min-width: 720px) {
+  .spec-definition > pre {
+    margin-left: 3em;
+    transform: scaleX(1.02);
+  }
 }
 
 /*** Selections ***/

@@ -1,5 +1,7 @@
-code.anatomy {
-  font-size: 120%;
+@media (min-width: 720px) {
+  code.anatomy {
+    font-size: 120%;
+  }
 }
 
 code.anatomy span {
