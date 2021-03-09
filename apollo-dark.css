@@ -111,7 +111,7 @@ figure {
 
 @media (min-width: 720px) {
   article {
-    margin-left: 3em;
+    margin-left: auto;
   }
 }
 
