@@ -36,7 +36,7 @@ async function fetchMetadata(path, mdFile='__meta__.json') {
 export default function install(win=window) {
   const {document, location} = window
   const nav = document.createElement('nav')
-  nav.className = 'slices top-left'
+  nav.className = 'site-nav slices top-left'
   document.body.prepend(nav)
 
   addEventListener('popstate', onNavigate)

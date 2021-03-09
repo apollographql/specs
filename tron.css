@@ -19,7 +19,7 @@ html {
   text-align: center; 
   background: var(--silver-dark);
   color: var(--midnight-darkest);
-  font-family: var(--family-code);
+  font-family: var(--mono-font-family);
   font-variant: small-caps;
   font-weight: bold;
   font-size: 26px;
@@ -49,7 +49,7 @@ html {
 }
 
 .processor {
-  --size: 7em;
+  --size: 12em;
   width: calc(var(--size) - 0.5em);
   height: var(--size);
   line-height: var(--size);

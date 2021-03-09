@@ -1,0 +1,50 @@
+code.anatomy {
+  font-size: 120%;
+}
+
+code.anatomy span {
+  position: relative;
+  color: var(--color);
+}
+
+.red {
+  --color: var(--red-base);
+}
+
+.blue {
+  --color: var(--blue-base);
+}
+
+.pink {
+  --color: var(--pink-base);
+}
+
+.yellow {
+  --color: var(--yellow-base);
+}
+
+.green {
+  --color: var(--green-base);
+}
+
+.grey {
+  --color: var(--grey-base);
+}
+
+code.anatomy span > aside {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  font-size: 50%;
+  width: 100%;
+  display: block;
+  border-bottom: 1px solid var(--color);
+  border-left: 1px solid var(--color);
+  padding: 4px;
+  height: calc(20% + 10px);
+}
+
+code.anatomy span > span > aside {
+  height: calc(20% + 5px);
+}
+

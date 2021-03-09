@@ -1,0 +1,161 @@
+@import "apollo-colors.css";
+@import "anatomy.css";
+@import "prism-synthwave84.css";
+
+:root {
+  background: var(--midnight-darkest);
+  color: var(--grey-lighter);
+  --highlight-background: none;
+  --highlight-border-color: var(--yellow-base);
+}
+
+/*** Header ***/
+header > h1 {
+  text-align: center;
+  font-size: 250%;
+  margin-bottom: 2em;
+  margin-top: 2em !important;  
+}
+
+header h2 {
+  font-size: 150%;
+  font-style: italic;
+  color: var(--grey-lightest);
+  margin-top: 0;
+  text-align: center;
+}
+
+.spec-data {
+  margin: auto;
+}
+
+.spec-data td {
+  border: 0;
+  color: var(--silver-light);
+}
+
+.spec-data td:first-of-type {
+  color: var(--grey-lighter);
+  font-style: italic;
+  text-align: right;
+}
+
+.spec-data td:first-of-type::after {
+  content: ": ";
+}
+
+/*** Headers & Text ***/
+
+h1,h2,h3,h4,h5,h6 {
+  color: var(--silver-light);
+}
+
+strong {
+  color: var(--silver-base);
+}
+
+a {
+  color: var(--blue-base);
+}
+
+.spec-note {
+  background: none;
+  border-color: var(--yellow-base);
+}
+
+.spec-note > a:first-of-type {
+  color: var(--yellow-light);
+}
+
+/*** Table of Contents ***/
+/***** Inline TOC ******/
+.spec-toc a {
+  color: var(--grey-lighter);
+}
+
+.spec-secid a {
+  color: var(--grey-base);
+}
+
+/***** Sidebar ******/
+.spec-sidebar {
+  background: var(--midnight-darkest);
+  box-shadow: none !important;
+  left: 0;
+}
+
+article {
+  display: table;
+  margin: auto;
+  box-sizing: border-box;
+  padding-left: 1em;
+  padding-right: 1em;
+}
+
+@media (min-width: 1220px) {
+  article {
+    padding-left: calc(50vw - var(--sidebar-width) + 5rem);
+    margin-right: calc(50vw - var(--sidebar-width));
+  }
+}
+
+@media (min-width: 1500px) {
+  article {
+    padding-left: calc(50vw - var(--sidebar-width));
+  }
+}
+
+body {
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.spec-sidebar .viewing > a::after {
+  color: var(--yellow-base)
+}
+
+/*** Figures ***/
+figure {
+  border-color: transparent;
+}
+
+pre, .spec-example, .spec-counter-example {
+  background: none;
+}
+
+.spec-example {
+  border-color: var(--blue-darker);
+}
+
+.spec-counter-example {
+  border-color: var(--red-light);
+}
+
+.spec-counter-example > figcaption > a {
+  color: var(--red-light);
+}
+
+figcaption > a {
+  color: var(--blue-lighter);
+}
+
+/*** Code ***/
+var {
+  color: var(--silver-light);
+  border: thin solid transparent;
+}
+
+var:hover {
+  background: none;
+  border-color: var(--highlight-border-color);
+}
+
+code {
+  color: var(--silver-light);
+  background: none;
+}
+
+
+.token.operator {
+  background: none;
+}

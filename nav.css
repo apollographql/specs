@@ -1,0 +1,91 @@
+:root {
+  --nav-height: 28px;
+  --nav-z: 1000;  
+}
+
+nav.site-nav {
+  position: fixed;
+  font-size: 14px;
+  z-index: var(--nav-z);
+  width: 100vw;  
+  background: linear-gradient(
+    var(--midnight-darkest),
+    transparent);
+}
+
+nav.site-nav {
+  --slice-height: calc(var(--nav-height));
+}
+
+.slices {
+  height: var(--slice-height);
+  line-height: calc(var(--slice-height) * 0.75);
+  vertical-align: middle;
+  display: flex;
+  padding: 9px;
+  top: 0; left: 0;
+}
+
+slices.top-right {
+  left: auto; right: 0;
+}
+
+.slice {
+  height: 100%;
+  padding: 4px var(--slice-height);
+  background: var(--grey-darker);
+  text-align: center;
+  box-sizing: border-box;
+}
+
+label.slice {
+  background: transparent;
+}
+
+.slices.top-left .slice {
+  clip-path: polygon(
+    var(--slice-height) 0,
+    100% 0,
+    calc(100% - var(--slice-height)) 100%,
+    0 100%);
+  margin-left: calc(-1 * var(--slice-height) + 4px);
+}
+
+.slices.top-left .slice:first-child {
+  clip-path: polygon(
+    0 0,
+    100% 0,
+    calc(100% - var(--slice-height)) 100%,
+    0 100%);
+  margin-left: 0;
+  padding-left: 9px;
+}
+
+.slices.top-right .slice {
+  clip-path: polygon(
+    0 0,
+    calc(100% - var(--slice-height)) 0,
+    100% 100%,
+    var(--slice-height) 100%);
+  margin-right: calc(-1 * var(--slice-height) + 4px);
+}
+
+.slices.top-right .slice:last-child {
+  clip-path: polygon(
+    0 0,
+    100% 0,
+    100% 100%,
+    var(--slice-height) 100%);
+  margin-right: 0;
+  padding-right: 9px;
+}
+
+nav.site-nav a[href] {
+  color: var(--midnight-darkest);
+  text-decoration: none;
+}
+
+nav.site-nav > a[href]:hover {
+  background: var(--pink-dark);
+  text-decoration: none;
+}

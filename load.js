@@ -24,10 +24,11 @@ export async function script(src) {
 /**
  * Asynchronously load a stylesheet.
  * 
- * @param {string} src 
+ * @param {string} src
+ * @param {'append' | 'prepend'} position (default: 'append')
  * @return {Promise<Event>}
  */
-export function styles(src) {
+export function styles(src, position = 'append') {
   const existing = document.querySelector(`link[rel="stylesheet"][href="${src}"]`)
   if (existing && existing.__loadingPromise)
     return existing.__loadingPromise
@@ -44,6 +45,9 @@ export function styles(src) {
     link.onerror = reject
   })
   link.href = src
-  document.head.appendChild(link)
+  if (position === 'append')
+    document.head.appendChild(link)
+  else
+    document.head.prepend(link)
   return link.__loadingPromise
 }

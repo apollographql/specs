@@ -9,7 +9,6 @@ html {
   font-family: var(--family-text);
   font-size: 18px;
   /* SpaceKit colors from https://space-kit.netlify.app/ */
-  
   /** Brand colors **/    
   --pink-darkest: rgb(102, 31, 78);
   --pink-darker: rgb(131, 35, 99);
@@ -628,76 +627,6 @@ code.anatomy {
   margin-bottom: 128px;
 }
 
-code.anatomy span {
-  position: relative;
-  color: var(--color);  
-}
-
-
-.red {
-  --color: var(--red-base);
-}
-
-.blue {
-  --color: var(--blue-base);
-}
-
-.pink {
-  --color: var(--pink-base);
-}
-
-.yellow {
-  --color: var(--yellow-base);
-}
-
-.green {
-  --color: var(--green-base);
-}
-
-.grey {
-  --color: var(--grey-base);
-}
-
-table.anatomy {
-  white-space: pre-line;
-  font-family: var(--family-code);
-  font-size: 120%;
-  border-spacing: 0;
-}
-
-table.anatomy td {
-  padding: 0; margin: 0;
-}
-
-code.anatomy > span > aside {
-  transform: translateY(calc(var(--depth) * 40%));
-}
-
-code.anatomy > span > span {
-  filter: brightness(120%);
-}
-
-code.anatomy > span > span > aside {
-  transform: translateY(calc((var(--depth) - 1) * 40%));
-}
-
-code.anatomy > span > span > span > aside {
-  transform: translateY(calc((var(--depth) - 2) * 40%));
-}
-
-code.anatomy span > aside {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  font-size: 50%;
-  width: 100%;
-  flex-grow: 1;
-  display: block;
-  margin-right: 1em;
-  border-bottom: 1px solid var(--color);
-  border-left: 1px solid var(--color);
-  padding: 4px;
-}
 
 .counter-example figure { 
   background: linear-gradient(-90deg, var(--red-darkest), transparent);
