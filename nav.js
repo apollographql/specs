@@ -37,7 +37,7 @@ export default function install(win=window) {
   const {document, location} = window
   const nav = document.createElement('nav')
   nav.className = 'site-nav slices top-left'
-  document.body.prepend(nav)
+  document.body.append(nav)
 
   addEventListener('popstate', onNavigate)
   onNavigate()

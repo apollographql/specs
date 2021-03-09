@@ -14,7 +14,7 @@ header > h1 {
   text-align: center;
   font-size: 250%;
   margin-bottom: 2em;
-  margin-top: 2em !important;  
+  margin-top: 2em !important;
 }
 
 header h2 {
@@ -155,7 +155,46 @@ code {
   background: none;
 }
 
-
 .token.operator {
   background: none;
+}
+
+.spec-definition > pre {
+  display: table;
+  margin: auto;
+  transform: scaleX(1.05);
+}
+
+.spec-definition > pre > code {
+  font-family: var(--body-font-family);
+  font-style: italic;
+  font-size: 130%;
+  font-weight: bold;
+  line-height: 120%;
+}
+
+/*** Selections ***/
+.selection-link,
+.outdated-selection-link {
+  box-shadow: 2px 2px 2px black;
+}
+
+.selection-link {
+  background-color: var(--midnight-base);
+  border: thin solid var(--yellow-dark);
+}
+
+.selection-link:hover {
+  background-color: var(--yellow-base);
+  color: var(--midnight-dark);
+}
+
+.outdated-selection-link {
+  background-color: var(--midnight-base);
+  border: thin solid var(--red-dark);
+}
+
+.outdated-selection-link:hover {
+  background-color: var(--red-base);
+  color: var(--midnight-dark);
 }
