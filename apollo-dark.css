@@ -79,9 +79,16 @@ a {
 
 /***** Sidebar ******/
 .spec-sidebar {
-  background: var(--midnight-darkest);
+  background: none;
+  backdrop-filter: blur(25px);
   box-shadow: none !important;
   left: 0;
+}
+
+@media (min-width: 1220px) {
+  .spec-sidebar {
+    backdrop-filter: none;
+  }
 }
 
 article {
@@ -197,4 +204,17 @@ code {
 .outdated-selection-link:hover {
   background-color: var(--red-base);
   color: var(--midnight-dark);
+}
+
+/*** Sidebar ***/
+
+.spec-sidebar-toggle + label[for="spec-sidebar-toggle"] > .spec-sidebar-button {
+  color: var(--grey-lighter);
+  z-index: 10001;
+  left: 0;
+  right: auto;
+  top: auto;
+  bottom: 0;
+  border-radius: 50%;
+  backdrop-filter: blur(10px);
 }
