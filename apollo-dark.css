@@ -236,3 +236,35 @@ code {
   border-radius: 50%;
   backdrop-filter: blur(10px);
 }
+
+/*** RFC 2119 Requirements ***/
+.spec-requirement {
+  font-weight: bold;
+  color: var(--requirement-color);
+  --requirement-color: var(--green-light);
+  border-radius: 0.2rem;
+  transition: color 115ms, background 115ms;
+  padding: 0.1rem;
+}
+
+.spec-requirement:hover {
+  background: var(--requirement-color);
+  color: var(--midnight-darker);
+  text-decoration: none;
+}
+
+.spec-requirement.negated {
+  filter: hue-rotate(180deg);
+}
+
+.spec-requirement.required {
+  --requirement-color: var(--green-light);
+}
+
+.spec-requirement.recommended {
+  --requirement-color: var(--yellow-light);
+}
+
+.spec-requirement.optional {
+  --requirement-color: var(--indigo-light);
+}
