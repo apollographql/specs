@@ -3,10 +3,13 @@
 @import "prism-synthwave84.css";
 
 :root {
-  background: var(--midnight-darkest);
-  color: var(--grey-lighter);
-  --highlight-background: none;
+  background: var(--body-background-color);
+  color: var(--body-text-color);
+  --body-background-color: var(--midnight-darkest);
+  --body-text-color: var(--grey-lighter);
+  --button-background-color: var(--grey-darker);
   --highlight-border-color: var(--yellow-base);
+  --highlight-background: none;
 }
 
 
@@ -199,6 +202,7 @@ code {
   }
 }
 
+
 /*** Selections ***/
 ::selection {
   background-color: var(--blue-darkest);
@@ -206,7 +210,7 @@ code {
 
 .selection-link,
 .outdated-selection-link {
-  box-shadow: 2px 2px 5px var(--midnight-darkest);
+  box-shadow: 2px 2px 5px var(--body-background-color);
   color: var(--yellow-base);
 }
 
@@ -230,8 +234,8 @@ code {
   color: var(--midnight-dark);
 }
 
-/*** Sidebar ***/
 
+/*** Sidebar ***/
 .spec-sidebar-toggle + label[for="spec-sidebar-toggle"] > .spec-sidebar-button {
   color: var(--grey-lighter);
   z-index: 10001;
@@ -255,7 +259,7 @@ code {
 
 .spec-requirement:hover {
   background: var(--requirement-color);
-  color: var(--midnight-darker);
+  color: var(--body-background-color);
   text-decoration: none;
 }
 
