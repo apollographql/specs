@@ -9,6 +9,7 @@
   --highlight-border-color: var(--yellow-base);
 }
 
+
 /*** Header ***/
 header > h1 {
   text-align: center;
@@ -55,7 +56,7 @@ strong {
 }
 
 a {
-  color: var(--blue-base);
+  color: var(--blue-light);
 }
 
 .spec-note {
@@ -199,14 +200,19 @@ code {
 }
 
 /*** Selections ***/
+::selection {
+  background-color: var(--blue-darkest);
+}
+
 .selection-link,
 .outdated-selection-link {
-  box-shadow: 2px 2px 2px black;
+  box-shadow: 2px 2px 5px var(--midnight-darkest);
+  color: var(--yellow-base);
 }
 
 .selection-link {
   background-color: var(--midnight-base);
-  border: thin solid var(--yellow-dark);
+  border: thin solid var(--yellow-darker);
 }
 
 .selection-link:hover {
@@ -253,16 +259,20 @@ code {
   text-decoration: none;
 }
 
-.spec-requirement.negated {
-  filter: hue-rotate(180deg);
-}
-
 .spec-requirement.required {
   --requirement-color: var(--green-light);
 }
 
+.spec-requirement.not.required {
+  --requirement-color: var(--pink-light);
+}
+
 .spec-requirement.recommended {
-  --requirement-color: var(--yellow-light);
+  --requirement-color: var(--orange-light);
+}
+
+.spec-requirement.not.recommended {
+  --requirement-color: var(--teal-light);
 }
 
 .spec-requirement.optional {
