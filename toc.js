@@ -1,28 +1,14 @@
-import {sleep} from './async.js'
-import {enqueue, isPre} from './rendering.js'
+import {enqueue} from './rendering.js'
 
 export default function install(win=window) {
   enqueue(() => {
-    const view = document.getElementById('view')
+    const sidenav = document.getElementById('sidenav')
     const doc = win.document
-    const toc = createToC(win, doc, view)
-
-    if (!isPre()) {
-      setTimeout(layoutToc, 250)
-      addEventListener('resize', layoutToc)
-    }
-
-    async function layoutToc() {
-      toc.classList.remove('measured')
-      const box = toc.getBoundingClientRect()
-      view.style.setProperty('--toc-width', box.width + 'px')
-      await sleep(100)
-      toc.classList.add('measured')  
-    }
+    createToC(win, doc, sidenav)
   })
 }
 
-export function createToC(win=window, doc=win.document, view=doc.getElementById('view')) {
+export function createToC(win=window, doc=win.document, view=doc.getElementById('sidenav')) {
   const [existing] = view.getElementsByClassName('toc')
   if (existing) return existing
 
@@ -64,17 +50,13 @@ export function createToC(win=window, doc=win.document, view=doc.getElementById(
     } else {
       ++counters.fig
       item.dataset.indexPath = counters.header
-        .slice(1, 3).join('.') + 
+        .slice(1, 3).join('.') +
         '.' + counters.fig
       top().el.appendChild(item)
     }
   }
 
-  const placeholder = doc.createElement('div')
-  placeholder.className = 'toc-placeholder'
-  placeholder.textContent=' '
-  view.prepend(toc)
-  view.prepend(placeholder)
+  view.append(toc)
   return toc
 
   function top() {
