@@ -9,6 +9,9 @@ function injectLogo() {
         .apollo-specs-logo-container {
           margin-top: 24px;
         }
+        .apollo-specs-logo-container a:hover {
+          text-decoration: none;
+        }
         .apollo-logo {
           color: var(--black-lighter);
           height: 1em;
