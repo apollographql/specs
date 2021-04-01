@@ -151,10 +151,6 @@ figure {
   border-color: transparent;
 }
 
-pre, .spec-example, .spec-counter-example {
-  background: var(--black-darker);
-}
-
 .spec-example {
   border-color: var(--indigo-lighter);
 }
@@ -173,6 +169,7 @@ pre, .spec-example, .spec-counter-example {
 
 .spec-example > pre {
   overflow-y: auto;
+  background: none;
 }
 
 .spec-example-num {
