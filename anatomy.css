@@ -1,7 +1,11 @@
 @media (min-width: 720px) {
   code.anatomy {
-    font-size: 120%;
+    font-size: 110%;
   }
+}
+
+code.anatomy {
+  white-space: inherit;
 }
 
 code.anatomy span {

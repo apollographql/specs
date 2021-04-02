@@ -4,8 +4,8 @@ document.head.appendChild(Object.assign(
   document.createElement('style'), {
     textContent: `
       body {
-        background: rgb(6, 15, 47);
-        color: rgb(178, 185, 195);
+        background: #FFF;
+        color: rgb(90, 98, 112);
         font-size: 18px;
       }
 
@@ -34,13 +34,6 @@ document.head.appendChild(Object.assign(
         transition: opacity 1s;
       }
     `
-  }
-))
-
-document.head.appendChild(Object.assign(
-  document.createElement('script'), {
-    type: 'module',
-    src: '/view-of.js',
   }
 ))
 

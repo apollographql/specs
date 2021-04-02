@@ -1,12 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,400;0,700;1,300;1,700&display=swap');
+
 @import "apollo-colors.css";
 @import "anatomy.css";
-@import "prism-synthwave84.css";
 
 :root {
+  font-family: Source Sans Pro,sans-serif;
+  --body-font-family: Source Sans Pro,sans-serif;
   background: var(--body-background-color);
   color: var(--body-text-color);
-  --body-background-color: var(--midnight-darkest);
-  --body-text-color: var(--grey-lighter);
+  --body-background-color: #FFF;
+  --body-text-color: var(--grey-dark);
   --button-background-color: var(--grey-darker);
   --highlight-border-color: var(--yellow-base);
   --highlight-background: none;
@@ -15,16 +18,17 @@
 
 /*** Header ***/
 header > h1 {
+  color: var(--black-lighter);
   text-align: center;
   font-size: 250%;
-  margin-bottom: 2em;
-  margin-top: 2em !important;
+  margin-bottom: 0;
+  margin-top: 1em !important;
 }
 
 header h2 {
   font-size: 150%;
   font-style: italic;
-  color: var(--grey-lightest);
+  color: var(--black-lighter);
   margin-top: 0;
   text-align: center;
 }
@@ -35,11 +39,11 @@ header h2 {
 
 .spec-data td {
   border: 0;
-  color: var(--silver-light);
+  color: var(--grey-dark);
 }
 
 .spec-data td:first-of-type {
-  color: var(--grey-lighter);
+  color: var(--grey-dark);
   font-style: italic;
   text-align: right;
 }
@@ -51,15 +55,19 @@ header h2 {
 /*** Headers & Text ***/
 
 h1,h2,h3,h4,h5,h6 {
-  color: var(--silver-light);
+  color: var(--black-lighter);
 }
 
-strong {
-  color: var(--silver-base);
+h1 {
+  margin-top: 2rem;
+}
+
+h2 {
+  margin-top: 2rem;
 }
 
 a {
-  color: var(--blue-light);
+  color: var(--indigo-dark);
 }
 
 .spec-note {
@@ -68,17 +76,13 @@ a {
 }
 
 .spec-note > a:first-of-type {
-  color: var(--yellow-light);
+  color: var(--yellow-dark);
 }
 
 /*** Table of Contents ***/
 /***** Inline TOC ******/
-.spec-toc a {
-  color: var(--grey-lighter);
-}
-
 .spec-secid a {
-  color: var(--grey-base);
+  color: var(--indigo-dark);
 }
 
 /***** Sidebar ******/
@@ -102,7 +106,7 @@ article {
   padding-left: 1em;
   padding-right: 1em;
   margin-left: auto;
-  margin-right: auto; 
+  margin-right: auto;
 }
 
 p {
@@ -147,12 +151,8 @@ figure {
   border-color: transparent;
 }
 
-pre, .spec-example, .spec-counter-example {
-  background: none;
-}
-
 .spec-example {
-  border-color: var(--blue-darker);
+  border-color: var(--indigo-lighter);
 }
 
 .spec-counter-example {
@@ -163,13 +163,21 @@ pre, .spec-example, .spec-counter-example {
   color: var(--red-light);
 }
 
-figcaption > a {
-  color: var(--blue-lighter);
+.spec-example > figcaption > a {
+  color: var(--indigo-light);
+}
+
+.spec-example > pre {
+  overflow-y: auto;
+  background: none;
+}
+
+.spec-example-num {
+  opacity: 1;
 }
 
 /*** Code ***/
 var {
-  color: var(--silver-light);
   border: thin solid transparent;
 }
 
@@ -179,12 +187,19 @@ var:hover {
 }
 
 code {
-  color: var(--silver-light);
-  background: none;
+  padding: .1em .3em;
+  border-radius: .3em;
+  font-size: .9em;
+  color: var(--pink-base);
+  background: var(--silver-base);
 }
 
 .token.operator {
   background: none;
+}
+
+.spec-definition > pre {
+  padding: 1rem;
 }
 
 .spec-definition > pre > code {
@@ -202,26 +217,31 @@ code {
   }
 }
 
+h2.spec-definition-head, h3.spec-definition-head {
+  font-size: inherit;
+  color: var(--black-darker);
+}
+
 
 /*** Selections ***/
 ::selection {
-  background-color: var(--blue-darkest);
+  background-color: var(--yellow-light);
 }
 
 .selection-link,
 .outdated-selection-link {
   box-shadow: 2px 2px 5px var(--body-background-color);
-  color: var(--yellow-base);
+  color: var(--indigo-dark);
 }
 
 .selection-link {
-  background-color: var(--midnight-base);
-  border: thin solid var(--yellow-darker);
+  background-color: var(--indigo-lightest);
+  border: thin solid var(--indigo-dark);
 }
 
 .selection-link:hover {
-  background-color: var(--yellow-base);
-  color: var(--midnight-dark);
+  background-color: var(--indigo-lightest);
+  color: var(--indigo-dark);
 }
 
 .outdated-selection-link {
@@ -254,7 +274,7 @@ code {
   --requirement-color: var(--green-light);
   border-radius: 0.2rem;
   transition: color 115ms, background 115ms;
-  padding: 0.1rem;
+  padding: 0 0.1rem;
 }
 
 .spec-requirement:hover {
@@ -264,15 +284,15 @@ code {
 }
 
 .spec-requirement.required {
-  --requirement-color: var(--green-light);
+  --requirement-color: var(--green-base);
 }
 
 .spec-requirement.not.required {
-  --requirement-color: var(--pink-light);
+  --requirement-color: var(--red-base);
 }
 
 .spec-requirement.recommended {
-  --requirement-color: var(--orange-light);
+  --requirement-color: var(--green-base);
 }
 
 .spec-requirement.not.recommended {
@@ -280,5 +300,26 @@ code {
 }
 
 .spec-requirement.optional {
-  --requirement-color: var(--indigo-light);
+  --requirement-color: var(--orange-base);
+}
+
+.spec-toc a:hover {
+  opacity: 0.8;
+}
+
+.spec-toc a .spec-secid {
+  color: var(--indigo-dark);
+}
+
+.spec-toc .title {
+  margin-top: 2em;
+}
+
+.apollo-specs-logo a:hover {
+  text-decoration: none;
+}
+
+.spec-sidebar {
+  border-right: 1px solid var(--silver-dark);
+  overflow-y: auto;
 }

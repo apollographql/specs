@@ -1,19 +1,13 @@
 <!doctype html>
 <script src=/boot.js></script>
+<link rel="stylesheet" href="./light.css" />
 <title>Technical Specifications</title>
 <style>
   body {
-    font-family: charter;
+    font-family: Source Sans Pro,sans-serif;
   }
 
-  img[src="astrolabe.svg"] {    
-    display: table;
-    margin: auto;
-    width: 50%;
-    margin-top: 50px;
-  }  
-
-  header > h2 {    
+  header > h2 {
     font-style: italic;
   }
 
@@ -27,30 +21,24 @@
   }
 
   a.spec {
-    display: flex;
-    flex-flow: row nowrap;
-    align-items: center;
-    width: 80%;
-    margin: auto;
-    margin-bottom: 2em;
+    display: block;
+    margin-bottom: 1em;
     font-size: 14pt;
-    font-family: charter;
   }
 
   a.spec[href] {
-    color: var(--yellow-base);
+    color: var(--indigo-dark);
   }
 
   a.spec .name {
     min-width: 25%;
-    text-align: right;    
-    padding-right: 2em;
-    font-size: 18pt;
+    text-align: right;
+    padding-right: 0.5em;
     font-family: var(--family-code);
+    font-weight: bold;
   }
 
   .tag {
-    color: var(--silver-base);
     font-style: italic;
   }
 
@@ -58,119 +46,139 @@
     font-size: 18pt;
     font-style: italic;
   }
+
+  .apollo-specs-logo-container {
+    margin-top: 1rem;
+  }
+
+  .apollo-specs-logo-container a:hover {
+    text-decoration: none;
+  }
+
+  .apollo-logo {
+    margin-top: 0.1rem;
+    color: var(--black-lighter);
+    font-size: 24px;
+  }
+
+  .apollo-logo-small {
+    height: 1em;
+    float: left;
+  }
+
+  .apollo-logo-large {
+    height: 5rem;
+  }
+
+  .apollo-specs {
+    font-family: var(--mono-font-family);
+    color: var(--indigo-dark);
+    background-color: var(--indigo-lightest);
+    padding: 0.2rem;
+    margin-left: 0.3rem;
+    letter-spacing: 0.1rem;
+    border-radius: 0.3em;
+    font-size: 0.7em;
+  }
+
+  .center {
+    text-align: center;
+  }
+
+  h1.title {
+    font-size: 2rem;
+    margin-top: 1.5rem;
+  }
 </style>
 
 
 <div id=view>
-<main markdown>
-<header>
-  <h1>Apollo Library</h1>
-  <h2>of Technical Specifications</h2>
-  <img src=astrolabe.svg>  
-</header>
+  <aside id="sidenav">
+    <div class="apollo-specs-logo-container">
+      <a href="/">
+        <svg class="apollo-logo apollo-logo-small" viewBox="0 0 979 293" class="eetev6l1 css-5i1btw"><g fill="currentColor" fill-rule="nonzero"><path d="M159.4 83.1H130L87.5 195.4h26.6l6.9-19h40.1l-7.3-21h-26.4l17.2-48.3 30.6 88.4h26.6zM606.3 195.3V83.1H630v91.2h46.6v21zM742.6 195.3V83.1h23.6v91.2h46.6v21zM475.4 103.2c19.5 0 35.5 16.2 35.5 36.1 0 19.9-15.9 36.1-35.5 36.1-19.5 0-35.4-16.2-35.4-36.1 0-19.9 15.9-36.1 35.4-36.1zm0-22c-31.5 0-57 26-57 58.1s25.5 58.1 57 58.1 57-26 57-58.1-25.5-58.1-57-58.1zM921.5 103.2c19.6 0 35.5 16.2 35.5 36.1 0 19.9-15.9 36.1-35.5 36.1-19.5 0-35.4-16.2-35.4-36.1-.1-19.9 15.8-36.1 35.4-36.1zm0-22c-31.5 0-57 26-57 58.1s25.5 58.1 57 58.1 57-26 57-58.1-25.5-58.1-57-58.1zM322 83.1h-51.4v112.3h23.5v-38.6H322c19.6 0 35.5-16.9 35.5-36.8 0-20.1-15.9-36.9-35.5-36.9zm0 51.6h-27.9V105H322c7.7 0 13.9 7 13.9 14.8 0 7.9-6.2 14.9-13.9 14.9z"></path><path d="M250.4 229.4c-2 0-3.8 1-4.9 2.6 0 0-5.3 6.2-8.2 9.1-12.1 12.3-26.1 21.9-41.8 28.7-16.2 7-33.4 10.5-51.2 10.5-17.8 0-35-3.5-51.2-10.5-15.6-6.8-29.7-16.5-41.8-28.8-12.1-12.3-21.6-26.6-28.2-42.6-6.9-16.5-10.3-34-10.3-52.1s3.5-35.6 10.3-52.1c6.6-15.9 16.1-30.3 28.2-42.6 12.1-12.3 26.1-22 41.8-28.7 16.2-7 33.4-10.5 51.2-10.5 17.8 0 35 3.5 51.2 10.5 11.4 4.9 22 11.4 31.5 19.3-.5 1.5-.8 3.2-.8 4.9 0 8.3 6.6 15.1 14.8 15.1 8.2 0 14.8-6.8 14.8-15.1S249.2 32 241 32c-2 0-4 .4-5.7 1.2C210.5 12.5 178.8.1 144.3.1 65 .2.7 65.6.7 146.4c0 80.8 64.3 146.2 143.6 146.2 44.4 0 84-20.5 110.4-52.7 1.1-1.1 1.8-2.7 1.8-4.4-.1-3.4-2.8-6.1-6.1-6.1z"></path></g></svg>
+        <span class="apollo-specs">SPECS</span>
+      </a>
+    </div>
+  </aside>
+  <main markdown>
+  <header>
+    <div class="center">
+      <svg class="apollo-logo apollo-logo-large" viewBox="0 0 979 293" class="eetev6l1 css-5i1btw"><g fill="currentColor" fill-rule="nonzero"><path d="M159.4 83.1H130L87.5 195.4h26.6l6.9-19h40.1l-7.3-21h-26.4l17.2-48.3 30.6 88.4h26.6zM606.3 195.3V83.1H630v91.2h46.6v21zM742.6 195.3V83.1h23.6v91.2h46.6v21zM475.4 103.2c19.5 0 35.5 16.2 35.5 36.1 0 19.9-15.9 36.1-35.5 36.1-19.5 0-35.4-16.2-35.4-36.1 0-19.9 15.9-36.1 35.4-36.1zm0-22c-31.5 0-57 26-57 58.1s25.5 58.1 57 58.1 57-26 57-58.1-25.5-58.1-57-58.1zM921.5 103.2c19.6 0 35.5 16.2 35.5 36.1 0 19.9-15.9 36.1-35.5 36.1-19.5 0-35.4-16.2-35.4-36.1-.1-19.9 15.8-36.1 35.4-36.1zm0-22c-31.5 0-57 26-57 58.1s25.5 58.1 57 58.1 57-26 57-58.1-25.5-58.1-57-58.1zM322 83.1h-51.4v112.3h23.5v-38.6H322c19.6 0 35.5-16.9 35.5-36.8 0-20.1-15.9-36.9-35.5-36.9zm0 51.6h-27.9V105H322c7.7 0 13.9 7 13.9 14.8 0 7.9-6.2 14.9-13.9 14.9z"></path><path d="M250.4 229.4c-2 0-3.8 1-4.9 2.6 0 0-5.3 6.2-8.2 9.1-12.1 12.3-26.1 21.9-41.8 28.7-16.2 7-33.4 10.5-51.2 10.5-17.8 0-35-3.5-51.2-10.5-15.6-6.8-29.7-16.5-41.8-28.8-12.1-12.3-21.6-26.6-28.2-42.6-6.9-16.5-10.3-34-10.3-52.1s3.5-35.6 10.3-52.1c6.6-15.9 16.1-30.3 28.2-42.6 12.1-12.3 26.1-22 41.8-28.7 16.2-7 33.4-10.5 51.2-10.5 17.8 0 35 3.5 51.2 10.5 11.4 4.9 22 11.4 31.5 19.3-.5 1.5-.8 3.2-.8 4.9 0 8.3 6.6 15.1 14.8 15.1 8.2 0 14.8-6.8 14.8-15.1S249.2 32 241 32c-2 0-4 .4-5.7 1.2C210.5 12.5 178.8.1 144.3.1 65 .2.7 65.6.7 146.4c0 80.8 64.3 146.2 143.6 146.2 44.4 0 84-20.5 110.4-52.7 1.1-1.1 1.8-2.7 1.8-4.4-.1-3.4-2.8-6.1-6.1-6.1z"></path></g></svg>
+    </div>
+    <h1 class="title">Technical Specifications</h1>
+  </header>
 
-## Specifications
+  ## Specifications
 
-### Core Schemas
-<a class=spec href=core/draft/pre-0>
-  <span class=name>core</span>
-  <span class=tag>
-    GraphQL schemas with interoperable metadata
-  </span>
-</a>
+  ### Core Schemas
+  <a class=spec href=core/v0.1>
+    <span class=name>core</span>
+    <span class=tag>
+      GraphQL schemas with interoperable metadata
+    </span>
+  </a>
 
-Core schemas are standard GraphQL schemas which follow the [core specification](core/draft/pre-0). The [core spec]((core/draft/pre-0) provides machinery to reference namespaced, versioned directives which provide specified metadata to schema processors and data cores.
+  Core schemas are standard GraphQL schemas which follow the [core specification](core/v0.1). The [core spec](core/v0.1) provides machinery to reference namespaced, versioned directives which provide specified metadata to schema processors and data cores.
 
-All other specifications in this library are core-compliant specs, designed to be referenced from core schemas.
+  All other specifications in this library are core-compliant specs, designed to be referenced from core schemas.
 
-### Joining and Linking
-<a class=spec href=join/draft/pre-0>
-  <span class=name>join</span>
-  <span class=tag>
-    for joining subgraphs into a supergraph
-  </span>
-</a>
-<a class=spec href=url/draft/pre-0>
-  <span class=name>url</span>
-  <span class=tag>
-    for protocol-generic url metadata
-  </span>
-</a>
-<a class=spec href=url/http/draft/pre-0>
-  <span class=name>http</span>
-  <span class=tag>
-    for http url metadata
-  </span>
-</a>
-<a class=spec href=url/https/draft/pre-0>
-  <span class=name>https</span>
-  <span class=tag>
-    for https url metadata
-  </span>
-</a>
+  ### Joining and Linking
+  <a class=spec href=join/draft/pre-0>
+    <span class=name>join</span>
+    <span class=tag>
+      for joining subgraphs into a supergraph
+    </span>
+  </a>
 
-### Common Schema Metadata
-<a class=spec href=ref/draft/pre-0>
-  <span class=name>ref</span>
-  <span class=tag>
-    for referencing local named definitions
-  </span>
-</a>
-<a class=spec href=error/draft/pre-0>
-  <span class=name>error</span>
-  <span class=tag>
-    for marking errors in a schema
-  </span>
-</a>
+  ## Glossary
 
-## Glossary
+  <dl class=glossary>
+  <dt id=def-core-schema><h3>core schema, n.</h3></dt>
+  <dd markdown>
+  A GraphQL schema document which follows the [core schema specification](/core/v0.1). Core schemas provide [specified metadata](#def-metadata) to [processors](#def-processor) and [data core](#def-data-core) by [referencing specifications](/core/v0.1#core__Using).
+  </dd>
 
-<dl class=glossary>
-<dt id=def-core-schema><h3>core schema, n.</h3></dt>
-<dd markdown>
-A GraphQL schema document which follows the [core schema specification](/core/draft/pre-0). Core schemas provide [specified metadata](#def-metadata) to [processors](#def-processor) and [data core](#def-data-core) by [referencing specifications](/core/draft/pre-0#core__Using).
-</dd>
+  <dt id=def-export-schema>export schema, n.</dt>
+  <dd markdown>
+  The subset of a [core schema](#def-core-schema) which is served to clients. *Contrast: [machinery](#def-machinery)*
+  </dd>
 
-<dt id=def-export-schema>export schema, n.</dt>
-<dd markdown>
-The subset of a [core schema](#def-core-schema) which is served to clients. *Contrast: [machinery](#def-machinery)*
-</dd>
+  <dt id=def-machinery>machinery, n.</dt>
+  <dd markdown>
+  The subset of a [core schema](#def-core-schema) which should *not* be served to clients. Machinery typically consists of [specified metadata](#def-metadata) and definitions to support that metadata which assist processing but which which are not relevant to clients.
+  </dd>
 
-<dt id=def-machinery>machinery, n.</dt>
-<dd markdown>
-The subset of a [core schema](#def-core-schema) which should *not* be served to clients. Machinery typically consists of [specified metadata](#def-metadata) and definitions to support that metadata which assist processing but which which are not relevant to clients.
-</dd>
+  <dt id=def-join><h3>join, v.</h3></dt>
+  <dd>
+    <ol>
+      <li>the act of combining multiple GraphQL schemas into a single schema
+        <p>
+          <i>"Our API <b>joins</b> our <code>auth</code>, <code>users</code>, and <code>movies</code> graphs."</i>
+        </p>
 
-<dt id=def-join><h3>join, v.</h3></dt>
-<dd>
-  <ol>
-    <li>the act of combining multiple GraphQL schemas into a single schema
-      <p>
-        <i>"Our API <b>joins</b> our <code>auth</code>, <code>users</code>, and <code>movies</code> graphs."</i>
-      </p>
+      <li>the act of combining multiple GraphQL *definitions* into a single definition.
+        <p>
+          <i>"Our API's <code>User</code> type <b>joins</b> fields from the <code>users</code> and <code>movies</code> graphs."</i>
+        </p>
+    </ol>
+  </dd>
 
-    <li>the act of combining multiple GraphQL *definitions* into a single definition.
-      <p>
-        <i>"Our API's <code>User</code> type <b>joins</b> fields from the <code>users</code> and <code>movies</code> graphs."</i>
-      </p>
-  </ol>
-</dd>
+  <dt id=def-subgraph>subgraph, n.</dt>
+  <dd markdown>
+  A graph which is [joined](#def-join) into a [supergraph](#def-supergraph).
 
-<dt id=def-subgraph>subgraph, n.</dt>
-<dd markdown>
-A graph which is [joined](#def-join) into a [supergraph](#def-supergraph).
+  *aka: federated service graph*
+  </dd>
 
-*aka: federated service graph*
-</dd>
-
-<dt id=def-supergraph>supergraph, n.</dt>
-<dd markdown>
-A graph which [joins](#def-join) multiple [subgraphs](#def-subgraph) together.
-<dd>
-</dd>
+  <dt id=def-supergraph>supergraph, n.</dt>
+  <dd markdown>
+  A graph which [joins](#def-join) multiple [subgraphs](#def-subgraph) together.
+  <dd>
+  </dd>
 
 
-</dl>
+  </dl>
 
-</main>
+  </main>
 </div>
