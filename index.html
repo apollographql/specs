@@ -134,19 +134,19 @@
   ## Glossary
 
   <dl class=glossary>
-  <dt id=def-core-schema><h3>core schema, n.</h3></dt>
+  <dt id=def-api-schema>API schema (or API), n.</dt>
   <dd markdown>
-  A GraphQL schema document which follows the [core schema specification](/core/v0.1/). Core schemas provide [specified metadata](#def-metadata) to [processors](#def-processor) and [data core](#def-data-core) by [referencing specifications](/core/v0.1/#core__Using).
+  The subset of a [core schema](#def-core-schema) which is used to validate client operations and may be served to clients via introspection. *Contrast: [machinery](#def-machinery)*
   </dd>
 
-  <dt id=def-export-schema>export schema, n.</dt>
+  <dt id=def-core-schema><h3>core schema, n.</h3></dt>
   <dd markdown>
-  The subset of a [core schema](#def-core-schema) which is served to clients. *Contrast: [machinery](#def-machinery)*
+  A GraphQL schema document which follows the [core schema specification](/core/v0.1/). Core schemas provide specified metadata to processors and data cores by referencing features.
   </dd>
 
   <dt id=def-machinery>machinery, n.</dt>
   <dd markdown>
-  The subset of a [core schema](#def-core-schema) which should *not* be served to clients. Machinery typically consists of [specified metadata](#def-metadata) and definitions to support that metadata which assist processing but which which are not relevant to clients.
+  The subset of a [core schema](#def-core-schema) which should *not* be served to clients. Machinery typically consists of specified metadata and definitions to support that metadata which assist processing but which which are not relevant to clients.
   </dd>
 
   <dt id=def-join><h3>join, v.</h3></dt>
