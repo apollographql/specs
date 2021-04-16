@@ -42,7 +42,7 @@ code.anatomy span > aside {
   top: 100%;
   left: 0;
   font-size: 50%;
-  width: 100%;
+  width: calc(100% - 8px);
   display: block;
   border-bottom: 1px solid var(--color);
   border-left: 1px solid var(--color);
