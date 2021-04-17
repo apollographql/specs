@@ -15,10 +15,12 @@
 # ----------
 # GitHub: https://github.com/apollo-specs/core
 # Netlify: https://app.netlify.com/sites/apollo-specs-core/
+/core/ /core/v0.1/ 302!
 /core/v0.1/* https://v0-1--apollo-specs-core.netlify.app/:splat 200!
 
 # Join
 # ----------
 # GitHub: https://github.com/apollo-specs/join
 # Netlify: https://app.netlify.com/sites/apollo-specs-join/
+/join/ /join/v0.1/ 302!
 /join/v0.1/* https://v0-1--apollo-specs-join.netlify.app/:splat 200!
