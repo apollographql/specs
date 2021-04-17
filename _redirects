@@ -1,0 +1,24 @@
+# Netlify Admin: https://app.netlify.com/sites/apollo-specs/
+#
+# Docs: https://docs.netlify.com/routing/redirects/
+
+# The Netlify site URLs are of a known shape, based on the branches of the
+# GitHub repository that they are connected to:
+#
+# Example:
+#   https://{normalized-branch-name}--{netlify-site-name}.netlify.app/
+#
+#  normalized-branch-name: converts dots to dashes, and other transforms.
+#  netlify-site-name: the name defined in the Netlify UI's General settings.
+
+# Core
+# ----------
+# GitHub: https://github.com/apollo-specs/core
+# Netlify: https://app.netlify.com/sites/apollo-specs-core/
+/core/v0.1/* https://v0-1--apollo-specs-core.netlify.app/:splat 200!
+
+# Join
+# ----------
+# GitHub: https://github.com/apollo-specs/join
+# Netlify: https://app.netlify.com/sites/apollo-specs-join/
+/join/v0.1/* https://v0-1--apollo-specs-join.netlify.app/:splat 200!

@@ -1,0 +1,8 @@
+# Netlify Admin: https://app.netlify.com/sites/apollo-specs/
+# Docs: https://docs.netlify.com/configure-builds/file-based-configuration/
+
+[build]
+  # This site has no build step at the moment.  We just publish the contents.
+  publish = "/"
+
+# Redirects are handled in the ./_redirects file, which has a simple format
