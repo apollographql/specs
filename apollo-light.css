@@ -273,7 +273,7 @@ h2.spec-definition-head, h3.spec-definition-head {
   --requirement-color: var(--green-light);
   border-radius: 0.2rem;
   transition: color 115ms, background 115ms;
-  padding: 0 0.1rem;
+  padding: 0 0.1rem 0.2rem 0.1rem;
 }
 
 .spec-requirement:hover {
@@ -295,11 +295,11 @@ h2.spec-definition-head, h3.spec-definition-head {
 }
 
 .spec-requirement.not.recommended {
-  --requirement-color: var(--teal-light);
+  --requirement-color: var(--orange-base);
 }
 
 .spec-requirement.optional {
-  --requirement-color: var(--orange-base);
+  --requirement-color: var(--indigo-base);
 }
 
 .spec-toc a:hover {
