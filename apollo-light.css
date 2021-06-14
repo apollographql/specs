@@ -291,7 +291,7 @@ h2.spec-definition-head, h3.spec-definition-head {
 }
 
 .spec-requirement.recommended {
-  --requirement-color: var(--green-base);
+  --requirement-color: var(--teal-dark);
 }
 
 .spec-requirement.not.recommended {
