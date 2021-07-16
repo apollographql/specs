@@ -24,3 +24,10 @@
 # Netlify: https://app.netlify.com/sites/apollo-specs-join/
 /join/ /join/v0.1/ 302!
 /join/v0.1/* https://v0-1--apollo-specs-join.netlify.app/:splat 200!
+
+# Tag
+# ----------
+# GitHub: https://github.com/apollo-specs/tag
+# Netlify: https://app.netlify.com/sites/apollo-specs-tag/
+/tag/ /tag/v0.1/ 302!
+/tag/v0.1/* https://v0-1--apollo-specs-tag.netlify.app/:splat 200!
