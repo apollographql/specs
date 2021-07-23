@@ -37,4 +37,5 @@
 # GitHub: https://github.com/apollographql/specs-inaccessible
 # Netlify: https://app.netlify.com/sites/apollo-specs-inaccessible/
 /inaccessible/ /inaccessible/v0.1/ 302!
+/inaccessible/draft/* https://apollo-specs-inaccessible.netlify.app/:splat 200!
 /inaccessible/v0.1/* https://v0-1--apollo-specs-inaccessible.netlify.app/:splat 200!
