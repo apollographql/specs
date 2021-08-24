@@ -16,7 +16,7 @@
 # GitHub: https://github.com/apollo-specs/core
 # Netlify: https://app.netlify.com/sites/apollo-specs-core/
 
-# This represents the official release.
+# This represents the official release. It redirects to the branch release below.
 /core/ /core/v0.2/ 302!
 
 # This represents what's on "main" but acts as work in progress.
