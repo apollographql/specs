@@ -15,14 +15,22 @@
 # ----------
 # GitHub: https://github.com/apollo-specs/core
 # Netlify: https://app.netlify.com/sites/apollo-specs-core/
-/core/ /core/v0.1/ 302!
+
+# This represents the official release. It redirects to the branch release below.
+/core/ /core/v0.2/ 302!
+
+# This represents what's on "main" but acts as work in progress.
 /core/draft/* https://apollo-specs-core.netlify.app/:splat 200!
+
+# These are individual branch deploys, but they are intended to live for perpetuity.
 /core/v0.1/* https://v0-1--apollo-specs-core.netlify.app/:splat 200!
+/core/v0.2/* https://v0-2--apollo-specs-core.netlify.app/:splat 200!
 
 # Join
 # ----------
 # GitHub: https://github.com/apollo-specs/join
 # Netlify: https://app.netlify.com/sites/apollo-specs-join/
+# Follows the same patterns as "core" at the top.
 /join/ /join/v0.1/ 302!
 /join/draft/* https://apollo-specs-join.netlify.app/:splat 200!
 /join/v0.1/* https://v0-1--apollo-specs-join.netlify.app/:splat 200!
