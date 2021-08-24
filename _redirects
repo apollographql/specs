@@ -15,8 +15,9 @@
 # ----------
 # GitHub: https://github.com/apollo-specs/core
 # Netlify: https://app.netlify.com/sites/apollo-specs-core/
-/core/ /core/v0.1/ 302!
+/core/ /core/v0.2/ 302!
 /core/v0.1/* https://v0-1--apollo-specs-core.netlify.app/:splat 200!
+/core/v0.2/* https://v0-2--apollo-specs-core.netlify.app/:splat 200!
 
 # Join
 # ----------
