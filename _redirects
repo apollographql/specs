@@ -34,3 +34,12 @@
 /join/ /join/v0.1/ 302!
 /join/draft/* https://apollo-specs-join.netlify.app/:splat 200!
 /join/v0.1/* https://v0-1--apollo-specs-join.netlify.app/:splat 200!
+
+# Tag
+# ----------
+# GitHub: https://github.com/apollographql/specs-tag
+# Netlify: https://app.netlify.com/sites/apollo-specs-tag/
+# Follows the same patterns as "core" at the top.
+/tag/ /tag/v0.1/ 302!
+/tag/draft/* https://apollo-specs-tag.netlify.app/:splat 200!
+/tag/v0.1/* https://v0-1--apollo-specs-tag.netlify.app/:splat 200!
