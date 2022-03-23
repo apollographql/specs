@@ -13,7 +13,7 @@
 
 # Core
 # ----------
-# GitHub: https://github.com/apollo-specs/core
+# GitHub: https://github.com/apollographql/specs-core
 # Netlify: https://app.netlify.com/sites/apollo-specs-core/
 
 # This represents the official release. It redirects to the branch release below.
@@ -28,12 +28,21 @@
 
 # Join
 # ----------
-# GitHub: https://github.com/apollo-specs/join
+# GitHub: https://github.com/apollographql/specs-join
 # Netlify: https://app.netlify.com/sites/apollo-specs-join/
 # Follows the same patterns as "core" at the top.
 /join/ /join/v0.1/ 302!
 /join/draft/* https://apollo-specs-join.netlify.app/:splat 200!
 /join/v0.1/* https://v0-1--apollo-specs-join.netlify.app/:splat 200!
+
+# Inaccessible
+# ----------
+# GitHub: https://github.com/apollographql/specs-inaccessible
+# Netlify: https://app.netlify.com/sites/apollo-specs-inaccessible/
+# Follows the same patterns as "core" at the top.
+/inaccessible/ /inaccessible/v0.1/ 302!
+/inaccessible/draft/* https://apollo-specs-inaccessible.netlify.app/:splat 200!
+/inaccessible/v0.1/* https://v0-1--apollo-specs-inaccessible.netlify.app/:splat 200!
 
 # Tag
 # ----------
