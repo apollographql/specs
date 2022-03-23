@@ -43,3 +43,12 @@
 /inaccessible/ /inaccessible/v0.1/ 302!
 /inaccessible/draft/* https://apollo-specs-inaccessible.netlify.app/:splat 200!
 /inaccessible/v0.1/* https://v0-1--apollo-specs-inaccessible.netlify.app/:splat 200!
+
+# Tag
+# ----------
+# GitHub: https://github.com/apollographql/specs-tag
+# Netlify: https://app.netlify.com/sites/apollo-specs-tag/
+# Follows the same patterns as "core" at the top.
+/tag/ /tag/v0.1/ 302!
+/tag/draft/* https://apollo-specs-tag.netlify.app/:splat 200!
+/tag/v0.1/* https://v0-1--apollo-specs-tag.netlify.app/:splat 200!
