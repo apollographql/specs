@@ -1,0 +1,14 @@
+schema
+  @link(url: "https://specs.apollo.dev/core/v0.1")
+  @link(url: "https://specs.example.com/example/v1.0")
+{
+  query: Query
+}
+
+type Query {
+  field: Int @example
+}
+
+directive @example on FIELD_DEFINITION
+
+directive @link(url: String!, as: String) repeatable on SCHEMA

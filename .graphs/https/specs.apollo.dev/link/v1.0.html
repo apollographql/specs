@@ -1,0 +1,2124 @@
+<!DOCTYPE html>
+<!-- Built with spec-md https://spec-md.com -->
+<html>
+<head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1"><title>link v1.0</title>
+<style>
+:root {
+  color: #333333;
+  font-family: var(--body-font-family);
+  font-size: 15px;
+  line-height: 1.5;
+  --body-font-family: Cambria, "Palatino Linotype", Palatino, "Liberation Serif", serif;
+  --mono-font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  --mono-font-size: 13px;
+  --indent: 1rem;
+  --list-indent: 1.5rem;
+  --grammar-indent: 0rem;
+  --highlight-background: #FBF8D0;
+  --highlight-border-color: transparent;
+  --sidebar-width: min(320px, calc(100vw - 48px));
+}
+
+@media (min-width: 720px) {
+  :root {
+    font-size: 17px;
+    --mono-font-size: 15px;
+    --indent: 2rem;
+    --list-indent: 2rem;
+    --grammar-indent: 2rem;
+  }
+}
+
+body {
+  margin: 3rem 0 3rem;
+}
+
+article {
+  margin: 0 auto;
+}
+
+@media (min-width: 720px) {
+  body {
+    margin: 6rem auto 3rem;
+    padding-left: 75px;
+    padding-right: clamp(0px, calc((100vw - 800px) * 0.25), 75px);
+  }
+
+  article {
+    max-width: 800px;
+  }
+}
+
+/* Selections */
+
+.outdated-selection-link,
+.selection-link {
+  position: absolute;
+  display: block;
+  color: #fff;
+  background-color: #cacee0;
+  border-radius: 4px;
+  font-size: 36px;
+  height: 23px;
+  line-height: 48px;
+  text-align: center;
+  text-decoration: none;
+  width: 25px;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+}
+
+.outdated-selection-link:hover,
+.selection-link:hover {
+  text-decoration: none;
+}
+
+.outdated-selection-link:before,
+.selection-link:before {
+  border: 5px solid transparent;
+  content: '';
+  height: 0;
+  margin-top: -5px;
+  margin-right: -5px;
+  position: absolute;
+  right: 1px;
+  top: 50%;
+  width: 0;
+}
+
+.selection-link:hover {
+  background-color: #3b5998;
+}
+
+.outdated-selection-link {
+  background-color: #f0babe;
+  font-size: 21px;
+  font-weight: 800;
+  line-height: 27px;
+}
+
+.outdated-selection-link:hover:after {
+  content: "This selection content has changed since this link was created.";
+  font: 9pt/11pt var(--body-font-family);
+  position: absolute;
+  display: block;
+  white-space: nowrap;
+  padding: 2px 5px 1px;
+  top: -20px;
+  background: black;
+  color: white;
+}
+
+/* Links */
+
+a {
+  color: #3B5998;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Images */
+
+img {
+  max-width: 100%;
+}
+
+/* Section headers */
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: bold;
+  margin: 3em 0 1em;
+  position: relative;
+}
+
+.spec-definition-head {
+  font-family: var(--mono-font-family);
+}
+
+.spec-definition-head > .spec-secid {
+  font-family: var(--body-font-family);
+}
+
+@media (min-width: 720px) {
+  header > h1 {
+    margin: 6em 0 3em;
+  }
+}
+
+h1 {
+  font-size: 1.5em;
+  margin-top: 5em;
+}
+
+h2, h3 {
+  font-size: 1.25em;
+}
+
+h4, h5, h6 {
+  font-size: 1em;
+}
+
+section {
+  padding-top: 1rem;
+  margin-top: -1rem;
+}
+
+section.subsec > h6 {
+  margin-top: 2em;
+}
+
+section.subsec > h6 > a {
+  color: #333333;
+}
+
+section .spec-secid {
+  margin-right: 1ex;
+}
+
+@media (min-width: 720px) {
+  section .spec-secid {
+    position: absolute;
+    right: 100%;
+    text-align: right;
+    white-space: nowrap;
+  }
+}
+
+footer {
+  font-size: 75%;
+  opacity: 0.5;
+  text-align: center;
+  margin-top: 12rem;
+}
+
+
+/* Table of contents */
+
+.spec-toc {
+  margin: 1rem 0 3rem;
+}
+
+.spec-toc .title {
+  content: 'Contents';
+  display: block;
+  font-weight: bold;
+  margin: 5em 0 1em;
+}
+
+.spec-toc .spec-secid {
+  margin-right: 1ex;
+}
+
+.spec-toc ol {
+  list-style: none;
+  padding-left: 0;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.spec-toc ol ol {
+  list-style: none;
+  padding-left: 2ex;
+  margin-bottom: 0.25em;
+}
+
+.spec-toc li {
+  position: relative;
+  padding: 5px 0 0 30px;
+  margin: -5px 0 0 -30px;
+}
+
+.spec-toc a {
+  color: #333333;
+}
+
+.spec-toc a:hover {
+  text-decoration: none;
+}
+
+.spec-toc a .spec-secid {
+  color: #3B5998;
+}
+
+.spec-toc a:hover .spec-secid {
+  text-decoration: underline;
+}
+
+.spec-toc .toggle {
+  display: none;
+}
+
+.spec-toc .toggle + label {
+  cursor: pointer;
+  left: 6px;
+  opacity: 1;
+  padding: 5px 6px 5px 7px;
+  position: absolute;
+  top: 6px;
+  transform: rotate(0deg);
+  transition: all 0.18s ease-in-out;
+}
+
+.spec-toc .toggle + label:after {
+  border-color: transparent transparent transparent #bbc;
+  border-style: solid;
+  border-width: 6px 0 6px 7px;
+  content: ' ';
+  display: block;
+  height: 0;
+  width: 0;
+}
+
+@media(pointer: fine) {
+  .spec-toc .toggle + label {
+    left: 10px;
+    padding: 3px 5px 3px 6px;
+    top: 8px;
+  }
+}
+
+.spec-toc .toggle:checked + label {
+  transform: rotate(90deg);
+}
+
+@media(hover: hover) {
+  .spec-toc li:not(:hover) > .toggle:checked + label {
+    opacity: 0;
+  }
+}
+
+.spec-toc .toggle:not(:checked) ~ ol {
+  max-height: 0;
+  overflow: hidden;
+  margin: 0;
+}
+
+
+/* Sidebar */
+
+.spec-sidebar-toggle {
+  display: none;
+}
+
+.spec-sidebar-toggle + label > .spec-sidebar-button {
+  position: fixed;
+  right: 0;
+  top: 0;
+  padding: 10px 15px;
+  font-size: 30px;
+  color: rgba(0,0,0,0.7);
+  z-index: 2;
+  cursor: pointer;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+}
+
+.spec-sidebar-toggle:checked + label:after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+}
+
+.spec-sidebar {
+  display: none;
+  position: fixed;
+  right: 0;
+  top: 0;
+  width: var(--sidebar-width);
+  font-size: 14px;
+  line-height: 1.75;
+  overflow-y: scroll;
+  height: 100%;
+  padding: 0 0 5rem 30px;
+  box-sizing: border-box;
+  background: #f0f0f0;
+  box-shadow:
+    inset 1px 0 rgba(0,0,0,0.05),
+    -4px 0 8px -2px rgba(0,0,0,0.04);
+  overscroll-behavior: contain;
+}
+
+.spec-sidebar {
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+}
+
+.spec-sidebar-toggle:checked ~ .spec-sidebar {
+  display: block;
+}
+
+.spec-sidebar .viewing > a:after {
+  color: #8b9;
+  content: '\2022';
+  margin-left: 1ex;
+}
+
+@media (min-width: 1220px) {
+  .spec-sidebar-toggle + label {
+    display: none;
+  }
+
+  .spec-sidebar {
+    display: block;
+    box-shadow:
+      inset 1px 0 rgba(0,0,0,0.05),
+      inset 4px 0 8px -2px rgba(0,0,0,0.08) !important;
+  }
+
+  body {
+    padding-right: 345px;
+  }
+}
+
+
+/* Notes */
+
+.spec-note {
+  background: #FEFEF3;
+  border-left: solid 4px #F4E925;
+  margin: 1rem -1rem;
+  min-width: 70vw;
+  padding: 8px 1rem 12px calc(1rem - 4px);
+  width: -moz-fit-content;
+  width: -webkit-fit-content;
+  width: fit-content;
+}
+
+@media (min-width: 720px) {
+  .spec-note {
+    min-width: 416px;
+  }
+}
+
+.spec-note > a:first-child {
+  color: #6C6613;
+  display: block;
+  font: italic 11pt/18pt var(--body-font-family);
+  opacity: 0.6;
+  user-select: none;
+}
+
+
+/* Todos */
+
+.spec-todo {
+  color: #666666;
+  margin: 1em 0 1em 5em;
+  min-height: 1em;
+}
+
+.spec-todo::before {
+  content: 'todo';
+  display: block;
+  float: left;
+  margin-left: -5em;
+  text-transform: uppercase;
+}
+
+/* Index table */
+
+.spec-index ol {
+  list-style-type: none;
+  margin: 0 0 0 var(--indent);
+  padding: 0;
+  column-width: 210px;
+  column-gap: var(--indent);
+}
+
+.spec-index ol li {
+  width: min-content;
+}
+
+/* Code */
+
+pre, code {
+  font-family: var(--mono-font-family);
+  font-size: var(--mono-font-size);
+  font-weight: inherit;
+}
+
+code {
+  background: #FAFAFA;
+  margin: -2px -1px;
+  padding: 3px 3px;
+  white-space: pre-wrap;
+}
+
+pre > code {
+  background: none;
+  font-weight: inherit;
+  margin: 0;
+  padding: 0;
+  white-space: pre;
+}
+
+pre {
+  background: #FAFAFA;
+  min-width: 70vw;
+  width: -moz-fit-content;
+  width: -webkit-fit-content;
+  width: fit-content;
+  max-width: calc(100vw - 2rem);
+  overflow-y: scroll;
+}
+
+figure {
+  border-left: solid 4px #E9E9E9;
+  margin: 1rem -1rem;
+  padding: 12px 1rem 12px calc(1rem - 4px);
+}
+
+.mermaid > svg {
+  display: block;
+  margin: auto;
+}
+
+@media (min-width: 720px) {
+  pre {
+    min-width: 40ch;
+  }
+}
+
+.spec-example {
+  background: #FAFAFF;
+  border-left: solid 4px #BBBBFF;
+  padding-top: 8px;
+}
+
+.spec-counter-example {
+  background: #FFFAFA;
+  border-left: solid 4px #FFBBBB;
+  padding-top: 8px;
+}
+
+figcaption {
+  font: italic 11pt/18pt var(--body-font-family);
+  text-align: right;
+}
+
+figcaption code {
+  font-size: 10pt;
+}
+
+.spec-example-num {
+  display: block;
+  float: left;
+  opacity: 0.6;
+  user-select: none;
+}
+
+.spec-counter-example > figcaption > a {
+  color: #98593b;
+}
+
+
+/* Tables */
+
+table {
+  border-collapse: collapse;
+}
+
+th {
+  background-color: #F9F9F9;
+}
+
+td, th {
+  border: 1px solid #D0D0D0;
+  padding: 0.4em;
+  vertical-align: baseline;
+}
+
+
+/* Lists */
+
+ol, ul {
+  padding-left: var(--list-indent);
+}
+
+li > ol, li > ul {
+  margin-top: 0.25em;
+  margin-bottom: 0.5em;
+}
+
+li + li {
+  margin-top: 0.25em;
+}
+
+li.task {
+  list-style-type: none;
+  position: relative;
+}
+
+li.task > input:first-child {
+  margin-left: 0;
+  position: absolute;
+  transform: translateX(calc(-100% - 1ch));
+}
+
+
+/* Edits */
+
+ins {
+  background-color: rgba(0, 200, 30, 0.08);
+  text-decoration: none;
+}
+
+del {
+  background-color: rgba(200, 0, 0, 0.08);
+}
+
+.spec-added, .spec-removed {
+  border-left: 4px solid;
+  margin-left: -18px;
+  padding-left: 14px;
+}
+
+.spec-added {
+  border-color: #396;
+}
+
+.spec-removed {
+  border-color: #933;
+  text-decoration: line-through;
+}
+
+
+/* Values */
+
+.spec-keyword {
+  font-weight: bold;
+}
+
+.spec-string {
+  font-family: var(--mono-font-family);
+  font-size: 85%;
+  white-space: pre;
+}
+
+var {
+  font-style: italic;
+}
+
+*[data-name] {
+  transition: 0.15s background ease-out, 0.15s border-color ease-out;
+  border-radius: 2px;
+  border: 1px solid transparent;
+  padding: 0 3px;
+  margin: 0 -3px;
+}
+
+
+/* Grammar semantics, algorithms and calls */
+
+.spec-semantic,
+.spec-algo {
+  margin: 1rem 0 1rem var(--grammar-indent);
+}
+
+.spec-semantic > .spec-nt::after,
+.spec-algo > .spec-call:first-child::after {
+  content: ':';
+  font-style: normal;
+  font-weight: bold;
+  margin-left: 1ex;
+}
+
+.spec-semantic ol, .spec-semantic ol ol ol ol,
+.spec-algo ol, .spec-algo ol ol ol ol {
+  list-style-type: decimal;
+}
+
+.spec-semantic ol ol, .spec-semantic ol ol ol ol ol,
+.spec-algo ol ol, .spec-algo ol ol ol ol ol {
+  list-style-type: lower-alpha;
+}
+
+.spec-semantic ol ol ol, .spec-semantic ol ol ol ol ol ol,
+.spec-algo ol ol ol, .spec-algo ol ol ol ol ol ol {
+  list-style-type: lower-roman;
+}
+
+.spec-call > a {
+  color: inherit;
+}
+
+
+/* Grammar productions */
+
+.spec-production {
+  margin: 1rem 0 1rem var(--grammar-indent);
+}
+
+.spec-production > .spec-nt::after {
+  content: ':';
+  font-style: normal;
+  font-weight: bold;
+  margin: 0 1ex;
+}
+
+.spec-semantic.d2 > .spec-nt::after,
+.spec-production.d2 > .spec-nt::after {
+  content: '::';
+}
+
+.spec-semantic.d3 > .spec-nt::after,
+.spec-production.d3 > .spec-nt::after {
+  content: ':::';
+}
+
+.spec-production > .spec-rhs {
+  line-height: 1.1;
+  margin: 0.25em 0 0.5em calc(2 * var(--indent));
+  text-indent: calc(-1 * var(--indent));
+}
+
+.spec-semantic > .spec-rhs {
+  display: inline-block;
+  text-indent: calc(-1 * var(--indent));
+  margin-left: calc(1ex + var(--indent));
+}
+
+.spec-rhs > * {
+  text-indent: 0;
+}
+
+.spec-oneof {
+  display: inline;
+}
+
+.spec-oneof::before {
+  content: 'one of';
+  font-style: normal;
+  font-weight: bold;
+}
+
+.spec-oneof-grid {
+  max-width: calc(100vw - 2rem);
+  overflow: scroll;
+  margin: -1ex -1rem;
+  padding: 1ex 1rem;
+}
+
+.spec-oneof-grid > table {
+  margin-left: var(--indent);
+}
+
+.spec-oneof .spec-rhs {
+  border: none;
+  margin: 0;
+  padding: 0 0 0 1rem;
+  vertical-align: baseline;
+  white-space: pre;
+}
+
+.spec-oneof .spec-rhs:first-child {
+  padding: 0;
+}
+
+.spec-rhs .spec-constrained:not(:first-child),
+.spec-rhs .spec-quantified:not(:first-child),
+.spec-rhs .spec-nt:not(:first-child),
+.spec-rhs .spec-t:not(:first-child),
+.spec-rhs .spec-rx:not(:first-child),
+.spec-rhs .spec-prose:not(:first-child),
+.spec-rhs .spec-empty:not(:first-child),
+.spec-rhs .spec-lookahead:not(:first-child) {
+  margin-left: 1ex;
+  display: inline-block;
+}
+
+.spec-condition {
+  font-size: 85%;
+}
+
+.spec-condition::before {
+  content: '[if '
+}
+
+.spec-condition.not::before {
+  content: '[if not '
+}
+
+.spec-condition::after {
+  content: ']'
+}
+
+.spec-empty,
+.spec-prose {
+  color: #666666;
+}
+
+.spec-nt {
+  font-style: italic;
+}
+
+.spec-nt > a {
+  color: inherit;
+}
+
+.spec-quantifiers,
+.spec-params {
+  font-size: 65%;
+  font-style: normal;
+  vertical-align: sub;
+}
+
+.spec-quantifier.list {
+  color: #3348D3;
+}
+
+.spec-quantifier.optional {
+  color: #83238E;
+}
+
+.spec-params,
+.spec-condition {
+  color: #1C7758;
+}
+
+.spec-params::before {
+  content: '[';
+}
+
+.spec-params::after {
+  content: ']';
+}
+
+.spec-quantifier:not(:last-child)::after,
+.spec-param:not(:last-child)::after {
+  color: #666666;
+  content: ', ';
+}
+
+.spec-param.conditional::before {
+  content: '?';
+}
+
+.spec-param.negated::before {
+  content: '!';
+}
+
+.spec-t, .spec-rx {
+  color: #333333;
+  font-family: monospace;
+  font-weight: bold;
+}
+
+.spec-butnot::before {
+  color: #666666;
+  content: 'but not';
+  font-family: var(--body-font-family);
+  font-weight: normal;
+  margin-right: 1ex;
+}
+
+.spec-butnot > *:not(:first-child)::before {
+  color: #666666;
+  content: 'or';
+  font-family: var(--body-font-family);
+  font-weight: normal;
+  margin-right: 1ex;
+}
+
+.spec-rhs .spec-oneof::before,
+.spec-rhs .spec-butnot::before {
+  margin-left: 1ex;
+}
+
+.spec-lookahead > * {
+  margin: 0 !important;
+}
+
+.spec-lookahead > *:not(:first-child)::before {
+  color: #666666;
+  content: ', ';
+  font-family: var(--body-font-family);
+  font-style: normal;
+  font-weight: normal;
+}
+
+.spec-lookahead::before {
+  color: #666666;
+  content: '[lookahead = ';
+  font-family: var(--body-font-family);
+  font-style: normal;
+  font-weight: normal;
+}
+
+.spec-lookahead.not::before {
+  content: '[lookahead \2260  ';
+}
+
+.spec-lookahead.set::before {
+  content: '[lookahead \2208  {';
+  margin-right: 0;
+}
+
+.spec-lookahead.set.not::before {
+  content: '[lookahead \2209  {';
+}
+
+.spec-lookahead.ntset::before {
+  content: '[lookahead \2208  ';
+  margin-right: 0;
+}
+
+.spec-lookahead.ntset.not::before {
+  content: '[lookahead \2209  ';
+}
+
+.spec-lookahead::after {
+  color: #666666;
+  content: ']';
+}
+
+.spec-lookahead.set::after {
+  content: '}]';
+}
+
+/** RFC 2119 Requirements **/
+
+.spec-requirement {
+  font-variant: small-caps;
+  text-transform: lowercase;
+  color: black;
+}</style>
+<style>
+/**
+ * prism.js default theme for JavaScript, CSS and HTML
+ * Based on dabblet (http://dabblet.com)
+ * @author Lea Verou
+ */
+
+code[class*="language-"],
+pre[class*="language-"] {
+	color: black;
+	background: none;
+	text-shadow: 0 1px white;
+	font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+	font-size: 1em;
+	text-align: left;
+	white-space: pre;
+	word-spacing: normal;
+	word-break: normal;
+	word-wrap: normal;
+	line-height: 1.5;
+
+	-moz-tab-size: 4;
+	-o-tab-size: 4;
+	tab-size: 4;
+
+	-webkit-hyphens: none;
+	-moz-hyphens: none;
+	-ms-hyphens: none;
+	hyphens: none;
+}
+
+pre[class*="language-"]::-moz-selection, pre[class*="language-"] ::-moz-selection,
+code[class*="language-"]::-moz-selection, code[class*="language-"] ::-moz-selection {
+	text-shadow: none;
+	background: #b3d4fc;
+}
+
+pre[class*="language-"]::selection, pre[class*="language-"] ::selection,
+code[class*="language-"]::selection, code[class*="language-"] ::selection {
+	text-shadow: none;
+	background: #b3d4fc;
+}
+
+@media print {
+	code[class*="language-"],
+	pre[class*="language-"] {
+		text-shadow: none;
+	}
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+	padding: 1em;
+	margin: .5em 0;
+	overflow: auto;
+}
+
+:not(pre) > code[class*="language-"],
+pre[class*="language-"] {
+	background: #f5f2f0;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+	padding: .1em;
+	border-radius: .3em;
+	white-space: normal;
+}
+
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+	color: slategray;
+}
+
+.token.punctuation {
+	color: #999;
+}
+
+.token.namespace {
+	opacity: .7;
+}
+
+.token.property,
+.token.tag,
+.token.boolean,
+.token.number,
+.token.constant,
+.token.symbol,
+.token.deleted {
+	color: #905;
+}
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted {
+	color: #690;
+}
+
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string {
+	color: #9a6e3a;
+	/* This background color was intended by the author of this theme. */
+	background: hsla(0, 0%, 100%, .5);
+}
+
+.token.atrule,
+.token.attr-value,
+.token.keyword {
+	color: #07a;
+}
+
+.token.function,
+.token.class-name {
+	color: #DD4A68;
+}
+
+.token.regex,
+.token.important,
+.token.variable {
+	color: #e90;
+}
+
+.token.important,
+.token.bold {
+	font-weight: bold;
+}
+.token.italic {
+	font-style: italic;
+}
+
+.token.entity {
+	cursor: help;
+}
+</style>
+<style>
+html {  
+  /** Brand colors **/    
+  --pink-darkest: rgb(102, 31, 78);
+  --pink-darker: rgb(131, 35, 99);
+  --pink-dark: rgb(196, 57, 151);
+  --pink-base: rgb(242, 92, 193);
+  --pink-light: rgb(255, 163, 224);
+  --pink-lighter: rgb(255, 212, 241);
+  --pink-lightest: rgb(255, 230, 247);
+  --teal-darkest: rgb(31, 102, 100);
+  --teal-darker: rgb(29, 123, 120);
+  --teal-dark: rgb(38, 162, 157);
+  --teal-base: rgb(65, 217, 211);
+  --teal-light: rgb(139, 246, 242);
+  --teal-lighter: rgb(198, 255, 253);
+  --teal-lightest: rgb(230, 255, 254);
+  --indigo-darkest: rgb(45, 31, 102);
+  --indigo-darker: rgb(49, 28, 135);
+  --indigo-dark: rgb(63, 32, 186);
+  --indigo-base: rgb(113, 86, 217);
+  --indigo-light: rgb(173, 155, 246);
+  --indigo-lighter: rgb(217, 207, 255);
+  --indigo-lightest: rgb(235, 230, 255);
+
+  /** Neutrals **/
+  --black-darker: rgb(18, 21, 26);
+  --black-dark: rgb(20, 23, 28);
+  --black-base: rgb(25, 28, 35);
+  --black-light: rgb(34, 38, 46);
+  --black-lighter: rgb(47, 53, 63);
+  --grey-darker: rgb(66, 72, 85);
+  --grey-dark: rgb(90, 98, 112);
+  --grey-base: rgb(119, 127, 142);
+  --grey-light: rgb(149, 157, 170);
+  --grey-lighter: rgb(178, 185, 195);
+  --silver-darker: rgb(202, 208, 216);
+  --silver-dark: rgb(222, 226, 231);
+  --silver-base: rgb(235, 238, 240);
+  --silver-light: rgb(244, 246, 248);
+  --silver-lighter: rgb(252, 253, 255);
+
+  /** Interface Colors **/
+  --red-darkest: rgb(102, 31, 31);
+  --red-darker: rgb(120, 28, 28);
+  --red-dark: rgb(156, 35, 35);
+  --red-base: rgb(209, 59, 59);
+  --red-light: rgb(241, 134, 134);
+  --red-lighter: rgb(255, 195, 195);
+  --red-lightest: rgb(255, 230, 230);
+  --green-darkest: rgb(20, 94, 51);
+  --green-darker: rgb(19, 108, 56);
+  --green-dark: rgb(28, 132, 72);
+  --green-base: rgb(54, 173, 104);
+  --green-light: rgb(126, 217, 164);
+  --green-lighter: rgb(190, 244, 213);
+  --green-lightest: rgb(230, 255, 240);
+  --blue-darkest: rgb(22, 60, 102);
+  --blue-darker: rgb(15, 65, 122);
+  --blue-dark: rgb(16, 83, 160);
+  --blue-base: rgb(32, 117, 214);
+  --blue-light: rgb(116, 176, 244);
+  --blue-lighter: rgb(187, 219, 255);
+  --blue-lightest: rgb(240, 247, 255);
+
+  /** Alternate Colors **/
+  --orange-darkest: rgb(102, 63, 31);
+  --orange-darker: rgb(136, 76, 30);
+  --orange-dark: rgb(180, 102, 38);
+  --orange-base: rgb(245, 145, 64);
+  --orange-light: rgb(255, 193, 143);
+  --orange-lighter: rgb(255, 226, 202);
+  --orange-lightest: rgb(255, 241, 230);
+  --yellow-darkest: rgb(102, 80, 31);
+  --yellow-darker: rgb(132, 103, 29);
+  --yellow-dark: rgb(180, 143, 37);
+  --yellow-base: rgb(244, 208, 63);
+  --yellow-light: rgb(255, 232, 142);
+  --yellow-lighter: rgb(255, 244, 202);
+  --yellow-lightest: rgb(255, 250, 230);
+  --purple-darkest: rgb(66, 22, 102);
+  --purple-darker: rgb(82, 21, 132);
+  --purple-dark: rgb(113, 30, 180);
+  --purple-base: rgb(162, 61, 245);
+  --purple-light: rgb(205, 143, 255);
+  --purple-lighter: rgb(232, 204, 255);
+  --purple-lightest: rgb(244, 230, 255);
+  --blilet-darkest: rgb(27, 34, 64);
+  --blilet-darker: rgb(37, 46, 80);
+  --blilet-dark: rgb(60, 74, 133);
+  --blilet-base: rgb(81, 104, 194);
+  --blilet-light: rgb(122, 146, 240);
+  --blilet-lighter: rgb(176, 190, 247);
+  --blilet-lightest: rgb(230, 235, 255);
+  --midnight-darkest: rgb(6, 15, 47);
+  --midnight-darker: rgb(27, 34, 64);
+  --midnight-dark: rgb(56, 61, 91);
+  --midnight-base: rgb(61, 75, 106);
+  --midnight-light: rgb(86, 105, 146);
+  --midnight-lighter: rgb(121, 143, 187);
+  --midnight-lightest: rgb(180, 195, 219);    
+}
+</style>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,400;0,700;1,300;1,700&display=swap');
+
+@import "apollo-colors.css";
+@import "anatomy.css";
+
+:root {
+  --body-font-family: Source Sans Pro,sans-serif;
+  background: var(--body-background-color);
+  color: var(--body-text-color);
+  --body-background-color: #FFF;
+  --body-text-color: var(--grey-dark);
+  --button-background-color: var(--grey-darker);
+  --highlight-border-color: var(--yellow-base);
+  --highlight-background: none;
+}
+
+
+/*** Header ***/
+header > h1 {
+  color: var(--black-lighter);
+  text-align: center;
+  font-size: 250%;
+  margin-bottom: 0;
+  margin-top: 1em !important;
+}
+
+header h2 {
+  font-size: 150%;
+  font-style: italic;
+  color: var(--black-lighter);
+  margin-top: 0;
+  text-align: center;
+}
+
+.spec-data {
+  margin: auto;
+}
+
+.spec-data td {
+  border: 0;
+  color: var(--grey-dark);
+}
+
+.spec-data td:first-of-type {
+  color: var(--grey-dark);
+  font-style: italic;
+  text-align: right;
+}
+
+.spec-data td:first-of-type::after {
+  content: ": ";
+}
+
+/*** Headers & Text ***/
+
+h1,h2,h3,h4,h5,h6 {
+  color: var(--black-lighter);
+}
+
+h1 {
+  margin-top: 2rem;
+}
+
+h2 {
+  margin-top: 2rem;
+}
+
+a {
+  color: var(--indigo-dark);
+}
+
+.spec-note {
+  background: none;
+  border-color: var(--yellow-base);
+}
+
+.spec-note > a:first-of-type {
+  color: var(--yellow-dark);
+}
+
+/*** Table of Contents ***/
+/***** Inline TOC ******/
+.spec-secid a {
+  color: var(--indigo-dark);
+}
+
+/***** Sidebar ******/
+.spec-sidebar {
+  background: none;
+  backdrop-filter: blur(25px);
+  box-shadow: none !important;
+  left: 0;
+}
+
+@media (min-width: 1220px) {
+  .spec-sidebar {
+    backdrop-filter: none;
+  }
+}
+
+article {
+  display: table;
+  margin: auto;
+  box-sizing: border-box;
+  padding-left: 1em;
+  padding-right: 1em;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+p {
+  max-width: calc(100vw - 2em);
+}
+
+figure {
+  max-width: calc(100vw - 2em);
+}
+
+@media (min-width: 720px) {
+  article {
+    margin-left: auto;
+  }
+}
+
+@media (min-width: 1220px) {
+  article {
+    padding-left: calc(50vw - var(--sidebar-width) + 5rem);
+    margin-left: auto;
+    margin-right: calc(50vw - var(--sidebar-width));
+  }
+}
+
+@media (min-width: 1500px) {
+  article {
+    padding-left: calc(50vw - var(--sidebar-width));
+  }
+}
+
+body {
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.spec-sidebar .viewing > a::after {
+  color: var(--yellow-base)
+}
+
+/*** Figures ***/
+figure {
+  border-color: transparent;
+}
+
+.spec-example {
+  border-color: var(--indigo-lighter);
+}
+
+.spec-counter-example {
+  border-color: var(--red-light);
+}
+
+.spec-counter-example > figcaption > a {
+  color: var(--red-light);
+}
+
+.spec-example > figcaption > a {
+  color: var(--indigo-light);
+}
+
+.spec-example > pre {
+  overflow-y: auto;
+  background: none;
+}
+
+.spec-example-num {
+  opacity: 1;
+}
+
+/*** Code ***/
+var {
+  border: thin solid transparent;
+}
+
+var:hover {
+  background: none;
+  border-color: var(--highlight-border-color);
+}
+
+code {
+  padding: .1em .3em;
+  border-radius: .3em;
+  font-size: .9em;
+  color: var(--pink-base);
+  background: var(--silver-base);
+}
+
+.token.operator {
+  background: none;
+}
+
+.spec-definition > pre {
+  padding: 1rem;
+}
+
+.spec-definition > pre > code {
+  font-family: var(--body-font-family);
+  font-style: italic;
+  font-size: 130%;
+  font-weight: bold;
+  line-height: 120%;
+}
+
+@media (min-width: 720px) {
+  .spec-definition > pre {
+    margin-left: 3em;
+    transform: scaleX(1.02);
+  }
+}
+
+h2.spec-definition-head, h3.spec-definition-head {
+  font-size: inherit;
+  color: var(--black-darker);
+}
+
+
+/*** Selections ***/
+::selection {
+  background-color: var(--yellow-light);
+}
+
+.selection-link,
+.outdated-selection-link {
+  box-shadow: 2px 2px 5px var(--body-background-color);
+  color: var(--indigo-dark);
+}
+
+.selection-link {
+  background-color: var(--indigo-lightest);
+  border: thin solid var(--indigo-dark);
+}
+
+.selection-link:hover {
+  background-color: var(--indigo-lightest);
+  color: var(--indigo-dark);
+}
+
+.outdated-selection-link {
+  background-color: var(--midnight-base);
+  border: thin solid var(--red-dark);
+}
+
+.outdated-selection-link:hover {
+  background-color: var(--red-base);
+  color: var(--midnight-dark);
+}
+
+
+/*** Sidebar ***/
+.spec-sidebar-toggle + label[for="spec-sidebar-toggle"] > .spec-sidebar-button {
+  color: var(--grey-lighter);
+  z-index: 10001;
+  left: 0;
+  right: auto;
+  top: auto;
+  bottom: 0;
+  border-radius: 50%;
+  backdrop-filter: blur(10px);
+}
+
+/*** RFC 2119 Requirements ***/
+.spec-requirement {
+  font-weight: bold;
+  color: var(--requirement-color);
+  --requirement-color: var(--green-light);
+  border-radius: 0.2rem;
+  transition: color 115ms, background 115ms;
+  padding: 0 0.1rem 0.2rem 0.1rem;
+}
+
+.spec-requirement:hover {
+  background: var(--requirement-color);
+  color: var(--body-background-color);
+  text-decoration: none;
+}
+
+.spec-requirement.required {
+  --requirement-color: var(--green-base);
+}
+
+.spec-requirement.not.required {
+  --requirement-color: var(--red-base);
+}
+
+.spec-requirement.recommended {
+  --requirement-color: var(--teal-dark);
+}
+
+.spec-requirement.not.recommended {
+  --requirement-color: var(--orange-base);
+}
+
+.spec-requirement.optional {
+  --requirement-color: var(--indigo-base);
+}
+
+.spec-toc a:hover {
+  opacity: 0.8;
+}
+
+.spec-toc a .spec-secid {
+  color: var(--indigo-dark);
+}
+
+.spec-toc .title {
+  margin-top: 2em;
+}
+
+.apollo-specs-logo a:hover {
+  text-decoration: none;
+}
+
+.spec-sidebar {
+  border-right: 1px solid var(--silver-dark);
+  overflow-y: auto;
+}
+
+</style>
+<style>
+@media (min-width: 720px) {
+  code.anatomy {
+    font-size: 110%;
+  }
+}
+
+code.anatomy {
+  white-space: inherit;
+}
+
+code.anatomy span {
+  position: relative;
+  color: var(--color);
+}
+
+.red {
+  --color: var(--red-base);
+}
+
+.blue {
+  --color: var(--blue-base);
+}
+
+.pink {
+  --color: var(--pink-base);
+}
+
+.yellow {
+  --color: var(--yellow-base);
+}
+
+.green {
+  --color: var(--green-base);
+}
+
+.grey {
+  --color: var(--grey-base);
+}
+
+code.anatomy span > aside {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  font-size: 50%;
+  width: calc(100% - 8px);
+  display: block;
+  border-bottom: 1px solid var(--color);
+  border-left: 1px solid var(--color);
+  padding: 4px;
+  height: calc(20% + 10px);
+}
+
+code.anatomy span > span > aside {
+  height: calc(20% + 5px);
+}
+
+
+</style><script>(function(){var e,t=document.getElementsByTagName("style")[0].sheet;function n(){e&&(t.deleteRule(e),e=void 0)}document.documentElement.addEventListener("mouseover",(function(o){var a,r=o.target.attributes["data-name"];r&&(a=r.value,n(),e=t.insertRule(`*[data-name="${a}"] {\n      background: var(--highlight-background);\n      border-color: var(--highlight-border-color);\n    }`,t.cssRules.length))})),document.documentElement.addEventListener("mouseout",n);})()</script>
+<script>(function(){var e,t,n,o,r="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_";function a(e){c(new URL(e.target.href))}function i(){c(window.location)}function c(e){var t=e.hash.match(/^#sel-([A-Za-z0-9-_]+)$/);if(t){o=t[1];var a=(n=function(e){for(var t=new Array(64),n=0;n<64;n++)t[r.charCodeAt(n)]=n;var o=0,a=w(),i=w(),c=w(),d=v(),l=i.pop(),f=s(a.concat(i)),h=c.pop(),g=s(a.concat(c)),m=document.createRange();return m.setStart(f,l),m.setEnd(g,h),m.isOutdated=void 0!==d&&d!==u(m.toString()),m;function v(){for(var n=0,r=0;o<e.length;){var a=t[e.charCodeAt(o++)];if(n|=(31&a)<<r,r+=5,a<32)return n}}function w(){var e=v();if(null!=e){for(var t=new Array(e),n=0;n<e;n++)t[n]=v();return t}}}(o)).getBoundingClientRect(),i=Math.max(20,Math.floor(.4*(window.innerHeight-a.height)));window.scrollTo({left:0,top:window.scrollY+a.y-i,behavior:"smooth"});var c=document.getSelection();c.empty(),c.addRange(n),d()}}function d(){if(!n)return;t||(t=document.getElementsByTagName("article")[0]),e||(e=document.createElement("a"),document.body.appendChild(e)),e.href="#sel-"+o,e.onclick=a,e.className=n.isOutdated?"outdated-selection-link":"selection-link",e.innerText=n.isOutdated?"!":"‟";const r=n.getClientRects()[0];e.style.left=`calc(${r.x+window.scrollX}px - 0.75em)`,e.style.top=`calc(${r.y+window.scrollY}px - 0.75em)`}function l(e){for(var t=[];e!=document.body;){var n=e.parentNode;t.push(Array.prototype.indexOf.call(n.childNodes,e)),e=n}return t.reverse()}function s(e){for(var t=document.body,n=0;n<e.length&&t;n++)t=t.childNodes[e[n]];return t}function u(e){for(var t=2166136261,n=0;n<e.length;++n)t^=e.charCodeAt(n),t+=(t<<1)+(t<<4)+(t<<7)+(t<<8)+(t<<24);return 32767&(t>>15^t)}document.addEventListener("selectionchange",(function(t){var a=document.getSelection();if(a.isCollapsed)e&&(e.parentNode.removeChild(e),e=null);else{var i=a.getRangeAt(0);n&&0===i.compareBoundaryPoints(Range.START_TO_START,n)&&0===i.compareBoundaryPoints(Range.END_TO_END,n)||(o=function(e){var t="",n=l(e.startContainer),o=l(e.endContainer),a=function(e,t){var n=0;for(;n<e.length&&n<t.length&&e[n]===t[n];)n++;return e.slice(0,n)}(n,o);return c(a),c(n.slice(a.length).concat(e.startOffset)),c(o.slice(a.length).concat(e.endOffset)),i(u(e.toString())),t;function i(e){do{t+=r[31&e|(e>31?32:0)],e>>=5}while(e>0)}function c(e){i(e.length);for(var t=0;t<e.length;t++)i(e[t])}}(n=i),d())}})),window.addEventListener("resize",d),window.addEventListener("hashchange",i),window.addEventListener("load",(async()=>{await function(e=100,t=200){return new Promise((n=>{setTimeout(a,t);let o=setTimeout(a,e);const r=new MutationObserver((()=>{clearTimeout(o),o=setTimeout(a,e)}));function a(){n(),r.disconnect()}r.observe(document.getElementsByTagName("article")[0],{childList:!0,subtree:!0})}))}(),i()}));})()</script>
+</head>
+<body><article>
+<header>
+<h1>link v1.0</h1>
+<section id="intro">
+<table class=spec-data>
+  <tr><td>Status</td><td>Draft</td>
+  <tr><td>Version</td><td>2.0</td>
+</table>
+<link rel=stylesheet href=https://specs.apollo.dev/apollo-light.css>
+<script type=module async defer src=https://specs.apollo.dev/inject-logo.js></script>
+<p>Core schemas provide tools for linking definitions from different GraphQL schemas together into one.</p>
+<figure id="example-linking-a-directive-from-another-schema" class="spec-example"><figcaption><a href="#example-linking-a-directive-from-another-schema"><span class="spec-example-num">Example № 1</span> linking a directive from another schema</a></figcaption><pre class="graphql" data-language="graphql"><code><span class="token keyword">extend</span> <span class="token keyword">schema</span>
+  <span class="token comment">#          👇🏽 schemas are identified by a url</span>
+  <span class="token directive function">@link</span><span class="token punctuation">(</span><span class="token attr-name">url</span><span class="token punctuation">:</span> <span class="token string">"https://internal.example.com/admin"</span><span class="token punctuation">)</span>
+
+<span class="token keyword">type</span> <span class="token class-name">Query</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">allUsers</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>User<span class="token punctuation">]</span> <span class="token directive function">@admin__adminOnly</span> <span class="token comment"># 👈🏽 remote identifier, namespaced</span>
+<span class="token punctuation">}</span>
+</code></pre>
+</figure><figure id="example-importing-a-directive-from-another-schema" class="spec-example"><figcaption><a href="#example-importing-a-directive-from-another-schema"><span class="spec-example-num">Example № 2</span> importing a directive from another schema</a></figcaption><pre class="graphql" data-language="graphql"><code><span class="token keyword">extend</span> <span class="token keyword">schema</span>
+  <span class="token comment">#               specific definitions can be imported 👇🏽 </span>
+  <span class="token directive function">@link</span><span class="token punctuation">(</span><span class="token attr-name">url</span><span class="token punctuation">:</span> <span class="token string">"https://internal.example.com/admin"</span><span class="token punctuation">,</span> <span class="token attr-name">import</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">"@adminOnly"</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+
+<span class="token keyword">type</span> <span class="token class-name">Query</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">allUsers</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>User<span class="token punctuation">]</span> <span class="token directive function">@adminOnly</span> <span class="token comment"># 👈🏽 remote identifier, imported</span>
+<span class="token punctuation">}</span>
+</code></pre>
+</figure><p>This document introduces a set of conventions for linking and namespacing within GraphQL schemas. Core schemas are not a new kind of document and do not introduce any new syntax&mdash;they are just GraphQL schemas which can be interpreted according to the conventions outlined in this doc.</p>
+</section>
+<nav class="spec-toc">
+<div class="title">Contents</div>
+<ol>
+<li><a href="#sec-Renaming-@link-"><span class="spec-secid">1</span>Renaming {@link}</a></li>
+<li><a href="#sec-Prefixing"><span class="spec-secid">2</span>Prefixing</a><ol>
+<li><a href="#sec-Elements-which-must-be-prefixed"><span class="spec-secid">2.1</span>Elements which must be prefixed</a></li>
+</ol>
+</li>
+<li><a href="#sec-Versioning"><span class="spec-secid">3</span>Versioning</a><ol>
+<li><a href="#sec-Satisfaction"><span class="spec-secid">3.1</span>Satisfaction</a></li>
+<li><a href="#sec-Referencing-versions-and-activating-implementations"><span class="spec-secid">3.2</span>Referencing versions and activating implementations</a></li>
+</ol>
+</li>
+<li><a href="#sec-Processing-Schemas"><span class="spec-secid">4</span>Processing Schemas</a></li>
+<li><a href="#sec-Validations-amp-Algorithms"><span class="spec-secid">5</span>Validations &amp; Algorithms</a><ol>
+<li><a href="#sec-Bootstrapping"><span class="spec-secid">5.1</span>Bootstrapping</a></li>
+<li><a href="#sec-Feature-Collection"><span class="spec-secid">5.2</span>Feature Collection</a></li>
+<li><a href="#sec-Assign-Features"><span class="spec-secid">5.3</span>Assign Features</a></li>
+<li><a href="#sec-Is-In-API-"><span class="spec-secid">5.4</span>Is In API?</a></li>
+<li><a href="#sec-Is-Affected-By-Feature-"><span class="spec-secid">5.5</span>Is Affected By Feature?</a></li>
+</ol>
+</li>
+<li><a href="#@link"><span class="spec-secid">6</span>@link</a><ol>
+<li><a href="#@link/url"><span class="spec-secid">6.1</span>url: String!</a></li>
+<li><a href="#@link/as"><span class="spec-secid">6.2</span>as: String</a></li>
+<li><a href="#@link/import"><span class="spec-secid">6.3</span>import: [Import]</a></li>
+<li><a href="#@link/for"><span class="spec-secid">6.4</span>for: Purpose</a></li>
+</ol>
+</li>
+<li><a href="#Import"><span class="spec-secid">7</span>Import</a></li>
+<li><a href="#Purpose"><span class="spec-secid">8</span>Purpose</a></li>
+<li><a href="#index"><span class="spec-secid">§</span>Index</a></li>
+</ol>
+</nav>
+</header>
+<section id="sec-Renaming-@link-" secid="1">
+<h1><span class="spec-secid" title="link to this section"><a href="#sec-Renaming-@link-">1</a></span>Renaming {@link}</h1>
+<p>It is possible to rename <var data-name="@link">@link</var> with the same <var data-name="@link">@link</var> mechanism used for all links:</p>
+<figure id="example-Renaming-@link-to-@linkOther" class="spec-example"><figcaption><a href="#example-Renaming-@link-to-@linkOther"><span class="spec-example-num">Example № 3</span> Renaming <var data-name="@link">@link</var> to <var data-name="@linkOther">@linkOther</var></a></figcaption><pre class="graphql" data-language="graphql"><code><span class="token keyword">schema</span>
+  <span class="token directive function">@linkOther</span><span class="token punctuation">(</span><span class="token attr-name">url</span><span class="token punctuation">:</span> <span class="token string">"https://specs.apollo.dev/link/v1.0"</span><span class="token punctuation">,</span> <span class="token attr-name">import</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">{</span><span class="token attr-name">name</span><span class="token punctuation">:</span> <span class="token string">"@link"</span><span class="token punctuation">,</span> <span class="token attr-name">as</span><span class="token punctuation">:</span> <span class="token string">"@linkOther"</span><span class="token punctuation">}</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+  <span class="token directive function">@linkOther</span><span class="token punctuation">(</span><span class="token attr-name">url</span><span class="token punctuation">:</span> <span class="token string">"https://example.com/example/v1.0"</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+  <span class="token attr-name">query</span><span class="token punctuation">:</span> Query
+<span class="token punctuation">}</span>
+
+<span class="token keyword">type</span> <span class="token class-name">SomeType</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">field</span><span class="token punctuation">:</span> Int <span class="token directive function">@example</span>
+<span class="token punctuation">}</span>
+</code></pre>
+</figure></section>
+<section id="sec-Prefixing" secid="2">
+<h1><span class="spec-secid" title="link to this section"><a href="#sec-Prefixing">2</a></span>Prefixing</h1>
+<p>With the exception of a single root directive, core feature specifications <a href="https://tools.ietf.org/html/rfc2119#section-1" class="spec-requirement required">MUST</a> prefix all schema elements they introduce. The prefix:</p>
+<ol>
+<li><a href="https://tools.ietf.org/html/rfc2119#section-1" class="spec-requirement required">MUST</a> match the name of the feature as derived from the feature&rsquo;s specification URL,</li>
+<li><a href="https://tools.ietf.org/html/rfc2119#section-1" class="spec-requirement required">MUST</a> be a valid <a href="#undefined">GraphQL name</a>, and</li>
+<li><a href="https://tools.ietf.org/html/rfc2119#section-2" class="spec-requirement not required">MUST NOT</a> contain the core namespace separator, which is two underscores (<span class="spec-string">"__"</span>), and</li>
+<li><a href="https://tools.ietf.org/html/rfc2119#section-2" class="spec-requirement not required">MUST NOT</a> end with an underscore (which would create ambiguity between whether <span class="spec-string">"x___y"</span> is prefix <code>x_</code> for element <code>y</code> or prefix <code>x</code> for element <code>_y</code>).</li>
+</ol>
+<p>Prefixed names consist of the name of the feature, followed by two underscores, followed by the name of the element, which can be any valid <a href="#undefined">GraphQL name</a>. For instance, the <code>core</code> specification (which you are currently reading) introduces an element named <a href="#undefined"><var data-name="@link">@link</var></a>, and the <code>join</code> specification introduces an element named <var data-name="@join__field">@join__field</var> (among others).</p>
+<div id="note-9068f" class="spec-note">
+<a href="#note-9068f">Note</a>
+that both parts must be valid GraphQL names, and GraphQL names cannot start with digits, so core feature specifications cannot introduce names like <code>@feature__24hours</code>.</div>
+<p>A feature&rsquo;s <em>root directive</em> is an exception to the prefixing requirements. Feature specifications <a href="https://tools.ietf.org/html/rfc2119#section-5" class="spec-requirement optional">MAY</a> introduce a single directive which carries only the name of the feature, with no prefix required. For example, the <code>core</code> specification introduces a <var data-name="@link">@link</var> directive. This directive has the same name as the feature (&rdquo;<code>core</code>&rdquo;), and so requires no prefix.</p>
+<figure id="example-Using-the-@link-directive-without-changing-the-prefix" class="spec-example"><figcaption><a href="#example-Using-the-@link-directive-without-changing-the-prefix"><span class="spec-example-num">Example № 4</span> Using the @link directive without changing the prefix</a></figcaption><pre class="graphql" data-language="graphql"><code><span class="token keyword">schema</span>
+ <span class="token directive function">@link</span><span class="token punctuation">(</span><span class="token attr-name">url</span><span class="token punctuation">:</span> <span class="token string">"https://specs.apollo.dev/link/v1.0"</span><span class="token punctuation">,</span> <span class="token attr-name">import</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">"@link"</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+ <span class="token directive function">@link</span><span class="token punctuation">(</span><span class="token attr-name">url</span><span class="token punctuation">:</span> <span class="token string">"https://spec.example.com/example/v1.0"</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">query</span><span class="token punctuation">:</span> Query
+<span class="token punctuation">}</span>
+
+<span class="token keyword">type</span> <span class="token class-name">User</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">name</span><span class="token punctuation">:</span> String <span class="token directive function">@example</span><span class="token punctuation">(</span><span class="token attr-name">data</span><span class="token punctuation">:</span> <span class="token constant">ITEM</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment"># An enum used to provide structured data to the example spec.</span>
+<span class="token comment"># It is prefixed with the name of the spec.</span>
+<span class="token keyword">enum</span> <span class="token class-name">example__Data</span> <span class="token punctuation">{</span>
+  <span class="token constant">ITEM</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">directive</span> <span class="token directive function">@example</span><span class="token punctuation">(</span><span class="token attr-name">data</span><span class="token punctuation">:</span> example__Data<span class="token punctuation">)</span> <span class="token keyword">on</span> <span class="token class-name">FIELD_DEFINITION</span>
+
+<span class="token keyword">directive</span> <span class="token directive function">@link</span><span class="token punctuation">(</span><span class="token attr-name">url</span><span class="token punctuation">:</span> String<span class="token operator">!</span><span class="token punctuation">,</span> <span class="token attr-name">as</span><span class="token punctuation">:</span> String<span class="token punctuation">)</span> <span class="token keyword">repeatable</span> <span class="token keyword">on</span> <span class="token class-name">SCHEMA</span>
+</code></pre>
+</figure><p>The prefix <a href="https://tools.ietf.org/html/rfc2119#section-2" class="spec-requirement not required">MUST NOT</a> be elided within documentation; definitions of schema elements provided within the spec <a href="https://tools.ietf.org/html/rfc2119#section-1" class="spec-requirement required">MUST</a> include the feature&rsquo;s name as a prefix.</p>
+<section id="sec-Elements-which-must-be-prefixed" secid="2.1">
+<h2><span class="spec-secid" title="link to this section"><a href="#sec-Elements-which-must-be-prefixed">2.1</a></span>Elements which must be prefixed</h2>
+<p>Feature specs <a href="https://tools.ietf.org/html/rfc2119#section-1" class="spec-requirement required">MUST</a> prefix the following schema elements:</p>
+<ul>
+<li>the names of any object types, interfaces, unions, enums, or input object types defined by the feature</li>
+<li>the names of any directives introduced in the spec, with the exception of the <em>root directive</em>, which must have the same name as the feature</li>
+</ul>
+<figure id="example-Prefixing" class="spec-example"><figcaption><a href="#example-Prefixing"><span class="spec-example-num">Example № 5</span> Prefixing</a></figcaption><pre class="graphql" data-language="graphql"><code><span class="token keyword">schema</span>
+  <span class="token directive function">@link</span><span class="token punctuation">(</span><span class="token attr-name">url</span><span class="token punctuation">:</span> <span class="token string">"https://specs.apollo.dev/core/v0.1"</span><span class="token punctuation">)</span>
+  <span class="token directive function">@link</span><span class="token punctuation">(</span><span class="token attr-name">url</span><span class="token punctuation">:</span> <span class="token string">"https://spec.example.com/foreignA/v1.0"</span><span class="token punctuation">)</span>
+  <span class="token directive function">@link</span><span class="token punctuation">(</span><span class="token attr-name">url</span><span class="token punctuation">:</span> <span class="token string">"https://spec.example.com/foreignB/v2.0"</span><span class="token punctuation">,</span> <span class="token attr-name">as</span><span class="token punctuation">:</span> <span class="token string">"B"</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">query</span><span class="token punctuation">:</span> Query
+<span class="token punctuation">}</span>
+
+<span class="token description string">"""<span class="token language-markdown">
+foreignA__SomeType is a type defined by feature A.
+</span>"""</span>
+<span class="token keyword">type</span> <span class="token class-name">foreignA__SomeType</span> <span class="token punctuation">{</span>
+  <span class="token description string">"""<span class="token language-markdown">
+  nativeField is a field defined by foreignA on a type also defined
+  by foreignA (namely foreignA__SomeType)
+  </span>"""</span>
+  <span class="token attr-name">nativeField</span><span class="token punctuation">:</span> Int <span class="token directive function">@foreignA__fieldDirective</span>
+<span class="token punctuation">}</span>
+
+<span class="token description string">"""<span class="token language-markdown">
+foreignA__SomeInput is an input specified by feature A
+</span>"""</span>
+<span class="token keyword">input</span> foreignA__SomeInput <span class="token punctuation">{</span>
+  <span class="token description string">"""<span class="token language-markdown">
+  nativeInputField is defined by foreignA
+  </span>"""</span>
+  <span class="token attr-name">nativeInputField</span><span class="token punctuation">:</span> Int
+<span class="token punctuation">}</span>
+
+<span class="token description string">"""<span class="token language-markdown">
+foreignA__Items is specified by feature A
+</span>"""</span>
+<span class="token keyword">enum</span> <span class="token class-name">foreignA__Items</span> <span class="token punctuation">{</span> <span class="token constant">ONE</span><span class="token punctuation">,</span> <span class="token constant">TWO</span><span class="token punctuation">,</span> <span class="token constant">THREE</span> <span class="token directive function">@B</span> <span class="token punctuation">}</span>
+
+<span class="token description string">"""<span class="token language-markdown">
+@B is the root directive defined by foreignB
+
+Root directives are named after their feature
+</span>"""</span>
+<span class="token keyword">directive</span> <span class="token directive function">@B</span> <span class="token keyword">on</span> <span class="token class-name">ENUM_VALUE</span>
+
+<span class="token description string">"""<span class="token language-markdown">
+@foreignA__fieldDirective is a non-root (prefixed) directive defined by foreignA
+</span>"""</span>
+<span class="token keyword">directive</span> <span class="token directive function">@foreignA__fieldDirective</span> <span class="token keyword">on</span> <span class="token class-name">FIELD_DEFINITION</span>
+
+<span class="token keyword">directive</span> <span class="token directive function">@link</span><span class="token punctuation">(</span><span class="token attr-name">url</span><span class="token punctuation">:</span> String<span class="token operator">!</span><span class="token punctuation">,</span> <span class="token attr-name">as</span><span class="token punctuation">:</span> String<span class="token punctuation">)</span> <span class="token keyword">repeatable</span> <span class="token keyword">on</span> <span class="token class-name">SCHEMA</span>
+</code></pre>
+</figure></section>
+</section>
+<section id="sec-Versioning" secid="3">
+<h1><span class="spec-secid" title="link to this section"><a href="#sec-Versioning">3</a></span>Versioning</h1>
+<div class="spec-production" id="VersionTag">
+<span class="spec-nt"><a href="#VersionTag" data-name="VersionTag">VersionTag</a></span><div class="spec-rhs"><span class="spec-prose">v</span><span class="spec-nt"><a href="#Version" data-name="Version">Version</a></span></div>
+</div>
+<div class="spec-production" id="Version">
+<span class="spec-nt"><a href="#Version" data-name="Version">Version</a></span><div class="spec-rhs"><span class="spec-nt"><a href="#Major" data-name="Major">Major</a></span><span class="spec-prose">.</span><span class="spec-nt"><a href="#Minor" data-name="Minor">Minor</a></span></div>
+</div>
+<div class="spec-production" id="Major">
+<span class="spec-nt"><a href="#Major" data-name="Major">Major</a></span><div class="spec-rhs"><span class="spec-nt"><a href="#NumericIdentifier" data-name="NumericIdentifier">NumericIdentifier</a></span></div>
+</div>
+<div class="spec-production" id="Minor">
+<span class="spec-nt"><a href="#Minor" data-name="Minor">Minor</a></span><div class="spec-rhs"><span class="spec-nt"><a href="#NumericIdentifier" data-name="NumericIdentifier">NumericIdentifier</a></span></div>
+</div>
+<div class="spec-production" id="NumericIdentifier">
+<span class="spec-nt"><a href="#NumericIdentifier" data-name="NumericIdentifier">NumericIdentifier</a></span><div class="spec-rhs"><span class="spec-prose">0</span><span class="spec-t">|</span><span class="spec-nt"><a href="#PositiveDigit" data-name="PositiveDigit">PositiveDigit</a></span><span class="spec-quantified"><span class="spec-nt"><a href="#Digit" data-name="Digit">Digit</a></span><span class="spec-quantifiers"><span class="spec-quantifier list">list</span><span class="spec-quantifier optional">opt</span></span></span></div>
+</div>
+<div class="spec-production" id="Digit">
+<span class="spec-nt"><a href="#Digit" data-name="Digit">Digit</a></span><div class="spec-rhs"><span class="spec-prose">0</span><span class="spec-t">|</span><span class="spec-nt"><a href="#PositiveDigit" data-name="PositiveDigit">PositiveDigit</a></span></div>
+</div>
+<div class="spec-production" id="PositiveDigit">
+<span class="spec-nt"><a href="#PositiveDigit" data-name="PositiveDigit">PositiveDigit</a></span><div class="spec-rhs"><span class="spec-prose">1</span><span class="spec-t">|</span><span class="spec-prose">2</span><span class="spec-t">|</span><span class="spec-prose">3</span><span class="spec-t">|</span><span class="spec-prose">4</span><span class="spec-t">|</span><span class="spec-prose">5</span><span class="spec-t">|</span><span class="spec-prose">6</span><span class="spec-t">|</span><span class="spec-prose">7</span><span class="spec-t">|</span><span class="spec-prose">8</span><span class="spec-t">|</span><span class="spec-prose">9</span></div>
+</div>
+<p>Specs are versioned with a <strong>subset</strong> of a <a href="#undefined">Semantic Version Number</a> containing only the major and minor parts. Thus, specifications <a href="https://tools.ietf.org/html/rfc2119#section-3" class="spec-requirement recommended">SHOULD</a> provide a version of the form <code>v</code><span class="spec-nt"><a href="#Major" data-name="Major">Major</a></span><code>.</code><span class="spec-nt"><a href="#Minor" data-name="Minor">Minor</a></span>, where both integers &ge; 0.</p>
+<figure id="example-Valid-version-tags" class="spec-example"><figcaption><a href="#example-Valid-version-tags"><span class="spec-example-num">Example № 6</span> Valid version tags</a></figcaption><pre class="text" data-language="text"><code>v2.2
+v1.0
+v1.1
+v0.1
+</code></pre>
+</figure><p>As specified by semver, spec authors <a href="https://tools.ietf.org/html/rfc2119#section-3" class="spec-requirement recommended">SHOULD</a> increment the:</p>
+<div class="spec-added"><ul>
+<li>MAJOR version when you make incompatible API changes,</li>
+<li>MINOR version when you add functionality in a backwards compatible manner</li>
+</ul>
+</div>
+<p>Patch and pre&#8208;release qualifiers are judged to be not particularly meaningful in the context of core features, which are (by definition) interfaces rather than implementations. The patch component of a semver denotes a bug fix which is backwards compatible&mdash;that is, a change to the implementation which does not affect the interface. Patch&#8208;level changes in the version of a spec denote wording clarifications which do not require implementation changes. As such, it is not important to track them for the purposes of version resolution.</p>
+<p>As with <a href="#undefined">semver</a>, the <code>0.x</code> version series is special: there is no expectation of compatibility between versions <code>0.x</code> and <code>0.y</code>. For example, a processor must not activate implementation <code>0.4</code> to satisfy a requested version of <code>0.2</code>.</p>
+<section id="sec-Satisfaction" secid="3.1">
+<h2><span class="spec-secid" title="link to this section"><a href="#sec-Satisfaction">3.1</a></span>Satisfaction</h2>
+<p>Given a version <var data-name="requested">requested</var> by a document and an <var data-name="available">available</var> version of an implementation, the following algorithm will determine if the <var data-name="available">available</var> version can satisfy the <var data-name="requested">requested</var> version:</p>
+<div class="spec-algo" id="Satisfies()">
+<span class="spec-call"><a href="#Satisfies()" data-name="Satisfies">Satisfies</a>(<var data-name="requested">requested</var>, <var data-name="available">available</var>)</span><ol>
+<li>If <var data-name="requested">requested</var>.<span class="spec-nt"><a href="#Major" data-name="Major">Major</a></span> ≠ <var data-name="available">available</var>.<span class="spec-nt"><a href="#Major" data-name="Major">Major</a></span>, return <span class="spec-keyword">false</span></li>
+<li>If <var data-name="requested">requested</var>.<span class="spec-nt"><a href="#Major" data-name="Major">Major</a></span> = 0, return <var data-name="requested">requested</var>.<span class="spec-nt"><a href="#Minor" data-name="Minor">Minor</a></span> = <var data-name="available">available</var>.<span class="spec-nt"><a href="#Minor" data-name="Minor">Minor</a></span></li>
+<li>Return <var data-name="requested">requested</var>.<span class="spec-nt"><a href="#Minor" data-name="Minor">Minor</a></span> &le; <var data-name="available">available</var>.<span class="spec-nt"><a href="#Minor" data-name="Minor">Minor</a></span></li>
+</ol>
+</div>
+</section>
+<section id="sec-Referencing-versions-and-activating-implementations" secid="3.2">
+<h2><span class="spec-secid" title="link to this section"><a href="#sec-Referencing-versions-and-activating-implementations">3.2</a></span>Referencing versions and activating implementations</h2>
+<p>Schema documents <a href="https://tools.ietf.org/html/rfc2119#section-1" class="spec-requirement required">MUST</a> reference a feature version which supports all the schema elements and behaviors required by the document. As a practical matter, authors will generally prefer to reference a version they have reason to believe is supported by the most processors; depending on context, this might be an old stable version with a low major version, or a new less&#8208;deprecated version with a large major version.</p>
+<p>If a processor chooses to activate support for a feature, the processor <a href="https://tools.ietf.org/html/rfc2119#section-1" class="spec-requirement required">MUST</a> activate an implementation which can <a href="#undefined">satisfy</a> the version required by the document.</p>
+</section>
+</section>
+<section id="sec-Processing-Schemas" secid="4">
+<h1><span class="spec-secid" title="link to this section"><a href="#sec-Processing-Schemas">4</a></span>Processing Schemas</h1>
+<figure id="example-0d04d"><div class=mermaid>graph LR
+  schema(["📄  Input Schema"]):::file-->proc("🤖 &nbsp;Processor")
+  proc-->output(["📄  Output Schema"]):::file
+  classDef file fill:none,color:#22262E;
+  style proc fill:none,stroke:fuchsia,color:fuchsia;
+</div></figure><p>A common use case is that of a processor which consumes a valid input schema and generates an output schema.</p>
+<p>The general guidance for processor behavior is: don&rsquo;t react to what you don&rsquo;t understand.</p>
+<p>Specifically, processors:</p>
+<ul>
+<li><a href="https://tools.ietf.org/html/rfc2119#section-3" class="spec-requirement recommended">SHOULD</a> pass through <var data-name="@link">@link</var> directives which reference unknown feature URLs</li>
+<li><a href="https://tools.ietf.org/html/rfc2119#section-3" class="spec-requirement recommended">SHOULD</a> pass through prefixed directives, types, and other schema elements</li>
+<li><a href="https://tools.ietf.org/html/rfc2119#section-3" class="spec-requirement recommended">SHOULD</a> pass through directives which are not <a href="#undefined">associated with</a> a <var data-name="@link">@link</var> feature</li>
+</ul>
+<p>Processors <a href="https://tools.ietf.org/html/rfc2119#section-5" class="spec-requirement optional">MAY</a> accept configuration which overrides these default behaviors.</p>
+<p>Additionally, processors which prepare the schema for final public consumption <a href="https://tools.ietf.org/html/rfc2119#section-5" class="spec-requirement optional">MAY</a> choose to eliminate all unknown directives and prefixed types in order to hide schema implementation details within the published schema. This will impair the operation of tooling which relies on these directives&mdash;such tools will not be able to run on the output schema, so the benefits and costs of this kind of information hiding should be weighed carefully on a case&#8208;by&#8208;case basis.</p>
+</section>
+<section id="sec-Validations-amp-Algorithms" secid="5">
+<h1><span class="spec-secid" title="link to this section"><a href="#sec-Validations-amp-Algorithms">5</a></span>Validations &amp; Algorithms</h1>
+<p>This section lays out algorithms for processing core schemas.</p>
+<p>Algorithms described in this section may produce <em>validation failures</em> if a document does not conform to the requirements core schema document. Validation failures <a href="https://tools.ietf.org/html/rfc2119#section-3" class="spec-requirement recommended">SHOULD</a> halt processing. Some consumers, such as authoring tools, <a href="https://tools.ietf.org/html/rfc2119#section-5" class="spec-requirement optional">MAY</a> attempt to continue processing in the presence of validation failures, but their behavior in such cases is unspecified.</p>
+<section id="sec-Bootstrapping" secid="5.1">
+<h2><span class="spec-secid" title="link to this section"><a href="#sec-Bootstrapping">5.1</a></span>Bootstrapping</h2>
+<p>Determine the name of the core specification within the document.</p>
+<p>It is possible to <a href="#undefined">rename the core feature</a> within a document. This process determines the actual name for the core feature if one is present.</p>
+<ul>
+<li><strong>Fails</strong> the <em>Has Schema</em> validation if there are no SchemaDefinitions in the document</li>
+<li><strong>Fails</strong> the <em>Has Core Feature</em> validation if the <code>core</code> feature itself is not referenced with a <var data-name="@link">@link</var> directive within the document</li>
+<li><strong>Fails</strong> the <em>Bootstrap Core Feature Listed First</em> validation if the reference to the <code>core</code> feature is not the first <var data-name="@link">@link</var> directive on the document&rsquo;s SchemaDefinition</li>
+<li><strong>Fails</strong> the <em>Core Directive Incorrect Definition</em> validation if the <var data-name="@link">@link</var> directive definition does not <em>match</em> the directive as defined by this specification.</li>
+</ul>
+<p>For the purposes of this algorithm, a directive&rsquo;s definition in a schema <em>matches</em> a definition provided in this specification if:</p>
+<ul>
+<li>Its arguments have the specified names, types, and default values (or lack thereof)</li>
+<li>It is defined as <code>repeatable</code> if and only if the specification&rsquo;s definition defines it as <code>repeatable</code></li>
+<li>The set of locations it belongs to is the same set of locations in the specification&rsquo;s definition.</li>
+</ul>
+<p>The following aspects may differ between the definition in the schema and the definition in the specification without preventing the definitions from <em>matching</em>:</p>
+<ul>
+<li>The name of the directive (due to <a href="#undefined">prefixing</a>)</li>
+<li>The order of arguments</li>
+<li>The order of locations</li>
+<li>The directive&rsquo;s description string</li>
+<li>Argument description strings</li>
+<li>Directives applied to argument definitions</li>
+</ul>
+<div class="spec-algo" id="Bootstrap()">
+<span class="spec-call"><a href="#Bootstrap()" data-name="Bootstrap">Bootstrap</a>(<var data-name="document">document</var>)</span><ol>
+<li>Let <var data-name="schema">schema</var> be the only SchemaDefinition in <var data-name="document">document</var>. (Note that legal GraphQL documents <a href="#undefined">must include at most one SchemaDefinition</a>.)<ol>
+<li>...if no SchemaDefinitions are present in <var data-name="document">document</var>, the <strong><em>Has Schema</em> validation fails</strong>.</li>
+</ol>
+</li>
+<li>For each directive <var data-name="d">d</var> on <var data-name="schema">schema</var>,<ol>
+<li>If <var data-name="d">d</var> has a <a href="#undefined"><code>url:</code></a> argument which <a href="#undefined">parses as a feature URL</a>, <em>and</em> whose identity is <span class="spec-string">"https://specs.apollo.dev/core/"</span> <em>and</em> whose version is <span class="spec-string">"v0.1"</span>, <em>and either</em> <var data-name="d">d</var> has an <a href="#undefined"><code>as:</code></a> argument whose value is equal to <var data-name="d">d</var>&lsquo;s name <em>or</em> <var data-name="d">d</var> does not have an <a href="#undefined"><code>as:</code></a> argument and <var data-name="d">d</var>&lsquo;s name is <code>core</code>:<ol>
+<li>If any directive on <var data-name="schema">schema</var> listed before <var data-name="d">d</var> has the same name as <var data-name="d">d</var>, the <strong><em>Bootstrap Core Feature Listed First</em> validation fails</strong>.</li>
+<li>If the definition of the directive <var data-name="d">d</var> does not <em>match</em> the <a href="#undefined">definition of <var data-name="@link">@link</var> in this specification</a>, the <strong><em>Core Directive Incorrect Definition</em> validation fails</strong>.</li>
+<li>Otherwise, <strong>Return</strong> <var data-name="d">d</var>&lsquo;s name.</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>If no matching directive was found, the <strong><em>Has Core Feature</em> validation fails</strong>.</li>
+</ol>
+</div>
+</section>
+<section id="sec-Feature-Collection" secid="5.2">
+<h2><span class="spec-secid" title="link to this section"><a href="#sec-Feature-Collection">5.2</a></span>Feature Collection</h2>
+<p>Collect a map of (<var data-name="featureName">featureName</var>: <code>String</code>) &rarr; <code>Directive</code>, where <code>Directive</code> is a <var data-name="@link">@link</var> Directive which introduces the feature named <var data-name="featureName">featureName</var> into the document.</p>
+<ul>
+<li><strong>Fails</strong> the <em>Name Uniqueness</em> validation if feature names are not unique within the document.</li>
+<li><strong>Fails</strong> <em>Invalid Feature URL</em> validation for any invalid feature URLs.</li>
+</ul>
+<div class="spec-algo" id="CollectFeatures()">
+<span class="spec-call"><a href="#CollectFeatures()" data-name="CollectFeatures">CollectFeatures</a>(<var data-name="document">document</var>)</span><ol>
+<li>Let <var data-name="coreName">coreName</var> be the name of the core feature found via <span class="spec-call"><a href="#Bootstrap()" data-name="Bootstrap">Bootstrap</a>(<var data-name="document">document</var>)</span></li>
+<li>Let <var data-name="features">features</var> be a map of <var data-name="featureName">featureName</var>: <code>String</code> &rarr; <code>Directive</code>, initially empty.</li>
+<li>For each directive <var data-name="d">d</var> named <var data-name="coreName">coreName</var> on the SchemaDefinition within <var data-name="document">document</var>,<ol>
+<li>Let <var data-name="specifiedFeatureName">specifiedFeatureName</var> and <var data-name="version">version</var> be the result of parsing <var data-name="d">d</var>&lsquo;s <code>url:</code> argument according to the <a href="#undefined">specified rules for feature URLs</a></li>
+<li>If the <code>url:</code> is not present or fails to parse:<ol>
+<li>The <strong><em>Invalid Feature URL</em> validation fails</strong> for <var data-name="d">d</var>,</li>
+</ol>
+</li>
+<li>Let <var data-name="featureName">featureName</var> be the <var data-name="d">d</var>&lsquo;s <a href="#undefined"><code>as:</code></a> argument or, if the argument is not present, <var data-name="specifiedFeatureName">specifiedFeatureName</var></li>
+<li>If <var data-name="featureName">featureName</var> exists within <var data-name="features">features</var>, the <strong><em>Name Uniqueness</em> validation fails</strong>.</li>
+<li>Insert <var data-name="featureName">featureName</var> &rArr; <var data-name="d">d</var> into <var data-name="features">features</var></li>
+</ol>
+</li>
+<li><strong>Return</strong> <var data-name="features">features</var></li>
+</ol>
+</div>
+<p>Prefixes, whether implicit or explicit, must be unique within a document. Valid:</p>
+<figure id="example-Unique-prefixes" class="spec-example"><figcaption><a href="#example-Unique-prefixes"><span class="spec-example-num">Example № 7</span> Unique prefixes</a></figcaption><pre class="graphql" data-language="graphql"><code><span class="token keyword">schema</span>
+  <span class="token directive function">@link</span><span class="token punctuation">(</span><span class="token attr-name">url</span><span class="token punctuation">:</span> <span class="token string">"https://specs.apollo.dev/core/v0.1"</span><span class="token punctuation">)</span>
+  <span class="token directive function">@link</span><span class="token punctuation">(</span><span class="token attr-name">url</span><span class="token punctuation">:</span> <span class="token string">"https://spec.example.com/foreignA/v1.0"</span><span class="token punctuation">)</span>
+  <span class="token directive function">@link</span><span class="token punctuation">(</span><span class="token attr-name">url</span><span class="token punctuation">:</span> <span class="token string">"https://spec.example.com/foreignB/v2.0"</span><span class="token punctuation">,</span> <span class="token attr-name">as</span><span class="token punctuation">:</span> <span class="token string">"B"</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">query</span><span class="token punctuation">:</span> Query
+<span class="token punctuation">}</span></code></pre>
+</figure><p>It is also valid to reference multiple versions of the same spec under different prefixes:</p>
+<figure id="example-Explicit-prefixes-allow-multiple-versions-of-the-same-spec-to-coexist-within-a-Document" class="spec-example"><figcaption><a href="#example-Explicit-prefixes-allow-multiple-versions-of-the-same-spec-to-coexist-within-a-Document"><span class="spec-example-num">Example № 8</span> Explicit prefixes allow multiple versions of the same spec to coexist within a Document</a></figcaption><pre class="graphql" data-language="graphql"><code><span class="token keyword">schema</span>
+  <span class="token directive function">@link</span><span class="token punctuation">(</span><span class="token attr-name">url</span><span class="token punctuation">:</span> <span class="token string">"https://specs.apollo.dev/core/v0.1"</span><span class="token punctuation">)</span>
+  <span class="token directive function">@link</span><span class="token punctuation">(</span><span class="token attr-name">url</span><span class="token punctuation">:</span> <span class="token string">"https://specs.example.com/A/1.0"</span><span class="token punctuation">)</span>               <span class="token comment"># name is A</span>
+  <span class="token directive function">@link</span><span class="token punctuation">(</span><span class="token attr-name">url</span><span class="token punctuation">:</span> <span class="token string">"https://specs.example.com/A/2.0"</span><span class="token punctuation">,</span> <span class="token attr-name">as</span><span class="token punctuation">:</span> <span class="token string">"A2"</span><span class="token punctuation">)</span>     <span class="token comment"># name is A2</span>
+<span class="token punctuation">{</span>
+  <span class="token attr-name">query</span><span class="token punctuation">:</span> Query
+<span class="token punctuation">}</span></code></pre>
+</figure><p>Without the explicit <a href="#undefined"><code>as:</code></a>, the above would be invalid:</p>
+<figure id="example-Non-unique-prefixes-with-multiple-versions-of-the-same-spec" class="spec-counter-example"><figcaption><a href="#example-Non-unique-prefixes-with-multiple-versions-of-the-same-spec"><span class="spec-example-num">Counter Example № 9</span> Non&#8208;unique prefixes with multiple versions of the same spec</a></figcaption><pre class="graphql" data-language="graphql"><code><span class="token keyword">schema</span>
+  <span class="token directive function">@link</span><span class="token punctuation">(</span><span class="token attr-name">url</span><span class="token punctuation">:</span> <span class="token string">"https://specs.apollo.dev/core/v0.1"</span><span class="token punctuation">)</span>
+  <span class="token directive function">@link</span><span class="token punctuation">(</span><span class="token attr-name">url</span><span class="token punctuation">:</span> <span class="token string">"https://specs.example.com/A/1.0"</span><span class="token punctuation">)</span> <span class="token comment"># name is A</span>
+  <span class="token directive function">@link</span><span class="token punctuation">(</span><span class="token attr-name">url</span><span class="token punctuation">:</span> <span class="token string">"https://specs.example.com/A/2.0"</span><span class="token punctuation">)</span> <span class="token comment"># name is A</span>
+<span class="token punctuation">{</span>
+  <span class="token attr-name">query</span><span class="token punctuation">:</span> Query
+<span class="token punctuation">}</span></code></pre>
+</figure><p>Different specs with the same prefix are also invalid:</p>
+<figure id="example-Different-specs-with-non-unique-prefixes" class="spec-counter-example"><figcaption><a href="#example-Different-specs-with-non-unique-prefixes"><span class="spec-example-num">Counter Example № 10</span> Different specs with non&#8208;unique prefixes</a></figcaption><pre class="graphql" data-language="graphql"><code><span class="token keyword">schema</span>
+  <span class="token directive function">@link</span><span class="token punctuation">(</span><span class="token attr-name">url</span><span class="token punctuation">:</span> <span class="token string">"https://specs.apollo.dev/core/v0.1"</span><span class="token punctuation">)</span>
+  <span class="token directive function">@link</span><span class="token punctuation">(</span><span class="token attr-name">url</span><span class="token punctuation">:</span> <span class="token string">"https://specs.example.com/A/1.0"</span><span class="token punctuation">)</span>              <span class="token comment"># name is A</span>
+  <span class="token directive function">@link</span><span class="token punctuation">(</span><span class="token attr-name">url</span><span class="token punctuation">:</span> <span class="token string">"https://www.specs.com/specA/1.1"</span><span class="token punctuation">,</span> <span class="token attr-name">as</span><span class="token punctuation">:</span> <span class="token string">"A"</span><span class="token punctuation">)</span>     <span class="token comment"># name is A</span>
+<span class="token punctuation">{</span>
+  <span class="token attr-name">query</span><span class="token punctuation">:</span> Query
+<span class="token punctuation">}</span></code></pre>
+</figure></section>
+<section id="sec-Assign-Features" secid="5.3">
+<h2><span class="spec-secid" title="link to this section"><a href="#sec-Assign-Features">5.3</a></span>Assign Features</h2>
+<p>Create a map of <var data-name="element">element</var>: <em>Any Named Element</em> &rarr; <var data-name="feature">feature</var>: <code>Directive</code> | <span class="spec-keyword">null</span>, associating every named schema element within the document with a feature directive, or <span class="spec-keyword">null</span> if it is not associated with a feature.</p>
+<div class="spec-algo" id="AssignFeatures()">
+<span class="spec-call"><a href="#AssignFeatures()" data-name="AssignFeatures">AssignFeatures</a>(<var data-name="document">document</var>)</span><ol>
+<li>Let <var data-name="features">features</var> be the result of collecting features via <span class="spec-call"><a href="#CollectFeatures()" data-name="CollectFeatures">CollectFeatures</a>(<var data-name="document">document</var>)</span></li>
+<li>Let <var data-name="assignments">assignments</var> be a map of (<var data-name="element">element</var>: <em>Any Named Element</em>) &rarr; <var data-name="feature">feature</var>: <code>Directive</code> | <span class="spec-keyword">null</span>, initally empty</li>
+<li>For each named schema element <var data-name="e">e</var> within the <var data-name="document">document</var><ol>
+<li>Let <var data-name="name">name</var> be the name of the <var data-name="e">e</var></li>
+<li>If <var data-name="e">e</var> is a Directive and <var data-name="name">name</var> is a key within <var data-name="features">features</var>,<ol>
+<li>Insert <var data-name="e">e</var> &rArr; <var data-name="features">features</var><code>[</code><var data-name="name">name</var><code>]</code> into <var data-name="assignments">assignments</var></li>
+<li><strong>Continue</strong> to next <var data-name="e">e</var></li>
+</ol>
+</li>
+<li>If <var data-name="name">name</var> begins with <span class="spec-string">"__"</span>,<ol>
+<li>Insert <var data-name="e">e</var> &rArr; <span class="spec-keyword">null</span> into <var data-name="assignments">assignments</var></li>
+<li><strong>Continue</strong> to next <var data-name="e">e</var></li>
+</ol>
+</li>
+<li>If <var data-name="name">name</var> contains the substring <span class="spec-string">"__"</span>,<ol>
+<li>Partition <var data-name="name">name</var> into <code>[</code><var data-name="prefix">prefix</var>, <var data-name="base">base</var><code>]</code> at the first <span class="spec-string">"__"</span> (that is, find the shortest <var data-name="prefix">prefix</var> and longest <var data-name="base">base</var> such that <var data-name="name">name</var> = <var data-name="prefix">prefix</var> + <span class="spec-string">"__"</span> + <var data-name="base">base</var>)</li>
+<li>If <var data-name="prefix">prefix</var> exists within <var data-name="features">features</var>, insert <var data-name="e">e</var> &rArr; <var data-name="features">features</var><code>[</code><var data-name="prefix">prefix</var><code>]</code> into <var data-name="assignments">assignments</var><ol>
+<li>Else, insert <var data-name="e">e</var> &rArr; <span class="spec-keyword">null</span> into <var data-name="assignments">assignments</var></li>
+</ol>
+</li>
+<li><strong>Continue</strong> to next <var data-name="e">e</var></li>
+</ol>
+</li>
+<li>Insert <var data-name="e">e</var> &rArr; <span class="spec-keyword">null</span> into <var data-name="assignments">assignments</var></li>
+</ol>
+</li>
+<li><strong>Return</strong> <var data-name="assignments">assignments</var></li>
+</ol>
+</div>
+</section>
+<section id="sec-Is-In-API-" secid="5.4">
+<h2><span class="spec-secid" title="link to this section"><a href="#sec-Is-In-API-">5.4</a></span>Is In API?</h2>
+<p>Determine if any schema element is included in the <a href="#undefined">API</a> described by the core schema. A schema element is any part of a GraphQL document using type system definitions that has a <a href="#undefined">name</a>.</p>
+<div class="spec-algo" id="IsInAPI()">
+<span class="spec-call"><a href="#IsInAPI()" data-name="IsInAPI">IsInAPI</a>(<var data-name="element">element</var>)</span><ol>
+<li>Let <var data-name="assignments">assignments</var> be the result of assigning features to elements via <span class="spec-call"><a href="#AssignFeatures()" data-name="AssignFeatures">AssignFeatures</a>(<var data-name="document">document</var>)</span></li>
+<li>If <var data-name="assignments">assignments</var><code>[</code><var data-name="element">element</var><code>]</code> is <span class="spec-keyword">null</span>, <strong>Return</strong> <span class="spec-keyword">true</span></li>
+<li>Else, <strong>Return</strong> <span class="spec-keyword">false</span></li>
+</ol>
+</div>
+<div id="note-c2db9" class="spec-note">
+<a href="#note-c2db9">Note</a>
+Later versions of this specification may add other ways to affect the behavior of this algorithm, but those mechanisms will only be enabled if you reference those hypothetical versions of this specification.</div>
+</section>
+<section id="sec-Is-Affected-By-Feature-" secid="5.5">
+<h2><span class="spec-secid" title="link to this section"><a href="#sec-Is-Affected-By-Feature-">5.5</a></span>Is Affected By Feature?</h2>
+<p>Determine if a schema element is <em>affected</em> by a given feature.</p>
+<div class="spec-algo" id="IsAffected()">
+<span class="spec-call"><a href="#IsAffected()" data-name="IsAffected">IsAffected</a>(<var data-name="element">element</var>, <var data-name="feature">feature</var>)</span><ol>
+<li>Let <var data-name="assignments">assignments</var> be the result of assigning features to elements via <span class="spec-call"><a href="#AssignFeatures()" data-name="AssignFeatures">AssignFeatures</a>(<var data-name="document">document</var>)</span></li>
+<li>For each directive <var data-name="d">d</var> on <var data-name="element">element</var>, If <var data-name="assignments">assignments</var><code>[</code><var data-name="d">d</var><code>]</code> is <var data-name="feature">feature</var>, <strong>Return</strong> <span class="spec-keyword">true</span> </li>
+<li>If <var data-name="element">element</var> is a FieldDefinition,<ol>
+<li>Let <var data-name="parent">parent</var> be the parent ObjectDefinition or InterfaceDefinition for <var data-name="element">element</var></li>
+<li>If <span class="spec-call"><a href="#IsAffected()" data-name="IsAffected">IsAffected</a>(<var data-name="parent">parent</var>, <var data-name="feature">feature</var>)</span>, <strong>Return</strong> <span class="spec-keyword">true</span></li>
+<li>For each argument type <var data-name="a">a</var> declared on <var data-name="element">element</var>,<ol>
+<li>Let <var data-name="t">t</var> be the InputDefinition, EnumDefinition, or ScalarDefinition for argument <var data-name="a">a</var></li>
+<li>If <span class="spec-call"><a href="#IsAffected()" data-name="IsAffected">IsAffected</a>(<var data-name="t">t</var>, <var data-name="feature">feature</var>)</span>, <strong>Return</strong> <span class="spec-keyword">true</span></li>
+</ol>
+</li>
+<li>Let <var data-name="return">return</var> be the ObjectDefinition, InterfaceDefinition, or UnionDefinition for <var data-name="element">element</var>&lsquo;s return type</li>
+<li>If <span class="spec-call"><a href="#IsAffected()" data-name="IsAffected">IsAffected</a>(<var data-name="return">return</var>, <var data-name="feature">feature</var>)</span>, <strong>Return</strong> <span class="spec-keyword">true</span></li>
+</ol>
+</li>
+<li>If <var data-name="element">element</var> is an InputDefinition,<ol>
+<li>For each InputFieldDefinition <var data-name="field">field</var> within <var data-name="element">element</var>,<ol>
+<li>Let <var data-name="t">t</var> be the InputDefinition, EnumDefinition, or ScalarDefinition for the type of <var data-name="field">field</var></li>
+<li>If <span class="spec-call"><a href="#IsAffected()" data-name="IsAffected">IsAffected</a>(<var data-name="t">t</var>, <var data-name="feature">feature</var>)</span>, <strong>Return</strong> <span class="spec-keyword">true</span></li>
+</ol>
+</li>
+</ol>
+</li>
+<li>If <var data-name="element">element</var> is an EnumDefinition,</li>
+</ol>
+</div>
+<ul>
+<li>For each EnumValueDefinition <var data-name="value">value</var> in <var data-name="element">element</var>,</li>
+<li>If <span class="spec-call"><a href="#IsAffected()" data-name="IsAffected">IsAffected</a>(<var data-name="value">value</var>, <var data-name="feature">feature</var>)</span>, <strong>Return</strong> <span class="spec-keyword">true</span></li>
+</ul>
+</section>
+</section>
+<section id="@link" secid="6">
+<h1 class="spec-definition-head"><span class="spec-secid" title="link to this section"><a href="#@link">6</a></span>@link</h1>
+<figure id="example-eb06c" class="spec-definition"><pre class="graphql" data-language="graphql"><code><span class="token keyword">directive</span> <span class="token directive function">@link</span><span class="token punctuation">(</span><span class="token attr-name">url</span><span class="token punctuation">:</span> String<span class="token operator">!</span><span class="token punctuation">,</span> <span class="token attr-name">as</span><span class="token punctuation">:</span> String<span class="token punctuation">,</span> <span class="token attr-name">import</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>Import<span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token attr-name">for</span><span class="token punctuation">:</span> Purpose<span class="token punctuation">)</span> <span class="token keyword">repeatable</span> <span class="token keyword">on</span> <span class="token class-name">SCHEMA</span></code></pre>
+</figure><p>Link a foreign schema by its URL.</p>
+<section id="@link/url" secid="6.1">
+<h2 class="spec-definition-head"><span class="spec-secid" title="link to this section"><a href="#@link/url">6.1</a></span>url: String!</h2>
+<p>The foreign schema&rsquo;s URL.</p>
+<p>Link URLs serve two main purposes:</p>
+<ul>
+<li>Providing a unique identifier for the foreign schema</li>
+<li>Directing human readers to documentation about the foreign schema</li>
+</ul>
+<p>Link URLs <a href="https://tools.ietf.org/html/rfc2119#section-3" class="spec-requirement recommended">SHOULD</a> be <a href="#undefined">RFC 3986 URLs</a>. When viewed, the URL <a href="https://tools.ietf.org/html/rfc2119#section-3" class="spec-requirement recommended">SHOULD</a> provide schema documentation in some human&#8208;readable form&mdash;a human reader should be able to click the link and go to the correct version of the docs. This is not an absolute functional requirement&mdash;as far as the core schema machinery is concerned, the URL is simply a globally unique namespace identifier with a particular form.</p>
+<p>Link URLs <a href="https://tools.ietf.org/html/rfc2119#section-5" class="spec-requirement optional">MAY</a> contain information about the spec&rsquo;s <a href="#undefined">name</a> and <a href="#undefined">version</a>:</p>
+<figure id="fig-Basic-anatomy-of-a-link-URL"><figcaption><a href="#fig-Basic-anatomy-of-a-link-URL"> Basic anatomy of a link URL</a></figcaption><code class=anatomy>
+  <span class=pink style='--depth: 2'>https://spec.example.com/a/b/c/<span>mySchema<aside>name</aside></span><aside>identity</aside></span>/<span style='--depth: 2' class=green>v1.0<aside>version</aside></span>
+</code>
+</figure><p>The final two segments of the URL&rsquo;s <a href="#undefined">path</a> <a href="https://tools.ietf.org/html/rfc2119#section-5" class="spec-requirement optional">MAY</a> contain the schema&rsquo;s name and a <a href="#undefined">version tag</a>, in that order. Both are optional. To be recognized as a version tag, the final path component <a href="https://tools.ietf.org/html/rfc2119#section-1" class="spec-requirement required">MUST</a> be a valid <span class="spec-nt"><a href="#VersionTag" data-name="VersionTag">VersionTag</a></span>. To be recognized as a name, the penultimate path component <a href="https://tools.ietf.org/html/rfc2119#section-1" class="spec-requirement required">MUST</a> be a valid <a href="#undefined">GraphQL name</a> which does not include the namespace separator (<span class="spec-string">"__"</span>).</p>
+<p>Empty final path components (that is, trailing slashes) and any URL components which have not been assigned a meaning (such as the fragment and query) <a href="https://tools.ietf.org/html/rfc2119#section-1" class="spec-requirement required">MUST</a> be ignored.</p>
+<figure id="fig-Ignoring-meaningless-parts-of-a-URL"><figcaption><a href="#fig-Ignoring-meaningless-parts-of-a-URL"> Ignoring meaningless parts of a URL</a></figcaption><code class=anatomy>
+  <span class=pink style='--depth: 2'>https://example.com/<span>exampleSchema<aside>name</aside></span><aside>identity</aside></span>/<span style='--depth: 2' class=green>v1.0<aside>version</aside></span><span class=grey>/?key=val&k2=v2#frag<aside>ignored</aside></span>
+</code>
+</figure><p>All of these are valid arguments to <code>url</code>, and their interpretations:</p>
+<table>
+<thead><tr>
+<th>url </th>
+<th>normalized url </th>
+<th>name </th>
+<th>version </th>
+</tr></thead>
+<tbody>
+<tr>
+<td>https://spec.example.com/a/b/mySchema/v1.0/ </td><td>https://spec.example.com/a/b/mySchema/v1.0 </td><td>mySchema </td><td>v1.0 </td></tr>
+<tr>
+<td>https://spec.example.com </td><td>https://spec.example.com </td><td><em>(null)</em> </td><td><em>(null)</em> </td></tr>
+<tr>
+<td>https://spec.example.com/mySchema/v0.1?q=v#frag </td><td>https://spec.example.com/mySchema/v0.1 </td><td>mySchema </td><td>v0.1 </td></tr>
+<tr>
+<td>https://spec.example.com/v1.0 </td><td>https://spec.example.com/v1.0 </td><td><em>(null)</em> </td><td>v1.0 </td></tr>
+<tr>
+<td>https://spec.example.com/vX </td><td>https://spec.example.com/vX </td><td>vX </td><td><em>(null)</em> </td></tr>
+</tbody>
+</table>
+<p>If <code>name</code> is present, that <a href="#undefined">namespace prefix</a> will automatically be linked to the URL. If a <code>name</code> is not present, then elements of the foreign schema must be <a href="#undefined"><code>imported</code></a> in order to be referenced.</p>
+</section>
+<section id="@link/as" secid="6.2">
+<h2 class="spec-definition-head"><span class="spec-secid" title="link to this section"><a href="#@link/as">6.2</a></span>as: String</h2>
+<p>Change the <a href="#undefined">namespace prefix</a> assigned to this schema.</p>
+<p>The name must be a valid GraphQL identifier, and must not contain the namespace separator (<span class="spec-string">"__"</span>).</p>
+<p>By default, <var data-name="@link">@link</var> will assign a prefix based on the <code>name</code> extracted from the URL. If no <code>name</code> is present, a prefix will not be assigned.</p>
+<p>Providing <a href="#undefined"><code>as:</code></a> overrides the default behavior: the foreign schema will be assigned the provided prefix, regardless of the <code>name</code> present in the URL (or the lack of one).</p>
+<figure id="example-Using-@link-url-as-to-use-a-feature-with-a-custom-name" class="spec-example"><figcaption><a href="#example-Using-@link-url-as-to-use-a-feature-with-a-custom-name"><span class="spec-example-num">Example № 11</span> Using <var data-name="@link">@link</var>(url:, as:) to use a feature with a custom name</a></figcaption><pre class="graphql" data-language="graphql"><code><span class="token keyword">schema</span>
+  <span class="token directive function">@link</span><span class="token punctuation">(</span><span class="token attr-name">url</span><span class="token punctuation">:</span> <span class="token string">"https://specs.apollo.dev/link/v1.0"</span><span class="token punctuation">)</span>
+  <span class="token directive function">@link</span><span class="token punctuation">(</span><span class="token attr-name">url</span><span class="token punctuation">:</span> <span class="token string">"https://spec.example.com/example/v1.0"</span><span class="token punctuation">,</span> <span class="token attr-name">as</span><span class="token punctuation">:</span> <span class="token string">"eg"</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+  <span class="token attr-name">query</span><span class="token punctuation">:</span> Query
+<span class="token punctuation">}</span>
+
+<span class="token keyword">type</span> <span class="token class-name">User</span> <span class="token punctuation">{</span>
+  <span class="token comment"># Specifying `as: "eg"` transforms @example into @eg</span>
+  <span class="token attr-name">name</span><span class="token punctuation">:</span> String <span class="token directive function">@eg</span><span class="token punctuation">(</span><span class="token attr-name">data</span><span class="token punctuation">:</span> <span class="token constant">ITEM</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment"># Additional specified schema elements must have their prefixes set</span>
+<span class="token comment"># to the new name.</span>
+<span class="token keyword">enum</span> <span class="token class-name">eg__Data</span> <span class="token punctuation">{</span>
+  <span class="token constant">ITEM</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment"># Name transformation must also be applied to definitions pulled in from</span>
+<span class="token comment"># specifications.</span>
+<span class="token keyword">directive</span> <span class="token directive function">@eg</span><span class="token punctuation">(</span><span class="token attr-name">data</span><span class="token punctuation">:</span> eg__Data<span class="token punctuation">)</span> <span class="token keyword">on</span> <span class="token class-name">FIELD_DEFINITION</span>
+
+<span class="token keyword">directive</span> <span class="token directive function">@link</span><span class="token punctuation">(</span><span class="token attr-name">url</span><span class="token punctuation">:</span> String<span class="token operator">!</span><span class="token punctuation">,</span> <span class="token attr-name">as</span><span class="token punctuation">:</span> String<span class="token punctuation">)</span> <span class="token keyword">repeatable</span> <span class="token keyword">on</span> <span class="token class-name">SCHEMA</span>
+</code></pre>
+</figure></section>
+<section id="@link/import" secid="6.3">
+<h2 class="spec-definition-head"><span class="spec-secid" title="link to this section"><a href="#@link/import">6.3</a></span>import: [Import]</h2>
+<p>Import definitions into the local namespace.</p>
+</section>
+<section id="@link/for" secid="6.4">
+<h2 class="spec-definition-head"><span class="spec-secid" title="link to this section"><a href="#@link/for">6.4</a></span>for: Purpose</h2>
+<p>An optional <a href="#undefined">purpose</a> for this link. This hints to consumers as to whether they can safely ignore metadata described by a foreign schema.</p>
+<p>By default, <var data-name="@link">@link</var>s <a href="https://tools.ietf.org/html/rfc2119#section-3" class="spec-requirement recommended">SHOULD</a> fail open. This means that <var data-name="@link">@link</var>s to unknown schemas <a href="https://tools.ietf.org/html/rfc2119#section-4" class="spec-requirement not recommended">SHOULD NOT</a> prevent a schema from being served or processed. Instead, consumers <a href="https://tools.ietf.org/html/rfc2119#section-3" class="spec-requirement recommended">SHOULD</a> ignore unknown feature metadata and serve or process the rest of the schema normally.</p>
+<p>This behavior is different for <var data-name="@link">@link</var>s with a specified purpose:</p>
+<ul>
+<li><code>SECURITY</code> links convey metadata necessary to compute the API schema and securely resolve fields within it</li>
+<li><code>EXECUTION</code> links convey metadata necessary to correctly resolve fields within the schema</li>
+</ul>
+</section>
+</section>
+<section id="Import" secid="7">
+<h1 class="spec-definition-head"><span class="spec-secid" title="link to this section"><a href="#Import">7</a></span>Import</h1>
+<figure id="example-b4e4b" class="spec-definition"><pre class="graphql" data-language="graphql"><code><span class="token keyword">scalar</span> <span class="token class-name">Import</span></code></pre>
+</figure><div class="spec-todo">
+describe an import</div>
+</section>
+<section id="Purpose" secid="8">
+<h1 class="spec-definition-head"><span class="spec-secid" title="link to this section"><a href="#Purpose">8</a></span>Purpose</h1>
+<figure id="example-c86ab" class="spec-definition"><pre class="graphql" data-language="graphql"><code><span class="token keyword">enum</span> <span class="token class-name">Purpose</span> <span class="token punctuation">{</span>
+  <span class="token constant">SECURITY</span>
+  <span class="token constant">EXECUTION</span>
+<span class="token punctuation">}</span></code></pre>
+</figure><p>The role of a feature referenced with <var data-name="@link">@link</var>.</p>
+<p>This is not intended to be an exhaustive list of all the purposes a feature might serve. Rather, it is intended to capture cases where the default fail&#8208;open behavior of core schema consumers is undesirable.</p>
+<div id="note-e2f07" class="spec-note">
+<a href="#note-e2f07">Note</a>
+we&rsquo;ll refer to directives from features which are <code>for: SECURITY</code> or <code>for: EXECUTION</code> as &ldquo;<code>SECURITY</code> directives&rdquo; and &ldquo;<code>EXECUTION</code> directives&rdquo;, respectively.</div>
+</section>
+<section id="index" secid="index" class="spec-index"><h1><span class="spec-secid" title="link to the index"><a href="#index">§</a></span>Index</h1><ol><li><a href="#AssignFeatures()">AssignFeatures</a></li><li><a href="#Bootstrap()">Bootstrap</a></li><li><a href="#CollectFeatures()">CollectFeatures</a></li><li><a href="#Digit">Digit</a></li><li><a href="#IsAffected()">IsAffected</a></li><li><a href="#IsInAPI()">IsInAPI</a></li><li><a href="#Major">Major</a></li><li><a href="#Minor">Minor</a></li><li><a href="#NumericIdentifier">NumericIdentifier</a></li><li><a href="#PositiveDigit">PositiveDigit</a></li><li><a href="#Satisfies()">Satisfies</a></li><li><a href="#Version">Version</a></li><li><a href="#VersionTag">VersionTag</a></li></ol></section></article>
+<footer>
+Written in <a href="https://spec-md.com" target="_blank">Spec Markdown</a>.</footer>
+<input hidden class="spec-sidebar-toggle" type="checkbox" id="spec-sidebar-toggle" aria-hidden /><label for="spec-sidebar-toggle" aria-hidden><div class="spec-sidebar-button">&#x2630;</div></label>
+<div class="spec-sidebar" aria-hidden>
+<div class="spec-toc">
+<div class="title"><a href="#">link v1.0</a></div>
+<ol><li id="_sidebar_1"><a href="#sec-Renaming-@link-"><span class="spec-secid">1</span>Renaming {@link}</a></li>
+<li id="_sidebar_2"><a href="#sec-Prefixing"><span class="spec-secid">2</span>Prefixing</a>
+<input hidden class="toggle" type="checkbox" id="_toggle_2" /><label for="_toggle_2"></label>
+<ol>
+<li id="_sidebar_2.1"><a href="#sec-Elements-which-must-be-prefixed"><span class="spec-secid">2.1</span>Elements which must be prefixed</a></li>
+</ol>
+</li>
+<li id="_sidebar_3"><a href="#sec-Versioning"><span class="spec-secid">3</span>Versioning</a>
+<input hidden class="toggle" type="checkbox" id="_toggle_3" /><label for="_toggle_3"></label>
+<ol>
+<li id="_sidebar_3.1"><a href="#sec-Satisfaction"><span class="spec-secid">3.1</span>Satisfaction</a></li>
+<li id="_sidebar_3.2"><a href="#sec-Referencing-versions-and-activating-implementations"><span class="spec-secid">3.2</span>Referencing versions and activating implementations</a></li>
+</ol>
+</li>
+<li id="_sidebar_4"><a href="#sec-Processing-Schemas"><span class="spec-secid">4</span>Processing Schemas</a></li>
+<li id="_sidebar_5"><a href="#sec-Validations-amp-Algorithms"><span class="spec-secid">5</span>Validations &amp; Algorithms</a>
+<input hidden class="toggle" type="checkbox" id="_toggle_5" /><label for="_toggle_5"></label>
+<ol>
+<li id="_sidebar_5.1"><a href="#sec-Bootstrapping"><span class="spec-secid">5.1</span>Bootstrapping</a></li>
+<li id="_sidebar_5.2"><a href="#sec-Feature-Collection"><span class="spec-secid">5.2</span>Feature Collection</a></li>
+<li id="_sidebar_5.3"><a href="#sec-Assign-Features"><span class="spec-secid">5.3</span>Assign Features</a></li>
+<li id="_sidebar_5.4"><a href="#sec-Is-In-API-"><span class="spec-secid">5.4</span>Is In API?</a></li>
+<li id="_sidebar_5.5"><a href="#sec-Is-Affected-By-Feature-"><span class="spec-secid">5.5</span>Is Affected By Feature?</a></li>
+</ol>
+</li>
+<li id="_sidebar_6"><a href="#@link"><span class="spec-secid">6</span>@link</a>
+<input hidden class="toggle" type="checkbox" id="_toggle_6" /><label for="_toggle_6"></label>
+<ol>
+<li id="_sidebar_6.1"><a href="#@link/url"><span class="spec-secid">6.1</span>url: String!</a></li>
+<li id="_sidebar_6.2"><a href="#@link/as"><span class="spec-secid">6.2</span>as: String</a></li>
+<li id="_sidebar_6.3"><a href="#@link/import"><span class="spec-secid">6.3</span>import: [Import]</a></li>
+<li id="_sidebar_6.4"><a href="#@link/for"><span class="spec-secid">6.4</span>for: Purpose</a></li>
+</ol>
+</li>
+<li id="_sidebar_7"><a href="#Import"><span class="spec-secid">7</span>Import</a></li>
+<li id="_sidebar_8"><a href="#Purpose"><span class="spec-secid">8</span>Purpose</a></li>
+<li id="_sidebar_index"><a href="#index"><span class="spec-secid">§</span>Index</a></li>
+</ol>
+</div>
+<script>(function(){var e,t=[],n=document.querySelector('label[for="spec-sidebar-toggle"]');function o(e){e.preventDefault()}n.addEventListener("scroll",o),n.addEventListener("touchmove",o);for(var i=document.getElementsByTagName("section"),r=0;r<i.length;r++)i[r].getAttribute("secid")&&t.push(i[r]);var c=window.scrollY,l=!1;function d(n){for(var o,i=n+document.documentElement.clientHeight/4,r=t.length-1;r>=0;r--)if(t[r].offsetTop<i){o=t[r];break}var c=o&&o.getAttribute("secid");c!==e&&(e&&a(e,!1),c&&a(c,!0),e=c)}function a(e,t){document.getElementById("_sidebar_"+e).className=t?"viewing":"";for(var n=e.split(".");n.length;){var o=document.getElementById("_sidebar_toggle_"+n.join("."));o&&(o.checked=t),n.pop()}}window.addEventListener("scroll",(function(e){c=window.scrollY,l||(l=!0,window.requestAnimationFrame((function(){d(c),l=!1})))})),d(window.scrollY);})()</script>
+</div>
+<script>(function(){(async function(e){const i=document.querySelector(`script[src="${e}"]`);if(i&&i.__loadingPromise)return i.__loadingPromise;const n=document.createElement("script");return n.async=!0,n.defer=!0,n.setAttribute("::save","off"),n.__loadingPromise=new Promise(((e,i)=>{n.onload=e,n.onerror=i})),n.src=e,document.body.appendChild(n),n.__loadingPromise})("https://unpkg.com/mermaid@^8/dist/mermaid.min.js").then((async()=>{const e=window.mermaid;return console.log("initializing mermaid..."),await e.initialize({securityLevel:"loose",theme:"dark",startOnLoad:!0}),e}));})()</script>
+</body>
+</html>

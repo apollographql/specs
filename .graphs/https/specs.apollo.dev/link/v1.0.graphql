@@ -1,0 +1,448 @@
+extend schema @id(url: "https://specs.apollo.dev/link/v1.0")
+
+extend schema
+
+"""
+```raw html
+<table class=spec-data>
+  <tr><td>Status</td><td>Draft</td>
+  <tr><td>Version</td><td>2.0</td>
+</table>
+<link rel=stylesheet href=https://specs.apollo.dev/apollo-light.css>
+<script type=module async defer src=https://specs.apollo.dev/inject-logo.js></script>
+```
+
+Core schemas provide tools for linking definitions from different GraphQL schemas together into one.
+
+```graphql example -- linking a directive from another schema
+extend schema
+  #          👇🏽 schemas are identified by a url
+  @link(url: "https://internal.example.com/admin")
+
+type Query {
+  allUsers: [User] @admin__adminOnly # 👈🏽 remote identifier, namespaced
+}
+```
+
+```graphql example -- importing a directive from another schema
+extend schema
+  #               specific definitions can be imported 👇🏽 
+  @link(url: "https://internal.example.com/admin", import: ["@adminOnly"])
+
+type Query {
+  allUsers: [User] @adminOnly # 👈🏽 remote identifier, imported
+}
+```
+
+This document introduces a set of conventions for linking and namespacing within GraphQL schemas. Core schemas are not a new kind of document and do not introduce any new syntax—they are just GraphQL schemas which can be interpreted according to the conventions outlined in this doc.
+
+# Renaming {@link}
+
+It is possible to rename {@link} with the same {@link.as} mechanism used for all links:
+
+```graphql example -- Renaming {@link} to {@linkOther}
+schema
+  @linkOther(url: "https://specs.apollo.dev/link/v1.0", import: [{name: "@link", as: "@linkOther"}])
+  @linkOther(url: "https://example.com/example/v1.0")
+{
+  query: Query
+}
+
+type SomeType {
+  field: Int @example
+}
+```
+
+# Prefixing
+
+With the exception of a single root directive, core feature specifications MUST prefix all schema elements they introduce. The prefix:
+  1. MUST match the name of the feature as derived from the feature's specification URL,
+  2. MUST be a valid [GraphQL name](https://spec.graphql.org/draft/#Name), and
+  3. MUST NOT contain the core namespace separator, which is two underscores ({"__"}), and
+  4. MUST NOT end with an underscore (which would create ambiguity between whether {"x___y"} is prefix `x_` for element `y` or prefix `x` for element `_y`).
+
+Prefixed names consist of the name of the feature, followed by two underscores, followed by the name of the element, which can be any valid [GraphQL name](https://spec.graphql.org/draft/#Name). For instance, the `core` specification (which you are currently reading) introduces an element named [{@link}](#@link), and the `join` specification introduces an element named {@join__field} (among others).
+
+Note that both parts must be valid GraphQL names, and GraphQL names cannot start with digits, so core feature specifications cannot introduce names like `@feature__24hours`.
+
+A feature's *root directive* is an exception to the prefixing requirements. Feature specifications MAY introduce a single directive which carries only the name of the feature, with no prefix required. For example, the `core` specification introduces a {@link} directive. This directive has the same name as the feature ("`core`"), and so requires no prefix.
+
+```graphql example -- Using the @link directive without changing the prefix
+schema
+ @link(url: "https://specs.apollo.dev/link/v1.0", import: ["@link"])
+ @link(url: "https://spec.example.com/example/v1.0") {
+  query: Query
+}
+
+type User {
+  name: String @example(data: ITEM)
+}
+
+# An enum used to provide structured data to the example spec.
+# It is prefixed with the name of the spec.
+enum example__Data {
+  ITEM
+}
+
+directive @example(data: example__Data) on FIELD_DEFINITION
+
+directive @link(url: String!, as: String) repeatable on SCHEMA
+```
+
+The prefix MUST NOT be elided within documentation; definitions of schema elements provided within the spec MUST include the feature's name as a prefix.
+
+## Elements which must be prefixed
+
+Feature specs MUST prefix the following schema elements:
+  - the names of any object types, interfaces, unions, enums, or input object types defined by the feature
+  - the names of any directives introduced in the spec, with the exception of the *root directive*, which must have the same name as the feature
+
+:::[example](prefixing.graphql) -- Prefixing
+
+# Versioning
+
+VersionTag : "v" Version
+
+Version : Major "." Minor
+
+Major : NumericIdentifier
+
+Minor : NumericIdentifier
+
+NumericIdentifier : "0"
+  | PositiveDigit Digit*
+
+Digit : "0" | PositiveDigit
+
+PositiveDigit : "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9"
+
+Specs are versioned with a **subset** of a [Semantic Version Number](https://semver.org/spec/v2.0.0.html) containing only the major and minor parts. Thus, specifications SHOULD provide a version of the form `v`{Major}`.`{Minor}, where both integers >= 0.
+
+```text example -- Valid version tags
+v2.2
+v1.0
+v1.1
+v0.1
+```
+
+As specified by semver, spec authors SHOULD increment the:
+
+{++
+
+- MAJOR version when you make incompatible API changes,
+- MINOR version when you add functionality in a backwards compatible manner
+
+++}
+
+Patch and pre-release qualifiers are judged to be not particularly meaningful in the context of core features, which are (by definition) interfaces rather than implementations. The patch component of a semver denotes a bug fix which is backwards compatible—that is, a change to the implementation which does not affect the interface. Patch-level changes in the version of a spec denote wording clarifications which do not require implementation changes. As such, it is not important to track them for the purposes of version resolution.
+
+As with [semver](https://semver.org/spec/v2.0.0.html), the `0.x` version series is special: there is no expectation of compatibility between versions `0.x` and `0.y`. For example, a processor must not activate implementation `0.4` to satisfy a requested version of `0.2`.
+
+## Satisfaction
+
+Given a version {requested} by a document and an {available} version of an implementation, the following algorithm will determine if the {available} version can satisfy the {requested} version:
+
+Satisfies(requested, available) :
+  1. If {requested}.{Major} ≠ {available}.{Major}, return {false}
+  2. If {requested}.{Major} = 0, return {requested}.{Minor} = {available}.{Minor}
+  3. Return {requested}.{Minor} <= {available}.{Minor}
+
+## Referencing versions and activating implementations
+
+Schema documents MUST reference a feature version which supports all the schema elements and behaviors required by the document. As a practical matter, authors will generally prefer to reference a version they have reason to believe is supported by the most processors; depending on context, this might be an old stable version with a low major version, or a new less-deprecated version with a large major version.
+
+If a processor chooses to activate support for a feature, the processor MUST activate an implementation which can [satisfy](#sec-Satisfaction) the version required by the document.
+
+
+# Processing Schemas
+
+```mermaid diagram
+graph LR
+  schema(["📄  Input Schema"]):::file-->proc("🤖 &nbsp;Processor")
+  proc-->output(["📄  Output Schema"]):::file
+  classDef file fill:none,color:#22262E;
+  style proc fill:none,stroke:fuchsia,color:fuchsia;
+```
+
+A common use case is that of a processor which consumes a valid input schema and generates an output schema.
+
+The general guidance for processor behavior is: don't react to what you don't understand.
+
+Specifically, processors:
+  - SHOULD pass through {@link} directives which reference unknown feature URLs
+  - SHOULD pass through prefixed directives, types, and other schema elements
+  - SHOULD pass through directives which are not [associated with](#AssignFeatures) a {@link} feature
+
+Processors MAY accept configuration which overrides these default behaviors.
+
+Additionally, processors which prepare the schema for final public consumption MAY choose to eliminate all unknown directives and prefixed types in order to hide schema implementation details within the published schema. This will impair the operation of tooling which relies on these directives—such tools will not be able to run on the output schema, so the benefits and costs of this kind of information hiding should be weighed carefully on a case-by-case basis.
+
+# Validations &amp; Algorithms
+
+This section lays out algorithms for processing core schemas.
+
+Algorithms described in this section may produce *validation failures* if a document does not conform to the requirements core schema document. Validation failures SHOULD halt processing. Some consumers, such as authoring tools, MAY attempt to continue processing in the presence of validation failures, but their behavior in such cases is unspecified.
+
+## Bootstrapping
+
+Determine the name of the core specification within the document.
+
+It is possible to [rename the core feature](#sec-Renaming-core-itself) within a document. This process determines the actual name for the core feature if one is present.
+
+- **Fails** the *Has Schema* validation if there are no SchemaDefinitions in the document
+- **Fails** the *Has Core Feature* validation if the `core` feature itself is not referenced with a {@link} directive within the document
+- **Fails** the *Bootstrap Core Feature Listed First* validation if the reference to the `core` feature is not the first {@link} directive on the document's SchemaDefinition
+- **Fails** the *Core Directive Incorrect Definition* validation if the {@link} directive definition does not *match* the directive as defined by this specification.
+
+For the purposes of this algorithm, a directive's definition in a schema *matches* a definition provided in this specification if:
+- Its arguments have the specified names, types, and default values (or lack thereof)
+- It is defined as `repeatable` if and only if the specification's definition defines it as `repeatable`
+- The set of locations it belongs to is the same set of locations in the specification's definition.
+
+The following aspects may differ between the definition in the schema and the definition in the specification without preventing the definitions from *matching*:
+- The name of the directive (due to [prefixing](#sec-Prefixing))
+- The order of arguments
+- The order of locations
+- The directive's description string
+- Argument description strings
+- Directives applied to argument definitions
+
+Bootstrap(document) :
+1. Let {schema} be the only SchemaDefinition in {document}. (Note that legal GraphQL documents [must include at most one SchemaDefinition](http://spec.graphql.org/draft/#sec-Root-Operation-Types).)
+  1. ...if no SchemaDefinitions are present in {document}, the ***Has Schema* validation fails**.
+1. For each directive {d} on {schema},
+  1. If {d} has a [`url:`](#@link/feature) argument which [parses as a feature URL](#@link/feature), *and* whose identity is {"https://specs.apollo.dev/core/"} *and* whose version is {"v0.1"}, *and either* {d} has an [`as:`](#@link/as) argument whose value is equal to {d}'s name *or* {d} does not have an [`as:`](#@link/as) argument and {d}'s name is `core`:
+    - If any directive on {schema} listed before {d} has the same name as {d}, the ***Bootstrap Core Feature Listed First* validation fails**.
+    - If the definition of the directive {d} does not *match* the [definition of {@link} in this specification](#@link), the ***Core Directive Incorrect Definition* validation fails**.
+    - Otherwise, **Return** {d}'s name.
+- If no matching directive was found, the ***Has Core Feature* validation fails**.
+
+## Feature Collection
+
+Collect a map of ({featureName}: `String`) -> `Directive`, where `Directive` is a {@link} Directive which introduces the feature named {featureName} into the document.
+
+- **Fails** the *Name Uniqueness* validation if feature names are not unique within the document.
+- **Fails** *Invalid Feature URL* validation for any invalid feature URLs.
+
+CollectFeatures(document) :
+  - Let {coreName} be the name of the core feature found via {Bootstrap(document)}
+  - Let {features} be a map of {featureName}: `String` -> `Directive`, initially empty.
+  - For each directive {d} named {coreName} on the SchemaDefinition within {document},
+    - Let {specifiedFeatureName} and {version} be the result of parsing {d}'s `url:` argument according to the [specified rules for feature URLs](#@link/feature)
+    - If the `url:` is not present or fails to parse:
+      - The ***Invalid Feature URL* validation fails** for {d},
+    - Let {featureName} be the {d}'s [`as:`](#@link/as) argument or, if the argument is not present, {specifiedFeatureName}
+    - If {featureName} exists within {features}, the ***Name Uniqueness* validation fails**.
+    - Insert {featureName} => {d} into {features}
+  - **Return** {features}
+
+
+Prefixes, whether implicit or explicit, must be unique within a document. Valid:
+
+:::[example](prefixing.graphql#schema[0]) -- Unique prefixes
+
+It is also valid to reference multiple versions of the same spec under different prefixes:
+
+:::[example](prefix-uniqueness.graphql#schema[0]) -- Explicit prefixes allow multiple versions of the same spec to coexist within a Document
+
+Without the explicit [`as:`](#@link/as), the above would be invalid:
+
+:::[counter-example](prefix-uniqueness.graphql#schema[1]) -- Non-unique prefixes with multiple versions of the same spec
+
+Different specs with the same prefix are also invalid:
+
+:::[counter-example](prefix-uniqueness.graphql#schema[2]) -- Different specs with non-unique prefixes
+
+## Assign Features
+
+Create a map of {element}: *Any Named Element* -> {feature}: `Directive` | {null}, associating every named schema element within the document with a feature directive, or {null} if it is not associated with a feature.
+
+AssignFeatures(document) :
+  - Let {features} be the result of collecting features via {CollectFeatures(document)}
+  - Let {assignments} be a map of ({element}: *Any Named Element*) -> {feature}: `Directive` | {null}, initally empty
+  - For each named schema element {e} within the {document}
+    - Let {name} be the name of the {e}
+    - If {e} is a Directive and {name} is a key within {features},
+      - Insert {e} => {features}`[`{name}`]` into {assignments}
+      - **Continue** to next {e}
+    - If {name} begins with {"__"},
+      - Insert {e} => {null} into {assignments}
+      - **Continue** to next {e}
+    - If {name} contains the substring {"__"},
+      - Partition {name} into `[`{prefix}, {base}`]` at the first {"__"} (that is, find the shortest {prefix} and longest {base} such that {name} = {prefix} + {"__"} + {base})
+      - If {prefix} exists within {features}, insert {e} => {features}`[`{prefix}`]` into {assignments}
+        - Else, insert {e} => {null} into {assignments}
+      - **Continue** to next {e}
+    - Insert {e} => {null} into {assignments}
+  - **Return** {assignments}
+
+## Is In API?
+
+Determine if any schema element is included in the [API](#sec-Parts-of-a-Core-Schema) described by the core schema. A schema element is any part of a GraphQL document using type system definitions that has a [name](https://spec.graphql.org/draft/#Name).
+
+IsInAPI(element) :
+  - Let {assignments} be the result of assigning features to elements via {AssignFeatures(document)}
+  - If {assignments}`[`{element}`]` is {null}, **Return** {true}
+  - Else, **Return** {false}
+
+Note: Later versions of this specification may add other ways to affect the behavior of this algorithm, but those mechanisms will only be enabled if you reference those hypothetical versions of this specification.
+
+## Is Affected By Feature?
+
+Determine if a schema element is *affected* by a given feature.
+
+IsAffected(element, feature):
+  - Let {assignments} be the result of assigning features to elements via {AssignFeatures(document)}
+  - For each directive {d} on {element}, If {assignments}`[`{d}`]` is {feature}, **Return** {true}  
+  - If {element} is a FieldDefinition,
+    - Let {parent} be the parent ObjectDefinition or InterfaceDefinition for {element}
+    - If {IsAffected(parent, feature)}, **Return** {true}
+    - For each argument type {a} declared on {element},
+      - Let {t} be the InputDefinition, EnumDefinition, or ScalarDefinition for argument {a}
+      - If {IsAffected(t, feature)}, **Return** {true}
+    - Let {return} be the ObjectDefinition, InterfaceDefinition, or UnionDefinition for {element}'s return type
+    - If {IsAffected(return, feature)}, **Return** {true}
+  - If {element} is an InputDefinition,
+    - For each InputFieldDefinition {field} within {element},
+      - Let {t} be the InputDefinition, EnumDefinition, or ScalarDefinition for the type of {field}
+      - If {IsAffected(t, feature)}, **Return** {true}
+  - If {element} is an EnumDefinition,
+    - For each EnumValueDefinition {value} in {element},
+      - If {IsAffected(value, feature)}, **Return** {true}
+"""
+schema {
+  query: Query
+}
+
+"""Link a foreign schema by its URL."""
+directive @link(
+  """
+  The foreign schema's URL.
+  
+  Link URLs serve two main purposes:
+    - Providing a unique identifier for the foreign schema
+    - Directing human readers to documentation about the foreign schema
+  
+  Link URLs SHOULD be [RFC 3986 URLs](https://tools.ietf.org/html/rfc3986). When viewed, the URL SHOULD provide schema documentation in some human-readable form—a human reader should be able to click the link and go to the correct version of the docs. This is not an absolute functional requirement—as far as the core schema machinery is concerned, the URL is simply a globally unique namespace identifier with a particular form.
+  
+  Link URLs MAY contain information about the spec's [name](#sec-Prefixing) and [version](#sec-Versioning):
+  
+  ```html diagram -- Basic anatomy of a link URL
+  <code class=anatomy>
+    <span class=pink style='--depth: 2'>https://spec.example.com/a/b/c/<span>mySchema<aside>name</aside></span><aside>identity</aside></span>/<span style='--depth: 2' class=green>v1.0<aside>version</aside></span>
+  </code>
+  ```
+  
+  The final two segments of the URL's [path](https://tools.ietf.org/html/rfc3986#section-3.3) MAY contain the schema's name and a [version tag](#sec-Versioning), in that order. Both are optional. To be recognized as a version tag, the final path component MUST be a valid {VersionTag}. To be recognized as a name, the penultimate path component MUST be a valid [GraphQL name](https://spec.graphql.org/draft/#Name) which does not include the namespace separator ({"__"}).
+  
+  Empty final path components (that is, trailing slashes) and any URL components which have not been assigned a meaning (such as the fragment and query) MUST be ignored.
+  
+  ```html diagram -- Ignoring meaningless parts of a URL
+  <code class=anatomy>
+    <span class=pink style='--depth: 2'>https://example.com/<span>exampleSchema<aside>name</aside></span><aside>identity</aside></span>/<span style='--depth: 2' class=green>v1.0<aside>version</aside></span><span class=grey>/?key=val&k2=v2#frag<aside>ignored</aside></span>
+  </code>
+  ```
+  
+  All of these are valid arguments to `url`, and their interpretations:
+  
+  | url                                               | normalized url                             |   name   | version  |
+  | ------------------------------------------------- | ------------------------------------------ | -------  | -------- |
+  | https://spec.example.com/a/b/mySchema/v1.0/       | https://spec.example.com/a/b/mySchema/v1.0 | mySchema |  v1.0    |
+  | https://spec.example.com                          | https://spec.example.com                   | *(null)* | *(null)* |
+  | https://spec.example.com/mySchema/v0.1?q=v#frag   | https://spec.example.com/mySchema/v0.1     | mySchema |  v0.1    |
+  | https://spec.example.com/v1.0                     | https://spec.example.com/v1.0              | *(null)* |  v1.0    |
+  | https://spec.example.com/vX                       | https://spec.example.com/vX                | vX       | *(null)* |
+  
+  If `name` is present, that [namespace prefix](#sec-Prefixing) will automatically be linked to the URL. If a `name` is not present, then elements of the foreign schema must be [`imported`](#@link/import) in order to be referenced.
+  """
+  url: String!
+  """
+  Change the [namespace prefix](#sec-Prefixing) assigned to this schema.
+  
+  The name must be a valid GraphQL identifier, and must not contain the namespace separator ({"__"}).
+  
+  By default, {@link} will assign a prefix based on the `name` extracted from the URL. If no `name` is present, a prefix will not be assigned.
+  
+  Providing [`as:`](#@link/as) overrides the default behavior: the foreign schema will be assigned the provided prefix, regardless of the `name` present in the URL (or the lack of one).
+  
+  ```graphql example -- Using {@link}(url:, as:) to use a feature with a custom name
+  schema
+    @link(url: "https://specs.apollo.dev/link/v1.0")
+    @link(url: "https://spec.example.com/example/v1.0", as: "eg")
+  {
+    query: Query
+  }
+  
+  type User {
+    # Specifying `as: "eg"` transforms @example into @eg
+    name: String @eg(data: ITEM)
+  }
+  
+  # Additional specified schema elements must have their prefixes set
+  # to the new name.
+  enum eg__Data {
+    ITEM
+  }
+  
+  # Name transformation must also be applied to definitions pulled in from
+  # specifications.
+  directive @eg(data: eg__Data) on FIELD_DEFINITION
+  
+  directive @link(url: String!, as: String) repeatable on SCHEMA
+  ```
+  """
+  as: String
+  """Import definitions into the local namespace."""
+  import: [Import]
+  """
+  An optional [purpose](#Purpose) for this link. This hints to consumers as to whether they can safely ignore metadata described by a foreign schema.
+  
+  By default, {@link}s SHOULD fail open. This means that {@link}s to unknown schemas SHOULD NOT prevent a schema from being served or processed. Instead, consumers SHOULD ignore unknown feature metadata and serve or process the rest of the schema normally.
+  
+  This behavior is different for {@link}s with a specified purpose:
+    - `SECURITY` links convey metadata necessary to compute the API schema and securely resolve fields within it
+    - `EXECUTION` links convey metadata necessary to correctly resolve fields within the schema
+  """
+  for: Purpose
+) repeatable on SCHEMA
+
+"""TK describe an import"""
+scalar Import
+
+"""
+The role of a feature referenced with {@link}.
+
+This is not intended to be an exhaustive list of all the purposes a feature might serve. Rather, it is intended to capture cases where the default fail-open behavior of core schema consumers is undesirable.
+
+Note we'll refer to directives from features which are `for: SECURITY` or `for: EXECUTION` as "`SECURITY` directives" and "`EXECUTION` directives", respectively.
+"""
+enum Purpose {
+  """
+  `SECURITY` links provide metadata necessary to securely resolve fields. For instance, a hypothetical {auth} feature may provide an {@auth} directive to flag fields which require authorization. If a data core does not support the {auth} feature and serves those fields anyway, these fields will be accessible without authorization, compromising security.
+  
+  Security-conscious consumers MUST NOT serve a field if:
+    - the schema definition has **any** unsupported SECURITY directives,   
+    - the field's parent type definition has **any** unsupported SECURITY directives,
+    - the field's return type definition has **any** unsupported SECURITY directives, or
+    - the field definition has **any** unsupported SECURITY directives
+  
+  Such fields are *not securely resolvable*. Security-conscious consumers MAY serve schemas with fields which are not securely resolvable. However, they MUST remove such fields from the schema before serving it.
+  
+  Less security-conscious consumers MAY choose to relax these requirements. For instance, servers may provide a development mode in which unknown SECURITY directives are ignored, perhaps with a warning. Such software may also provide a way to explicitly disable some or all SECURITY links during development.
+  
+  More security-conscious consumers MAY choose to enhance these requirements. For instance, production servers MAY adopt a policy of entirely rejecting any schema which contains ANY unsupported SECURITY links, even if those links are never used to annotate the schema.
+  """
+  SECURITY
+  """
+  `EXECUTION` features provide metadata necessary to correctly resolve fields. For instance, a hypothetical {ts} feature may provide a `@ts__resolvers` annotation which references a TypeScript module of field resolvers. A consumer which does not support the {ts} feature will be unable to correctly resolve such fields.
+  
+  Consumers MUST NOT serve a field if:
+    - the schema's definition has **any** unsupported EXECUTION directives,
+    - the field's parent type definition has **any** unsupported EXECUTION directives,
+    - the field's return type definition has **any** unsupported EXECUTION directives, or
+    - the field definition has **any** unsupported EXECUTION directives
+  
+  Such fields are *unresolvable*. Consumers MAY attempt to serve schemas with unresolvable fields. Depending on the needs of the consumer, unresolvable fields MAY be removed from the schema prior to serving, or they MAY produce runtime errors if a query attempts to resolve them. Consumers MAY implement stricter policies, wholly refusing to serve schemas with unresolvable fields, or even refusing to serve schemas with any unsupported EXECUTION features, even if those features are never used in the schema. 
+  """
+  EXECUTION
+}

@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "Apollo Specifications Library",
   "main": "index.js",
-  "type": "module",
   "bin": "./bin/library",
   "scripts": {
     "start": "http-server -c-1"

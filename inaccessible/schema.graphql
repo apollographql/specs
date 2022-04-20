@@ -1,0 +1,38 @@
+directive @link(as: String, url: String!, for: link__Purpose) repeatable on SCHEMA
+directive @inaccessible on FIELD_DEFINITION | OBJECT | INTERFACE | UNION
+
+enum link__Purpose {
+  EXECUTION
+  SECURITY
+}
+
+schema
+  @link(url: "https://specs.apollo.dev/link/v0.2")
+  @link(url: "https://specs.apollo.dev/inaccessible/v0.1", for: SECURITY)
+{
+  query: Query
+}
+
+type Query {
+  user(id: String!): User
+}
+
+type User {
+  id: String! @inaccessible
+  name: String!
+  email: String!
+  bankAccount: BankAccount
+  accounts: [Account]
+}
+
+type BankAccount @inaccessible {
+  id: String!
+  accountNumber: String!
+}
+
+type ForumAccount {
+  handle: String!
+}
+
+union Account = BankAccount | ForumAccount
+
