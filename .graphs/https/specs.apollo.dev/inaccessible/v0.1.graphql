@@ -1,6 +1,6 @@
-extend schema @id(url: "https://specs.apollo.dev/inaccessible/v1.0")
+extend schema @id(url: "https://specs.apollo.dev/inaccessible/v0.1")
 
-extend schema @id(url: "https://specs.apollo.dev/inaccessible/v1.0")
+extend schema @id(url: "https://specs.apollo.dev/inaccessible/v0.1")
 
 """
 The {@inaccessible} directive removes definitions from a schema's API.
