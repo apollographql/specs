@@ -1,0 +1,5 @@
+#!/bin/sh
+
+npx @queerviolet/speck tag/v0.1/tag-v0.1.md > tag/v0.1/index.html
+npx @queerviolet/speck core/v0.1/core-v0.1.md > core/v0.1/index.html
+npx @queerviolet/speck core/v0.2/core-v0.2.md > core/v0.2/index.html

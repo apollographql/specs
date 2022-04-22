@@ -1,53 +1,13 @@
-extend schema @id__(url: "https://specs.apollo.dev/link/v1.0") @link(url: "https://specs.apollo.dev/id/v1.0")
+extend schema @link(url: "https://specs.apollo.dev/id/v1.0")
 
-extend schema
+extend schema @id__(url: "https://foo/foo")
 
 """
-```raw html
-<table class=spec-data>
-  <tr><td>Status</td><td>Draft</td>
-  <tr><td>Version</td><td>1.0</td>
-</table>
-<link rel=stylesheet href=https://specs.apollo.dev/apollo-light.css>
-<script type=module async defer src=https://specs.apollo.dev/inject-logo.js></script>
-```
+# hello
 
-[intro to core schemas](core-schemas-intro.md)
+a thing
 
-# Scoping
-
-[scope](../scope.md)
-
-# Versioning
-
-[Versioning](../versioning.md)
-
-# Processing Schemas
-
-```mermaid diagram
-graph LR
-  schema(["📄  Input Schema"]):::file-->proc("🤖 &nbsp;Processor")
-  proc-->output(["📄  Output Schema"]):::file
-  classDef file fill:none,color:#22262E;
-  style proc fill:none,stroke:fuchsia,color:fuchsia;
-```
-
-A common use case is that of a processor which consumes a valid input schema and generates an output schema.
-
-The general guidance for processor behavior is: don't react to what you don't understand.
-
-Specifically, processors:
-  - SHOULD pass through {@link} directives which reference unknown feature URLs
-  - SHOULD pass through prefixed directives, types, and other schema elements
-  - SHOULD pass through directives which are not [associated with](#AssignFeatures) a {@link} feature
-
-Processors MAY accept configuration which overrides these default behaviors.
-
-Additionally, processors which prepare the schema for final public consumption MAY choose to eliminate all unknown directives and prefixed types in order to hide schema implementation details within the published schema. This will impair the operation of tooling which relies on these directives—such tools will not be able to run on the output schema, so the benefits and costs of this kind of information hiding should be weighed carefully on a case-by-case basis.
-
-# Algorithms
-
-[Algorithms](algorithms.md)
+[x](./link/core-schemas-intro.md)
 """
 schema {
   query: Query
