@@ -1,8 +1,6 @@
 @id(url: "https://specs.apollo.dev/inaccessible/v0.1")
 
 """
-# Inaccessible
-
 <h2>for removing elements from a core schema</h2>
 
 ```raw html

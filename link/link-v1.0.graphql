@@ -4,7 +4,7 @@
 ```raw html
 <table class=spec-data>
   <tr><td>Status</td><td>Draft</td>
-  <tr><td>Version</td><td>2.0</td>
+  <tr><td>Version</td><td>1.0</td>
 </table>
 <link rel=stylesheet href=https://specs.apollo.dev/apollo-light.css>
 <script type=module async defer src=https://specs.apollo.dev/inject-logo.js></script>
@@ -67,7 +67,7 @@ A feature's *root directive* is an exception to the prefixing requirements. Feat
 
 ```graphql example -- Using the @link directive without changing the prefix
 schema
- @link(url: "https://specs.apollo.dev/link/v1.0", import: ["@link"])
+ @link(url: "https://specs.apollo.dev/link/v1.0")
  @link(url: "https://spec.example.com/example/v1.0") {
   query: Query
 }
@@ -93,7 +93,7 @@ The prefix MUST NOT be elided within documentation; definitions of schema elemen
 
 Feature specs MUST prefix the following schema elements:
   - the names of any object types, interfaces, unions, enums, or input object types defined by the feature
-  - the names of any directives introduced in the spec, with the exception of the *root directive*, which must have the same name as the feature
+  - the names of any directives introduced in the schema, with the exception of the *root directive*, which must have the same name as the schema
 
 :::[example](prefixing.graphql) -- Prefixing
 
@@ -132,7 +132,7 @@ As specified by semver, spec authors SHOULD increment the:
 
 ++}
 
-Patch and pre-release qualifiers are judged to be not particularly meaningful in the context of core features, which are (by definition) interfaces rather than implementations. The patch component of a semver denotes a bug fix which is backwards compatible—that is, a change to the implementation which does not affect the interface. Patch-level changes in the version of a spec denote wording clarifications which do not require implementation changes. As such, it is not important to track them for the purposes of version resolution.
+Patch and pre-release qualifiers are judged to be not particularly meaningful in the context of GraphQL schemas, which are (by definition) interfaces rather than implementations. The patch component of a semver denotes a bug fix which is backwards compatible—that is, a change to the implementation which does not affect the interface. Patch-level changes in the version of a spec denote wording clarifications which do not require implementation changes. As such, it is not important to track them for the purposes of version resolution.
 
 As with [semver](https://semver.org/spec/v2.0.0.html), the `0.x` version series is special: there is no expectation of compatibility between versions `0.x` and `0.y`. For example, a processor must not activate implementation `0.4` to satisfy a requested version of `0.2`.
 

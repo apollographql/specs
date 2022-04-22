@@ -1,10 +1,8 @@
-extend schema @id(url: "https://specs.apollo.dev/inaccessible/v0.1")
+extend schema @link(url: "https://specs.apollo.dev/id/v1.0") @id__(url: "https://specs.apollo.dev/inaccessible/v0.1")
 
-extend schema @id(url: "https://specs.apollo.dev/inaccessible/v0.1")
+extend schema @id__(url: "https://specs.apollo.dev/inaccessible/v0.1")
 
 """
-# Inaccessible
-
 <h2>for removing elements from a core schema</h2>
 
 ```raw html
@@ -62,3 +60,138 @@ schema {
 }
 
 directive @inaccessible on FIELD_DEFINITION | OBJECT | INTERFACE | UNION
+
+"""Link a foreign schema by its URL."""
+directive @link(
+  """
+  The foreign schema's URL.
+  
+  Link URLs serve two main purposes:
+    - Providing a unique identifier for the foreign schema
+    - Directing human readers to documentation about the foreign schema
+  
+  Link URLs SHOULD be [RFC 3986 URLs](https://tools.ietf.org/html/rfc3986). When viewed, the URL SHOULD provide schema documentation in some human-readable form—a human reader should be able to click the link and go to the correct version of the docs. This is not an absolute functional requirement—as far as the core schema machinery is concerned, the URL is simply a globally unique namespace identifier with a particular form.
+  
+  Link URLs MAY contain information about the spec's [name](#sec-Prefixing) and [version](#sec-Versioning):
+  
+  ```html diagram -- Basic anatomy of a link URL
+  <code class=anatomy>
+    <span class=pink style='--depth: 2'>https://spec.example.com/a/b/c/<span>mySchema<aside>name</aside></span><aside>identity</aside></span>/<span style='--depth: 2' class=green>v1.0<aside>version</aside></span>
+  </code>
+  ```
+  
+  The final two segments of the URL's [path](https://tools.ietf.org/html/rfc3986#section-3.3) MAY contain the schema's name and a [version tag](#sec-Versioning), in that order. Both are optional. To be recognized as a version tag, the final path component MUST be a valid {VersionTag}. To be recognized as a name, the penultimate path component MUST be a valid [GraphQL name](https://spec.graphql.org/draft/#Name) which does not include the namespace separator ({"__"}).
+  
+  Empty final path components (that is, trailing slashes) and any URL components which have not been assigned a meaning (such as the fragment and query) MUST be ignored.
+  
+  ```html diagram -- Ignoring meaningless parts of a URL
+  <code class=anatomy>
+    <span class=pink style='--depth: 2'>https://example.com/<span>exampleSchema<aside>name</aside></span><aside>identity</aside></span>/<span style='--depth: 2' class=green>v1.0<aside>version</aside></span><span class=grey>/?key=val&k2=v2#frag<aside>ignored</aside></span>
+  </code>
+  ```
+  
+  All of these are valid arguments to `url`, and their interpretations:
+  
+  | url                                               | normalized url                             |   name   | version  |
+  | ------------------------------------------------- | ------------------------------------------ | -------  | -------- |
+  | https://spec.example.com/a/b/mySchema/v1.0/       | https://spec.example.com/a/b/mySchema/v1.0 | mySchema |  v1.0    |
+  | https://spec.example.com                          | https://spec.example.com                   | *(null)* | *(null)* |
+  | https://spec.example.com/mySchema/v0.1?q=v#frag   | https://spec.example.com/mySchema/v0.1     | mySchema |  v0.1    |
+  | https://spec.example.com/v1.0                     | https://spec.example.com/v1.0              | *(null)* |  v1.0    |
+  | https://spec.example.com/vX                       | https://spec.example.com/vX                | vX       | *(null)* |
+  
+  If `name` is present, that [namespace prefix](#sec-Prefixing) will automatically be linked to the URL. If a `name` is not present, then elements of the foreign schema must be [`imported`](#@link/import) in order to be referenced.
+  """
+  url: String!
+  """
+  Change the [namespace prefix](#sec-Prefixing) assigned to this schema.
+  
+  The name must be a valid GraphQL identifier, and must not contain the namespace separator ({"__"}).
+  
+  By default, {@link} will assign a prefix based on the `name` extracted from the URL. If no `name` is present, a prefix will not be assigned.
+  
+  Providing [`as:`](#@link/as) overrides the default behavior: the foreign schema will be assigned the provided prefix, regardless of the `name` present in the URL (or the lack of one).
+  
+  ```graphql example -- Using {@link}(url:, as:) to use a feature with a custom name
+  schema
+    @link(url: "https://specs.apollo.dev/link/v1.0")
+    @link(url: "https://spec.example.com/example/v1.0", as: "eg")
+  {
+    query: Query
+  }
+  
+  type User {
+    # Specifying `as: "eg"` transforms @example into @eg
+    name: String @eg(data: ITEM)
+  }
+  
+  # Additional specified schema elements must have their prefixes set
+  # to the new name.
+  enum eg__Data {
+    ITEM
+  }
+  
+  # Name transformation must also be applied to definitions pulled in from
+  # specifications.
+  directive @eg(data: eg__Data) on FIELD_DEFINITION
+  
+  directive @link(url: String!, as: String) repeatable on SCHEMA
+  ```
+  """
+  as: String
+  """Import definitions into the local namespace."""
+  import: [Import]
+  """
+  An optional [purpose](#Purpose) for this link. This hints to consumers as to whether they can safely ignore metadata described by a foreign schema.
+  
+  By default, {@link}s SHOULD fail open. This means that {@link}s to unknown schemas SHOULD NOT prevent a schema from being served or processed. Instead, consumers SHOULD ignore unknown feature metadata and serve or process the rest of the schema normally.
+  
+  This behavior is different for {@link}s with a specified purpose:
+    - `SECURITY` links convey metadata necessary to compute the API schema and securely resolve fields within it
+    - `EXECUTION` links convey metadata necessary to correctly resolve fields within the schema
+  """
+  for: Purpose
+) repeatable on SCHEMA
+
+"""TK describe an import"""
+scalar Import
+
+"""
+The role of a feature referenced with {@link}.
+
+This is not intended to be an exhaustive list of all the purposes a feature might serve. Rather, it is intended to capture cases where the default fail-open behavior of core schema consumers is undesirable.
+
+Note we'll refer to directives from features which are `for: SECURITY` or `for: EXECUTION` as "`SECURITY` directives" and "`EXECUTION` directives", respectively.
+"""
+enum Purpose {
+  """
+  `SECURITY` links provide metadata necessary to securely resolve fields. For instance, a hypothetical {auth} feature may provide an {@auth} directive to flag fields which require authorization. If a data core does not support the {auth} feature and serves those fields anyway, these fields will be accessible without authorization, compromising security.
+  
+  Security-conscious consumers MUST NOT serve a field if:
+    - the schema definition has **any** unsupported SECURITY directives,   
+    - the field's parent type definition has **any** unsupported SECURITY directives,
+    - the field's return type definition has **any** unsupported SECURITY directives, or
+    - the field definition has **any** unsupported SECURITY directives
+  
+  Such fields are *not securely resolvable*. Security-conscious consumers MAY serve schemas with fields which are not securely resolvable. However, they MUST remove such fields from the schema before serving it.
+  
+  Less security-conscious consumers MAY choose to relax these requirements. For instance, servers may provide a development mode in which unknown SECURITY directives are ignored, perhaps with a warning. Such software may also provide a way to explicitly disable some or all SECURITY links during development.
+  
+  More security-conscious consumers MAY choose to enhance these requirements. For instance, production servers MAY adopt a policy of entirely rejecting any schema which contains ANY unsupported SECURITY links, even if those links are never used to annotate the schema.
+  """
+  SECURITY
+  """
+  `EXECUTION` features provide metadata necessary to correctly resolve fields. For instance, a hypothetical {ts} feature may provide a `@ts__resolvers` annotation which references a TypeScript module of field resolvers. A consumer which does not support the {ts} feature will be unable to correctly resolve such fields.
+  
+  Consumers MUST NOT serve a field if:
+    - the schema's definition has **any** unsupported EXECUTION directives,
+    - the field's parent type definition has **any** unsupported EXECUTION directives,
+    - the field's return type definition has **any** unsupported EXECUTION directives, or
+    - the field definition has **any** unsupported EXECUTION directives
+  
+  Such fields are *unresolvable*. Consumers MAY attempt to serve schemas with unresolvable fields. Depending on the needs of the consumer, unresolvable fields MAY be removed from the schema prior to serving, or they MAY produce runtime errors if a query attempts to resolve them. Consumers MAY implement stricter policies, wholly refusing to serve schemas with unresolvable fields, or even refusing to serve schemas with any unsupported EXECUTION features, even if those features are never used in the schema. 
+  """
+  EXECUTION
+}
+
+directive @id__(url: String!) on SCHEMA

@@ -1,0 +1,14 @@
+@id(url: "https://specs.apollo.dev/tag/v0.1")
+
+"""
+Apply an arbitrary piece of string metadata to the target.
+
+The following example demonstrates how team ownership over types and fields can be declaratively expressed via inline metadata. One might imagine a CI workflow which analyzes a schema diff and uses `@tag` names to authorize or require approval for changes to parts of the graph.
+
+:::[example](ownership-example.graphql)
+"""
+directive @tag(name: String!) repeatable on
+  | FIELD_DEFINITION
+  | INTERFACE
+  | OBJECT
+  | UNION

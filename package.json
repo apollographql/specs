@@ -5,6 +5,7 @@
   "main": "index.js",
   "bin": "./bin/library",
   "scripts": {
+    "build": "graphc",
     "start": "http-server -c-1"
   },
   "keywords": [],
