@@ -13,9 +13,9 @@ Core schemas provide tools for linking definitions from different GraphQL schema
 
 ```graphql example -- linking a directive from another schema
 extend schema
-  # you link @link by @linking link 
+  #          👇🏽 first, link @link from this url
   @link(url: "https://specs.apollo.dev/link/v1.0")
-  #          👇🏽 schemas are identified by a url
+  #          👇🏽 link other schemas by their urls
   @link(url: "https://internal.example.com/admin")
 
 type Query {
@@ -154,13 +154,13 @@ Using `@id` is not, strictly speaking, necessary. A URL can be associated with a
 Core schemas have a document-wide *scope*. A document's scope is a map of {Element} ==> {Binding}. The scope is constructed from a document's [@link](#@link) and [@id](#@id) directives and is used to [attribute](#sec-Attribution) definitions and references within the document.
 
 Elements are the same as in [global graph references](#sec-Global-Graph-References). When used as scope keys, they carry the following meanings:
-- Schema({name}) — a schema {@link}ed from the document. {name} can be used as a [prefix](#sec-Prefixing) for definitions and references within the document, and {name} MUST either be a valid prefix or {null}, indicating the present schema.
+- Schema({name}) — a schema {@link}ed from the document. {name} can be used as a [prefix](#sec-Name-Conventions) for definitions and references within the document, and {name} MUST either be a valid prefix or {null}, indicating the present schema.
 - Directive({name}) — a directive [imported](#@link/import) into the document
 - Type({name}) — a type [imported](#@link/import) into the document
 
 A {Binding} contains:
 - {gref}: GRef — the [global graph reference](#sec-Global-Graph-References) which is the target of the binding
-- {implicit}: Bool — indicating whether the binding was explicitly imported or created implicitly. Implicit bindings may be overwritten by explicit bindings and will not be formed if an explicit binding for the item alreaady exists
+- {implicit}: Bool — indicating whether the binding was explicitly imported or created implicitly. Implicit bindings are "soft"—they may be overwritten by explicit bindings and will not be formed if an explicit binding for the item alreaady exists.
 
 Similar to a [gref](#sec-Global-Graph-References)'s elements, different types of scoped items can have the same name without conflict. For example, a scope can contain both a type and schema named "User", although this should generally be avoided if possible.
 
@@ -174,8 +174,8 @@ A {@link} without any imports introduces two entries into the scope:
 
 ```graphql example -- {@link} bringing a single schema into scope
   @link(url: "https://example.com/foreignSchema")
-  # 1. Schema("foreignSchema") -> https://example.com/foreignSchema (explicit)
-  # 2. Directive("foreignSchema") -> https://example.com/foreignSchema#@foreignSchema (implicit)
+  # 1. foreignSchema:: -> https://example.com/foreignSchema (explicit)
+  # 2. @foreignSchema  -> https://example.com/foreignSchema#@foreignSchema (implicit)
 ```
 
 {@link}ing a foreign schema whose URL does not have a name will create a schema binding if and only if [`as:`](#@link/as) is specified, and will never create a root directive reference:
@@ -183,52 +183,52 @@ A {@link} without any imports introduces two entries into the scope:
 ```graphql example -- {@link} bringing a single schema into scope
   #          👇🏽 url does not have a name
   @link(url: "https://api.example.com", as: "example")
-  # 1. Schema("example") -> https://example.com#example (explicit)
+  # 1. example:: -> https://example.com#example (explicit)
 ```
 
 A {@link} with imports will add these entries to the scope, in addition to entries for each import:
 
 ```graphql example -- {@link} importing items into the scope
   @link(url: "https://example.com/foreignSchema", import: ["SomeType", "@someDirective"])
-  # 1. Schema("foreignSchema") -> https://example.com/foreignSchema (explicit)
-  # 2. Directive("foreignSchema") -> https://example.com/foreignSchema#@foreignSchema (implicit)
-  # 3. Type("SomeType") -> https://example.com/foreignSchema#SomeType (explicit)
-  # 4. Directive("someDirective") -> https://example.com/foreignSchema#@someDirective (explicit)
+  # 1. foreignSchema:: -> https://example.com/foreignSchema (explicit)
+  # 2. @foreignSchema  -> https://example.com/foreignSchema#@foreignSchema (implicit)
+  # 3. SomeType        -> https://example.com/foreignSchema#SomeType (explicit)
+  # 4. @someDirective  -> https://example.com/foreignSchema#@someDirective (explicit)
 ```
 
 Specifying [`as:`](#@link/as) changes the names of the scope items, but not their bound grefs:
 
 ```graphql example -- {@link} conflicting schema names
   @link(url: "https://example.com/foreignSchema", as: "other")
-  # 1. Schema("other") -> https://example.com/foreignSchema (explicit)
-  # 2. Directive("other") -> https://example.com/foreignSchema#@foreignSchema (implicit)
+  # 1. other:: -> https://example.com/foreignSchema (explicit)
+  # 2. @other  -> https://example.com/foreignSchema#@foreignSchema (implicit)
 ```
 
 It is not an error to overwrite an implicit binding with an explicit one:
 
 ```graphql example -- {@link} import overriding an implicit binding
   @link(url: "https://example.com/foreignSchema")
-  # 1. Schema("foreignSchema") -> https://example.com/foreignSchema (explicit)
-  # 2. Directive("foreignSchema") -> https://example.com/foreignSchema#@foreignSchema (implicit)
+  # 1. foreignSchema:: -> https://example.com/foreignSchema (explicit)
+  # 2. @foreignSchema  -> https://example.com/foreignSchema#@foreignSchema (implicit)
   
   #   (2) will be subsequently overwritten:
   @link(url: "https://other.com/otherSchema, import: ["@foreignSchema"])
-  # 3. Schema("otherSchema") -> https://other.com/otherSchema (explicit)
-  # 4. Directive("otherSchema") -> https://other.com/otherSchema#@otherSchema (implicit)
-  # 5. Directive("foreignSchema") -> https://other.com/otherSchema#@foreignSchema (explicit, overwrites (2))
+  # 3. otherSchema::  -> https://other.com/otherSchema (explicit)
+  # 4. @otherSchema   -> https://other.com/otherSchema#@otherSchema (implicit)
+  # 5. @foreignSchema -> https://other.com/otherSchema#@foreignSchema (explicit, overwrites (2))
 ```
 
 But it is an error to overwrite an explicit binding, or for two implicit bindings to overlap:
 
 ```graphql counter-example -- {@link} conflicting schema names
   @link(url: "https://example.com/foreignSchema")
-  # 1. Schema("foreignSchema") -> https://example.com/foreignSchema (explicit)
-  # 2. Directive("foreignSchema") -> https://example.com/foreignSchema#@foreignSchema (implicit)
+  # 1. foreignSchema:: -> https://example.com/foreignSchema (explicit)
+  # 2. @foreignSchema  -> https://example.com/foreignSchema#@foreignSchema (implicit)
   
   @link(url: "https://other.com/foreignSchema")
-  # ❌ Schema("foreignSchema") -> https://other.com/foreignSchema (explicit)
+  # ❌ foreignSchema:: -> https://other.com/foreignSchema (explicit)
   #   (error, conflicts with with (1))
-  # ❌ Directive("foreignSchema") -> https://other.com/otherSchema#otherSchema (implicit)
+  # ❌ @foreignSchema  -> https://other.com/otherSchema#otherSchema (implicit)
   #   (error, conflicts with (2))
 ```
 
@@ -244,6 +244,43 @@ Permissive processors (for example, a language server which wants to provide bes
   @id(url: "https://example.com/myself")
   # 1. Schema() -> https://example.com/myself (explicit)
 ```
+
+# Name Conventions
+
+Within a core schema, type names and directives which begin with a valid namespace identifier followed by two underscores (`__`) will be [attributed](#sec-Attribution) to the foreign schema bound to that name in the document [scope](#sec-Scope) if one exists.
+
+```graphql example -- using a prefixed name
+extend schema
+  @link(url: "https://specs.apollo.dev/link/v1.0")  
+# 1. Schema("link") -> "https://specs.apollo.dev/link/v1.0" (explicit)
+# 2. Directive("link") -> "https://specs.apollo.dev/link/v1.0#@link" (implicit)
+
+#    👇🏽 🌍 https://specs.apollo.dev/link/v1.0/#Purpose
+enum link__Purpose { SECURITY EXECUTION }
+```
+
+If no schema has been linked to that name, it is interpreted as a local name:
+
+```graphql example -- a strange local name
+extend schema
+  @link(url: "https://specs.apollo.dev/link/v1.0")  
+# 1. Schema("link") -> "https://specs.apollo.dev/link/v1.0" (explicit)
+# 2. Directive("link") -> "https://specs.apollo.dev/link/v1.0#@link" (implicit)
+
+#    👇🏽 🌍 #myOwn__Purpose (note, this document has no @id, so the url of this gref is null)
+enum myOwn__Purpose { SECURITY EXECUTION }
+```
+
+```graphql example -- a strange local name in a document with an id
+extend schema
+  @id(url: "https://api.example.com")
+  @link(url: "https://specs.apollo.dev/link/v1.0", import: ["@id"]
+
+#    👇🏽 🌍 https://api.example.com#myOwn__Purpose (note, this document has no @id, so the url of this gref is null)
+enum myOwn__Purpose { SECURITY EXECUTION }
+```
+
+Note: GraphQL name conventions strongly suggest against such naming. But amongst the core schema design principles is *universality*—the ability to represent and link *any arbitrary* set of GraphQL schemas, no matter how weird the names in them are.
 
 ## Bootstrapping
 
@@ -315,7 +352,7 @@ Link URLs serve two main purposes:
 
 Link URLs SHOULD be [RFC 3986 URLs](https://tools.ietf.org/html/rfc3986). When viewed, the URL SHOULD provide schema documentation in some human-readable form—a human reader should be able to click the link and go to the correct version of the docs. This is not an absolute functional requirement—as far as the core schema machinery is concerned, the URL is simply a globally unique namespace identifier with a particular form.
 
-Link URLs MAY contain information about the spec's [name](#sec-Prefixing) and [version](#sec-Versioning):
+Link URLs MAY contain information about the spec's [name](#sec-Name-Conventions) and [version](#sec-Versioning):
 
 ```html diagram -- Basic anatomy of a link URL
 <code class=anatomy>
@@ -343,11 +380,11 @@ All of these are valid arguments to `url`, and their interpretations:
 | https://spec.example.com/v1.0                     | https://spec.example.com/v1.0              | *(null)* |  v1.0    |
 | https://spec.example.com/vX                       | https://spec.example.com/vX                | vX       | *(null)* |
 
-If `name` is present, that [namespace prefix](#sec-Prefixing) will automatically be linked to the URL. If a `name` is not present, then elements of the foreign schema must be [`imported`](#@link/import) in order to be referenced.
+If `name` is present, that [namespace prefix](#sec-Name-Conventions) will automatically be linked to the URL. If a `name` is not present, then elements of the foreign schema must be [`imported`](#@link/import) in order to be referenced.
 
 ###! as: String
 
-Change the [namespace prefix](#sec-Prefixing) assigned to the foreign schema.
+Change the [namespace prefix](#sec-Name-Conventions) assigned to the foreign schema.
   
 The name MUST be a valid GraphQL identifier, MUST NOT contain the namespace separator ({"__"}), and MUST NOT end with an underscore (which would create ambiguity between whether {"x___y"} is prefix `x_` for element `y` or prefix `x` for element `_y`).
 
@@ -391,7 +428,7 @@ See the [Import](#Import) scalar for a description of the format.
 
 An optional [purpose](#Purpose) for this link. This hints to consumers as to whether they can safely ignore metadata described by a foreign schema.
 
-By default, {@link}s SHOULD fail open. This means that {@link}s to unknown schemas SHOULD NOT prevent a schema from being served or processed. Instead, consumers SHOULD ignore unknown feature metadata and serve or process the rest of the schema normally.
+By default, {@link}s SHOULD fail open. This means that {@link}s to unknown schemas SHOULD NOT prevent a schema from being served or processed. Instead, consumers SHOULD ignore unknown links and serve or process the rest of the schema normally.
 
 This behavior is different for {@link}s with a specified purpose:
   - `SECURITY` links convey metadata necessary to compute the API schema and securely resolve fields within it
@@ -440,22 +477,22 @@ or an object with `name` and (optionally `as`):
 Imports cannot currently reference transitive schemas:
 
 ```graphql counter-example -- incorrectly importing a transitive schema reference
-  @link(url: "https://example.com/, import: "otherSchema::")
+  @link(url: "https://example.com/, import: ["otherSchema::"])
 ```
 
 Note: Future versions may support this.
 
 ##! Purpose
 
-The role of a feature referenced with {@link}.
+The role of a schema referenced with {@link}.
 
-This is not intended to be an exhaustive list of all the purposes a feature might serve. Rather, it is intended to capture cases where the default fail-open behavior of core schema consumers is undesirable.
+This is not intended to be an exhaustive list of all the purposes a foreign schema or its metadata might serve. Rather, it is intended to capture cases where the default fail-open behavior of core schema consumers is undesirable.
 
-Note we'll refer to directives from features which are `for: SECURITY` or `for: EXECUTION` as "`SECURITY` directives" and "`EXECUTION` directives", respectively.
+Note we'll refer to directives from links which are `for: SECURITY` or `for: EXECUTION` as "`SECURITY` directives" and "`EXECUTION` directives", respectively.
 
 ###! SECURITY
 
-`SECURITY` links provide metadata necessary to securely resolve fields. For instance, a hypothetical {auth} feature may provide an {@auth} directive to flag fields which require authorization. If a data core does not support the {auth} feature and serves those fields anyway, these fields will be accessible without authorization, compromising security.
+`SECURITY` links provide metadata necessary to securely resolve fields. For instance, a hypothetical {auth} schema may provide an {@auth} directive to flag fields which require authorization. If a data core does not support the {auth} schemas and serves those fields anyway, these fields will be accessible without authorization, compromising security.
 
 Security-conscious consumers MUST NOT serve a field if:
   - the schema definition has **any** unsupported SECURITY directives,   
@@ -471,7 +508,7 @@ More security-conscious consumers MAY choose to enhance these requirements. For 
 
 ###! EXECUTION
 
-`EXECUTION` features provide metadata necessary to correctly resolve fields. For instance, a hypothetical {ts} feature may provide a `@ts__resolvers` annotation which references a TypeScript module of field resolvers. A consumer which does not support the {ts} feature will be unable to correctly resolve such fields.
+`EXECUTION` schemas  provide metadata necessary to correctly resolve fields. For instance, a hypothetical {ts} schemas may provide a `@ts__resolvers` annotation which references a TypeScript module of field resolvers. A consumer which does not support the {ts} schemas will be unable to correctly resolve such fields.
 
 Consumers MUST NOT serve a field if:
   - the schema's definition has **any** unsupported EXECUTION directives,
@@ -479,7 +516,7 @@ Consumers MUST NOT serve a field if:
   - the field's return type definition has **any** unsupported EXECUTION directives, or
   - the field definition has **any** unsupported EXECUTION directives
 
-Such fields are *unresolvable*. Consumers MAY attempt to serve schemas with unresolvable fields. Depending on the needs of the consumer, unresolvable fields MAY be removed from the schema prior to serving, or they MAY produce runtime errors if a query attempts to resolve them. Consumers MAY implement stricter policies, wholly refusing to serve schemas with unresolvable fields, or even refusing to serve schemas with any unsupported EXECUTION features, even if those features are never used in the schema. 
+Such fields are *unresolvable*. Consumers MAY attempt to serve schemas with unresolvable fields. Depending on the needs of the consumer, unresolvable fields MAY be removed from the schema prior to serving, or they MAY produce runtime errors if a query attempts to resolve them. Consumers MAY implement stricter policies, wholly refusing to serve schemas with unresolvable fields, or even refusing to serve schemas with any unsupported EXECUTION schemas, even if those schemas are never used in the schema. 
 
 # Appendix: Validations & Algorithms
 
@@ -551,7 +588,7 @@ BindingsFromLink(directive) :
         1. **If** {as} is not a valid GraphQL identifier,
           1. **Report** ❌ BadImportTypeMismatch
           2. **Continue**
-          3. ...**Else Emit** (Type({as}), Binding(gref: GRef({url}, Type({name})), implicit: {false}))
+        2. ...**Else Emit** (Type({as}), Binding(gref: GRef({url}, Type({name})), implicit: {false}))
         
 
 ## Detecting a bootstrap directive

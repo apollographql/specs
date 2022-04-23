@@ -8,3 +8,4 @@ spec-md inaccessible/v0.1/inaccessible-v0.1.md > inaccessible/v0.1/index.html
 spec-md link/v1.0/link-v1.0.md > link/v1.0/index.html
 spec-md join/v0.1/join-v0.1.md > join/v0.1/index.html
 spec-md federation/v2.0/federation-v2.0.md > federation/v2.0/index.html
+spec-md index.md > index.html
