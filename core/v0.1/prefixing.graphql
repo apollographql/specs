@@ -1,0 +1,46 @@
+schema
+  @core(feature: "https://specs.apollo.dev/core/v0.1")
+  @core(feature: "https://spec.example.com/featureA/v1.0")
+  @core(feature: "https://spec.example.com/featureB/v2.0", as: "B") {
+  query: Query
+}
+
+"""
+featureA__SomeType is a type defined by feature A.
+"""
+type featureA__SomeType {
+  """
+  nativeField is a field defined by featureA on a type also defined
+  by featureA (namely featureA__SomeType)
+  """
+  nativeField: Int @featureA__fieldDirective
+}
+
+"""
+featureA__SomeInput is an input specified by feature A
+"""
+input featureA__SomeInput {
+  """
+  nativeInputField is defined by featureA
+  """
+  nativeInputField: Int
+}
+
+"""
+featureA__Items is specified by feature A
+"""
+enum featureA__Items { ONE, TWO, THREE @B }
+
+"""
+@B is the root directive defined by featureB
+
+Root directives are named after their feature
+"""
+directive @B on ENUM_VALUE
+
+"""
+@featureA__fieldDirective is a non-root (prefixed) directive defined by featureA
+"""
+directive @featureA__fieldDirective on FIELD_DEFINITION
+
+directive @core(feature: String!, as: String) repeatable on SCHEMA
