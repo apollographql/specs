@@ -2,7 +2,7 @@
 <!-- Built with spec-md https://spec-md.com -->
 <html>
 <head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1"><title>id v1.0</title>
+<meta name="viewport" content="width=device-width, initial-scale=1"><title>federation v2.0</title>
 <style>
 :root {
   color: #333333;
@@ -1039,514 +1039,137 @@ pre[class*="language-"] {
 	cursor: help;
 }
 </style>
-<style>
-html {  
-  /** Brand colors **/    
-  --pink-darkest: rgb(102, 31, 78);
-  --pink-darker: rgb(131, 35, 99);
-  --pink-dark: rgb(196, 57, 151);
-  --pink-base: rgb(242, 92, 193);
-  --pink-light: rgb(255, 163, 224);
-  --pink-lighter: rgb(255, 212, 241);
-  --pink-lightest: rgb(255, 230, 247);
-  --teal-darkest: rgb(31, 102, 100);
-  --teal-darker: rgb(29, 123, 120);
-  --teal-dark: rgb(38, 162, 157);
-  --teal-base: rgb(65, 217, 211);
-  --teal-light: rgb(139, 246, 242);
-  --teal-lighter: rgb(198, 255, 253);
-  --teal-lightest: rgb(230, 255, 254);
-  --indigo-darkest: rgb(45, 31, 102);
-  --indigo-darker: rgb(49, 28, 135);
-  --indigo-dark: rgb(63, 32, 186);
-  --indigo-base: rgb(113, 86, 217);
-  --indigo-light: rgb(173, 155, 246);
-  --indigo-lighter: rgb(217, 207, 255);
-  --indigo-lightest: rgb(235, 230, 255);
-
-  /** Neutrals **/
-  --black-darker: rgb(18, 21, 26);
-  --black-dark: rgb(20, 23, 28);
-  --black-base: rgb(25, 28, 35);
-  --black-light: rgb(34, 38, 46);
-  --black-lighter: rgb(47, 53, 63);
-  --grey-darker: rgb(66, 72, 85);
-  --grey-dark: rgb(90, 98, 112);
-  --grey-base: rgb(119, 127, 142);
-  --grey-light: rgb(149, 157, 170);
-  --grey-lighter: rgb(178, 185, 195);
-  --silver-darker: rgb(202, 208, 216);
-  --silver-dark: rgb(222, 226, 231);
-  --silver-base: rgb(235, 238, 240);
-  --silver-light: rgb(244, 246, 248);
-  --silver-lighter: rgb(252, 253, 255);
-
-  /** Interface Colors **/
-  --red-darkest: rgb(102, 31, 31);
-  --red-darker: rgb(120, 28, 28);
-  --red-dark: rgb(156, 35, 35);
-  --red-base: rgb(209, 59, 59);
-  --red-light: rgb(241, 134, 134);
-  --red-lighter: rgb(255, 195, 195);
-  --red-lightest: rgb(255, 230, 230);
-  --green-darkest: rgb(20, 94, 51);
-  --green-darker: rgb(19, 108, 56);
-  --green-dark: rgb(28, 132, 72);
-  --green-base: rgb(54, 173, 104);
-  --green-light: rgb(126, 217, 164);
-  --green-lighter: rgb(190, 244, 213);
-  --green-lightest: rgb(230, 255, 240);
-  --blue-darkest: rgb(22, 60, 102);
-  --blue-darker: rgb(15, 65, 122);
-  --blue-dark: rgb(16, 83, 160);
-  --blue-base: rgb(32, 117, 214);
-  --blue-light: rgb(116, 176, 244);
-  --blue-lighter: rgb(187, 219, 255);
-  --blue-lightest: rgb(240, 247, 255);
-
-  /** Alternate Colors **/
-  --orange-darkest: rgb(102, 63, 31);
-  --orange-darker: rgb(136, 76, 30);
-  --orange-dark: rgb(180, 102, 38);
-  --orange-base: rgb(245, 145, 64);
-  --orange-light: rgb(255, 193, 143);
-  --orange-lighter: rgb(255, 226, 202);
-  --orange-lightest: rgb(255, 241, 230);
-  --yellow-darkest: rgb(102, 80, 31);
-  --yellow-darker: rgb(132, 103, 29);
-  --yellow-dark: rgb(180, 143, 37);
-  --yellow-base: rgb(244, 208, 63);
-  --yellow-light: rgb(255, 232, 142);
-  --yellow-lighter: rgb(255, 244, 202);
-  --yellow-lightest: rgb(255, 250, 230);
-  --purple-darkest: rgb(66, 22, 102);
-  --purple-darker: rgb(82, 21, 132);
-  --purple-dark: rgb(113, 30, 180);
-  --purple-base: rgb(162, 61, 245);
-  --purple-light: rgb(205, 143, 255);
-  --purple-lighter: rgb(232, 204, 255);
-  --purple-lightest: rgb(244, 230, 255);
-  --blilet-darkest: rgb(27, 34, 64);
-  --blilet-darker: rgb(37, 46, 80);
-  --blilet-dark: rgb(60, 74, 133);
-  --blilet-base: rgb(81, 104, 194);
-  --blilet-light: rgb(122, 146, 240);
-  --blilet-lighter: rgb(176, 190, 247);
-  --blilet-lightest: rgb(230, 235, 255);
-  --midnight-darkest: rgb(6, 15, 47);
-  --midnight-darker: rgb(27, 34, 64);
-  --midnight-dark: rgb(56, 61, 91);
-  --midnight-base: rgb(61, 75, 106);
-  --midnight-light: rgb(86, 105, 146);
-  --midnight-lighter: rgb(121, 143, 187);
-  --midnight-lightest: rgb(180, 195, 219);    
-}
-</style>
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,400;0,700;1,300;1,700&display=swap');
-
-@import "apollo-colors.css";
-@import "anatomy.css";
-
-:root {
-  --body-font-family: Source Sans Pro,sans-serif;
-  background: var(--body-background-color);
-  color: var(--body-text-color);
-  --body-background-color: #FFF;
-  --body-text-color: var(--grey-dark);
-  --button-background-color: var(--grey-darker);
-  --highlight-border-color: var(--yellow-base);
-  --highlight-background: none;
-}
-
-
-/*** Header ***/
-header > h1 {
-  color: var(--black-lighter);
-  text-align: center;
-  font-size: 250%;
-  margin-bottom: 0;
-  margin-top: 1em !important;
-}
-
-header h2 {
-  font-size: 150%;
-  font-style: italic;
-  color: var(--black-lighter);
-  margin-top: 0;
-  text-align: center;
-}
-
-.spec-data {
-  margin: auto;
-}
-
-.spec-data td {
-  border: 0;
-  color: var(--grey-dark);
-}
-
-.spec-data td:first-of-type {
-  color: var(--grey-dark);
-  font-style: italic;
-  text-align: right;
-}
-
-.spec-data td:first-of-type::after {
-  content: ": ";
-}
-
-/*** Headers & Text ***/
-
-h1,h2,h3,h4,h5,h6 {
-  color: var(--black-lighter);
-}
-
-h1 {
-  margin-top: 2rem;
-}
-
-h2 {
-  margin-top: 2rem;
-}
-
-a {
-  color: var(--indigo-dark);
-}
-
-.spec-note {
-  background: none;
-  border-color: var(--yellow-base);
-}
-
-.spec-note > a:first-of-type {
-  color: var(--yellow-dark);
-}
-
-/*** Table of Contents ***/
-/***** Inline TOC ******/
-.spec-secid a {
-  color: var(--indigo-dark);
-}
-
-/***** Sidebar ******/
-.spec-sidebar {
-  background: none;
-  backdrop-filter: blur(25px);
-  box-shadow: none !important;
-  left: 0;
-}
-
-@media (min-width: 1220px) {
-  .spec-sidebar {
-    backdrop-filter: none;
-  }
-}
-
-article {
-  display: table;
-  margin: auto;
-  box-sizing: border-box;
-  padding-left: 1em;
-  padding-right: 1em;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-p {
-  max-width: calc(100vw - 2em);
-}
-
-figure {
-  max-width: calc(100vw - 2em);
-}
-
-@media (min-width: 720px) {
-  article {
-    margin-left: auto;
-  }
-}
-
-@media (min-width: 1220px) {
-  article {
-    padding-left: calc(50vw - var(--sidebar-width) + 5rem);
-    margin-left: auto;
-    margin-right: calc(50vw - var(--sidebar-width));
-  }
-}
-
-@media (min-width: 1500px) {
-  article {
-    padding-left: calc(50vw - var(--sidebar-width));
-  }
-}
-
-body {
-  padding: 0 !important;
-  margin: 0 !important;
-}
-
-.spec-sidebar .viewing > a::after {
-  color: var(--yellow-base)
-}
-
-/*** Figures ***/
-figure {
-  border-color: transparent;
-}
-
-.spec-example {
-  border-color: var(--indigo-lighter);
-}
-
-.spec-counter-example {
-  border-color: var(--red-light);
-}
-
-.spec-counter-example > figcaption > a {
-  color: var(--red-light);
-}
-
-.spec-example > figcaption > a {
-  color: var(--indigo-light);
-}
-
-.spec-example > pre {
-  overflow-y: auto;
-  background: none;
-}
-
-.spec-example-num {
-  opacity: 1;
-}
-
-/*** Code ***/
-var {
-  border: thin solid transparent;
-}
-
-var:hover {
-  background: none;
-  border-color: var(--highlight-border-color);
-}
-
-code {
-  padding: .1em .3em;
-  border-radius: .3em;
-  font-size: .9em;
-  color: var(--pink-base);
-  background: var(--silver-base);
-}
-
-.token.operator {
-  background: none;
-}
-
-.spec-definition > pre {
-  padding: 1rem;
-}
-
-.spec-definition > pre > code {
-  font-family: var(--body-font-family);
-  font-style: italic;
-  font-size: 130%;
-  font-weight: bold;
-  line-height: 120%;
-}
-
-@media (min-width: 720px) {
-  .spec-definition > pre {
-    margin-left: 3em;
-    transform: scaleX(1.02);
-  }
-}
-
-h2.spec-definition-head, h3.spec-definition-head {
-  font-size: inherit;
-  color: var(--black-darker);
-}
-
-
-/*** Selections ***/
-::selection {
-  background-color: var(--yellow-light);
-}
-
-.selection-link,
-.outdated-selection-link {
-  box-shadow: 2px 2px 5px var(--body-background-color);
-  color: var(--indigo-dark);
-}
-
-.selection-link {
-  background-color: var(--indigo-lightest);
-  border: thin solid var(--indigo-dark);
-}
-
-.selection-link:hover {
-  background-color: var(--indigo-lightest);
-  color: var(--indigo-dark);
-}
-
-.outdated-selection-link {
-  background-color: var(--midnight-base);
-  border: thin solid var(--red-dark);
-}
-
-.outdated-selection-link:hover {
-  background-color: var(--red-base);
-  color: var(--midnight-dark);
-}
-
-
-/*** Sidebar ***/
-.spec-sidebar-toggle + label[for="spec-sidebar-toggle"] > .spec-sidebar-button {
-  color: var(--grey-lighter);
-  z-index: 10001;
-  left: 0;
-  right: auto;
-  top: auto;
-  bottom: 0;
-  border-radius: 50%;
-  backdrop-filter: blur(10px);
-}
-
-/*** RFC 2119 Requirements ***/
-.spec-requirement {
-  font-weight: bold;
-  color: var(--requirement-color);
-  --requirement-color: var(--green-light);
-  border-radius: 0.2rem;
-  transition: color 115ms, background 115ms;
-  padding: 0 0.1rem 0.2rem 0.1rem;
-}
-
-.spec-requirement:hover {
-  background: var(--requirement-color);
-  color: var(--body-background-color);
-  text-decoration: none;
-}
-
-.spec-requirement.required {
-  --requirement-color: var(--green-base);
-}
-
-.spec-requirement.not.required {
-  --requirement-color: var(--red-base);
-}
-
-.spec-requirement.recommended {
-  --requirement-color: var(--teal-dark);
-}
-
-.spec-requirement.not.recommended {
-  --requirement-color: var(--orange-base);
-}
-
-.spec-requirement.optional {
-  --requirement-color: var(--indigo-base);
-}
-
-.spec-toc a:hover {
-  opacity: 0.8;
-}
-
-.spec-toc a .spec-secid {
-  color: var(--indigo-dark);
-}
-
-.spec-toc .title {
-  margin-top: 2em;
-}
-
-.apollo-specs-logo a:hover {
-  text-decoration: none;
-}
-
-.spec-sidebar {
-  border-right: 1px solid var(--silver-dark);
-  overflow-y: auto;
-}
-
-</style>
-<style>
-@media (min-width: 720px) {
-  code.anatomy {
-    font-size: 110%;
-  }
-}
-
-code.anatomy {
-  white-space: inherit;
-}
-
-code.anatomy span {
-  position: relative;
-  color: var(--color);
-}
-
-.red {
-  --color: var(--red-base);
-}
-
-.blue {
-  --color: var(--blue-base);
-}
-
-.pink {
-  --color: var(--pink-base);
-}
-
-.yellow {
-  --color: var(--yellow-base);
-}
-
-.green {
-  --color: var(--green-base);
-}
-
-.grey {
-  --color: var(--grey-base);
-}
-
-code.anatomy span > aside {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  font-size: 50%;
-  width: calc(100% - 8px);
-  display: block;
-  border-bottom: 1px solid var(--color);
-  border-left: 1px solid var(--color);
-  padding: 4px;
-  height: calc(20% + 10px);
-}
-
-code.anatomy span > span > aside {
-  height: calc(20% + 5px);
-}
-
-
-</style><script>(function(){var e,t=document.getElementsByTagName("style")[0].sheet;function n(){e&&(t.deleteRule(e),e=void 0)}document.documentElement.addEventListener("mouseover",(function(o){var a,r=o.target.attributes["data-name"];r&&(a=r.value,n(),e=t.insertRule(`*[data-name="${a}"] {\n      background: var(--highlight-background);\n      border-color: var(--highlight-border-color);\n    }`,t.cssRules.length))})),document.documentElement.addEventListener("mouseout",n);})()</script>
+<script>(function(){var e,t=document.getElementsByTagName("style")[0].sheet;function n(){e&&(t.deleteRule(e),e=void 0)}document.documentElement.addEventListener("mouseover",(function(o){var a,r=o.target.attributes["data-name"];r&&(a=r.value,n(),e=t.insertRule(`*[data-name="${a}"] {\n      background: var(--highlight-background);\n      border-color: var(--highlight-border-color);\n    }`,t.cssRules.length))})),document.documentElement.addEventListener("mouseout",n);})()</script>
 <script>(function(){var e,t,n,o,r="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_";function a(e){c(new URL(e.target.href))}function i(){c(window.location)}function c(e){var t=e.hash.match(/^#sel-([A-Za-z0-9-_]+)$/);if(t){o=t[1];var a=(n=function(e){for(var t=new Array(64),n=0;n<64;n++)t[r.charCodeAt(n)]=n;var o=0,a=w(),i=w(),c=w(),d=v(),l=i.pop(),f=s(a.concat(i)),h=c.pop(),g=s(a.concat(c)),m=document.createRange();return m.setStart(f,l),m.setEnd(g,h),m.isOutdated=void 0!==d&&d!==u(m.toString()),m;function v(){for(var n=0,r=0;o<e.length;){var a=t[e.charCodeAt(o++)];if(n|=(31&a)<<r,r+=5,a<32)return n}}function w(){var e=v();if(null!=e){for(var t=new Array(e),n=0;n<e;n++)t[n]=v();return t}}}(o)).getBoundingClientRect(),i=Math.max(20,Math.floor(.4*(window.innerHeight-a.height)));window.scrollTo({left:0,top:window.scrollY+a.y-i,behavior:"smooth"});var c=document.getSelection();c.empty(),c.addRange(n),d()}}function d(){if(!n)return;t||(t=document.getElementsByTagName("article")[0]),e||(e=document.createElement("a"),document.body.appendChild(e)),e.href="#sel-"+o,e.onclick=a,e.className=n.isOutdated?"outdated-selection-link":"selection-link",e.innerText=n.isOutdated?"!":"‟";const r=n.getClientRects()[0];e.style.left=`calc(${r.x+window.scrollX}px - 0.75em)`,e.style.top=`calc(${r.y+window.scrollY}px - 0.75em)`}function l(e){for(var t=[];e!=document.body;){var n=e.parentNode;t.push(Array.prototype.indexOf.call(n.childNodes,e)),e=n}return t.reverse()}function s(e){for(var t=document.body,n=0;n<e.length&&t;n++)t=t.childNodes[e[n]];return t}function u(e){for(var t=2166136261,n=0;n<e.length;++n)t^=e.charCodeAt(n),t+=(t<<1)+(t<<4)+(t<<7)+(t<<8)+(t<<24);return 32767&(t>>15^t)}document.addEventListener("selectionchange",(function(t){var a=document.getSelection();if(a.isCollapsed)e&&(e.parentNode.removeChild(e),e=null);else{var i=a.getRangeAt(0);n&&0===i.compareBoundaryPoints(Range.START_TO_START,n)&&0===i.compareBoundaryPoints(Range.END_TO_END,n)||(o=function(e){var t="",n=l(e.startContainer),o=l(e.endContainer),a=function(e,t){var n=0;for(;n<e.length&&n<t.length&&e[n]===t[n];)n++;return e.slice(0,n)}(n,o);return c(a),c(n.slice(a.length).concat(e.startOffset)),c(o.slice(a.length).concat(e.endOffset)),i(u(e.toString())),t;function i(e){do{t+=r[31&e|(e>31?32:0)],e>>=5}while(e>0)}function c(e){i(e.length);for(var t=0;t<e.length;t++)i(e[t])}}(n=i),d())}})),window.addEventListener("resize",d),window.addEventListener("hashchange",i),window.addEventListener("load",(async()=>{await function(e=100,t=200){return new Promise((n=>{setTimeout(a,t);let o=setTimeout(a,e);const r=new MutationObserver((()=>{clearTimeout(o),o=setTimeout(a,e)}));function a(){n(),r.disconnect()}r.observe(document.getElementsByTagName("article")[0],{childList:!0,subtree:!0})}))}(),i()}));})()</script>
 </head>
 <body><article>
 <header>
-<h1>id v1.0</h1>
+<h1>federation v2.0</h1>
+<section id="intro">
+<table class=spec-data>
+  <tr><td>Status</td><td>Release</td>
+  <tr><td>Version</td><td>2.0</td>
+</table>
+<link rel=stylesheet href=/apollo-light.css>
+<script type=module async defer src=/inject-logo.js></script>
+</section>
 <nav class="spec-toc">
 <div class="title">Contents</div>
 <ol>
+<li><a href="#@key"><span class="spec-secid">1</span>@key</a></li>
+<li><a href="#@provides"><span class="spec-secid">2</span>@provides</a></li>
+<li><a href="#@requires"><span class="spec-secid">3</span>@requires</a></li>
+<li><a href="#@external"><span class="spec-secid">4</span>@external</a></li>
+<li><a href="#FieldSet"><span class="spec-secid">5</span>FieldSet</a></li>
 </ol>
 </nav>
 </header>
+<section id="@key" secid="1">
+<h1 class="spec-definition-head"><span class="spec-secid" title="link to this section"><a href="#@key">1</a></span>@key</h1>
+<figure id="example-c28fb" class="spec-definition"><pre class="graphql" data-language="graphql"><code><span class="token keyword">directive</span> <span class="token directive function">@key</span><span class="token punctuation">(</span><span class="token attr-name">fields</span><span class="token punctuation">:</span> <span class="token class-name">FieldSet</span><span class="token operator">!</span><span class="token punctuation">)</span> <span class="token keyword">repeatable</span> <span class="token keyword">on</span> <span class="token constant">OBJECT</span> <span class="token operator">|</span> <span class="token constant">INTERFACE</span>
+</code></pre>
+</figure><p>The <code>@key</code> directive is used to indicate a combination of fields that can be used to uniquely identify and fetch an object or interface.</p>
+<figure id="example-using-@key" class="spec-example"><figcaption><a href="#example-using-@key"><span class="spec-example-num">Example № 1</span> using <var data-name="@key">@key</var></a></figcaption><pre class="graphql" data-language="graphql"><code><span class="token keyword">type</span> <span class="token class-name">Product</span> <span class="token directive function">@key</span><span class="token punctuation">(</span><span class="token attr-name">fields</span><span class="token punctuation">:</span> <span class="token string">"upc"</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">upc</span><span class="token punctuation">:</span> <span class="token constant">UPC</span><span class="token operator">!</span>
+  <span class="token attr-name">name</span><span class="token punctuation">:</span> <span class="token scalar">String</span>
+<span class="token punctuation">}</span>
+</code></pre>
+</figure><p>Multiple keys can be defined on a single object type:</p>
+<figure id="example-defining-multiple-@key-s" class="spec-example"><figcaption><a href="#example-defining-multiple-@key-s"><span class="spec-example-num">Example № 2</span> defining multiple <var data-name="@key">@key</var>s</a></figcaption><pre class="graphql" data-language="graphql"><code><span class="token keyword">type</span> <span class="token class-name">Product</span> <span class="token directive function">@key</span><span class="token punctuation">(</span><span class="token attr-name">fields</span><span class="token punctuation">:</span> <span class="token string">"upc"</span><span class="token punctuation">)</span> <span class="token directive function">@key</span><span class="token punctuation">(</span><span class="token attr-name">fields</span><span class="token punctuation">:</span> <span class="token string">"sku"</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">upc</span><span class="token punctuation">:</span> <span class="token constant">UPC</span><span class="token operator">!</span>
+  <span class="token attr-name">sku</span><span class="token punctuation">:</span> <span class="token constant">SKU</span><span class="token operator">!</span>
+  <span class="token attr-name">name</span><span class="token punctuation">:</span> <span class="token scalar">String</span>
+<span class="token punctuation">}</span>
+</code></pre>
+</figure><div id="note-d3cf0" class="spec-note">
+<a href="#note-d3cf0">Note</a>
+Repeated directives (in this case, <code>@key</code>, used multiple times) require support by the underlying GraphQL implementation.</div>
+</section>
+<section id="@provides" secid="2">
+<h1 class="spec-definition-head"><span class="spec-secid" title="link to this section"><a href="#@provides">2</a></span>@provides</h1>
+<figure id="example-51b4b" class="spec-definition"><pre class="graphql" data-language="graphql"><code><span class="token keyword">directive</span> <span class="token directive function">@provides</span><span class="token punctuation">(</span><span class="token attr-name">fields</span><span class="token punctuation">:</span> <span class="token class-name">FieldSet</span><span class="token operator">!</span><span class="token punctuation">)</span> <span class="token keyword">on</span> <span class="token constant">FIELD_DEFINITION</span>
+</code></pre>
+</figure><p>The <code>@provides</code> directive is used to annotate the expected returned fieldset from a field on a base type that is guaranteed to be selectable by the gateway. Given the following example:</p>
+<figure id="example-using-@provides" class="spec-example"><figcaption><a href="#example-using-@provides"><span class="spec-example-num">Example № 3</span> using <var data-name="@provides">@provides</var></a></figcaption><pre class="graphql" data-language="graphql"><code><span class="token keyword">type</span> <span class="token class-name">Review</span> <span class="token directive function">@key</span><span class="token punctuation">(</span><span class="token attr-name">fields</span><span class="token punctuation">:</span> <span class="token string">"id"</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">product</span><span class="token punctuation">:</span> <span class="token class-name">Product</span> <span class="token directive function">@provides</span><span class="token punctuation">(</span><span class="token attr-name">fields</span><span class="token punctuation">:</span> <span class="token string">"name"</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">extend</span> <span class="token keyword">type</span> <span class="token class-name">Product</span> <span class="token directive function">@key</span><span class="token punctuation">(</span><span class="token attr-name">fields</span><span class="token punctuation">:</span> <span class="token string">"upc"</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">upc</span><span class="token punctuation">:</span> <span class="token scalar">String</span> <span class="token directive function">@external</span>
+  <span class="token attr-name">name</span><span class="token punctuation">:</span> <span class="token scalar">String</span> <span class="token directive function">@external</span>
+<span class="token punctuation">}</span>
+</code></pre>
+</figure><p>When fetching <code>Review.product</code> from the Reviews service, it is possible to request the <code>name</code> with the expectation that the Reviews service can provide it when going from review to product. <code>Product.name</code> is an external field on an external type which is why the local type extension of <code>Product</code> and annotation of <code>name</code> is required. &ldquo;&rdquo;&rdquo;</p>
+</section>
+<section id="@requires" secid="3">
+<h1 class="spec-definition-head"><span class="spec-secid" title="link to this section"><a href="#@requires">3</a></span>@requires</h1>
+<figure id="example-5a0ab" class="spec-definition"><pre class="graphql" data-language="graphql"><code><span class="token keyword">directive</span> <span class="token directive function">@requires</span><span class="token punctuation">(</span><span class="token attr-name">fields</span><span class="token punctuation">:</span> <span class="token class-name">FieldSet</span><span class="token operator">!</span><span class="token punctuation">)</span> <span class="token keyword">on</span> <span class="token constant">FIELD_DEFINITION</span>
+</code></pre>
+</figure><p>The <code>@requires</code> directive is used to annotate the required input fieldset from a base type for a resolver. It is used to develop a query plan where the required fields may not be needed by the client, but the service may need additional information from other services. For example:</p>
+<figure id="example-using-@requires" class="spec-example"><figcaption><a href="#example-using-@requires"><span class="spec-example-num">Example № 4</span> using <var data-name="@requires">@requires</var></a></figcaption><pre class="graphql" data-language="graphql"><code><span class="token comment"># extended from the Users service</span>
+<span class="token keyword">extend</span> <span class="token keyword">type</span> <span class="token class-name">User</span> <span class="token directive function">@key</span><span class="token punctuation">(</span><span class="token attr-name">fields</span><span class="token punctuation">:</span> <span class="token string">"id"</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">id</span><span class="token punctuation">:</span> <span class="token scalar">ID</span><span class="token operator">!</span> <span class="token directive function">@external</span>
+  <span class="token attr-name">email</span><span class="token punctuation">:</span> <span class="token scalar">String</span> <span class="token directive function">@external</span>
+  <span class="token attr-name">reviews</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token class-name">Review</span><span class="token punctuation">]</span> <span class="token directive function">@requires</span><span class="token punctuation">(</span><span class="token attr-name">fields</span><span class="token punctuation">:</span> <span class="token string">"email"</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre>
+</figure><p>In this case, the Reviews service adds new capabilities to the <code>User</code> type by providing a list of <code>reviews</code> related to a user. In order to fetch these reviews, the Reviews service needs to know the <code>email</code> of the <code>User</code> from the Users service in order to look up the reviews. This means the <code>reviews</code> field / resolver <em>requires</em> the <code>email</code> field from the base <code>User</code> type.</p>
+</section>
+<section id="@external" secid="4">
+<h1 class="spec-definition-head"><span class="spec-secid" title="link to this section"><a href="#@external">4</a></span>@external</h1>
+<figure id="example-18f60" class="spec-definition"><pre class="graphql" data-language="graphql"><code><span class="token keyword">directive</span> <span class="token directive function">@external</span> <span class="token keyword">on</span> <span class="token constant">FIELD_DEFINITION</span>
+</code></pre>
+</figure><p>The <code>@external</code> directive is used to mark a field as owned by another service. This allows service A to use fields from service B while also knowing at runtime the types of that field. For example:</p>
+<figure id="example-using-@external" class="spec-example"><figcaption><a href="#example-using-@external"><span class="spec-example-num">Example № 5</span> using <var data-name="@external">@external</var></a></figcaption><pre class="graphql" data-language="graphql"><code><span class="token comment"># extended from the Users service</span>
+<span class="token keyword">extend</span> <span class="token keyword">type</span> <span class="token class-name">User</span> <span class="token directive function">@key</span><span class="token punctuation">(</span><span class="token attr-name">fields</span><span class="token punctuation">:</span> <span class="token string">"email"</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">email</span><span class="token punctuation">:</span> <span class="token scalar">String</span> <span class="token directive function">@external</span>
+  <span class="token attr-name">reviews</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token class-name">Review</span><span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+</code></pre>
+</figure><p>This type extension in the Reviews service extends the <code>User</code> type from the Users service. It extends it for the purpose of adding a new field called <code>reviews</code>, which returns a list of <code>Review</code>s.</p>
+</section>
+<section id="FieldSet" secid="5">
+<h1 class="spec-definition-head"><span class="spec-secid" title="link to this section"><a href="#FieldSet">5</a></span>FieldSet</h1>
+<figure id="example-02ba8" class="spec-definition"><pre class="graphql" data-language="graphql"><code><span class="token keyword">scalar</span> <span class="token class-name">FieldSet</span>
+</code></pre>
+</figure><p>A set of fields. </p>
+<figure id="example-Using-with-a-single-field-in-a" class="spec-example"><figcaption><a href="#example-Using-with-a-single-field-in-a"><span class="spec-example-num">Example № 6</span> Using <code>FieldSet</code> with a single field in a <code>@key</code></a></figcaption><pre class="graphql" data-language="graphql"><code><span class="token keyword">type</span> <span class="token class-name">User</span> <span class="token directive function">@key</span><span class="token punctuation">(</span><span class="token attr-name">fields</span><span class="token punctuation">:</span> <span class="token string">"id"</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">id</span><span class="token punctuation">:</span> <span class="token scalar">ID</span><span class="token operator">!</span> <span class="token directive function">@external</span>
+<span class="token punctuation">}</span>
+</code></pre>
+</figure><figure id="example-Using-with-a-multiple-fields" class="spec-example"><figcaption><a href="#example-Using-with-a-multiple-fields"><span class="spec-example-num">Example № 7</span> Using <code>FieldSet</code> with a multiple fields</a></figcaption><pre class="graphql" data-language="graphql"><code><span class="token keyword">type</span> <span class="token class-name">User</span> <span class="token directive function">@key</span><span class="token punctuation">(</span><span class="token attr-name">fields</span><span class="token punctuation">:</span> <span class="token string">"uid realm"</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">uid</span><span class="token punctuation">:</span> <span class="token scalar">String</span>
+  <span class="token attr-name">realm</span><span class="token punctuation">:</span> <span class="token scalar">String</span>
+<span class="token punctuation">}</span>
+</code></pre>
+</figure><p>Deeply nested fields are supported with standard GraphQL syntax</p>
+<figure id="example-with-nested-fields" class="spec-example"><figcaption><a href="#example-with-nested-fields"><span class="spec-example-num">Example № 8</span> <code>FieldSet</code> with nested fields</a></figcaption><pre class="graphql" data-language="graphql"><code><span class="token keyword">type</span> <span class="token class-name">User</span> <span class="token directive function">@key</span><span class="token punctuation">(</span><span class="token attr-name">fields</span><span class="token punctuation">:</span> <span class="token string">"contact { email }"</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">contact</span><span class="token punctuation">:</span> <span class="token class-name">Contact</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">type</span> <span class="token class-name">Contact</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">email</span><span class="token punctuation">:</span> <span class="token scalar">String</span>
+<span class="token punctuation">}</span>
+</code></pre>
+</figure><p>Field arguments are not supported.</p>
+<figure id="example-does-not-support-field-arguments" class="spec-counter-example"><figcaption><a href="#example-does-not-support-field-arguments"><span class="spec-example-num">Counter Example № 9</span> <code>FieldSet</code> does not support field arguments</a></figcaption><pre class="graphql" data-language="graphql"><code><span class="token keyword">type</span> <span class="token class-name">User</span> <span class="token directive function">@key</span><span class="token punctuation">(</span><span class="token attr-name">fields</span><span class="token punctuation">:</span> <span class="token string">"emails(first: 1)"</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">emails</span><span class="token punctuation">(</span><span class="token attr-name">first</span><span class="token punctuation">:</span> <span class="token scalar">Int</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token scalar">String</span><span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+</code></pre>
+</figure></section>
 </article>
 <footer>
 Written in <a href="https://spec-md.com" target="_blank">Spec Markdown</a>.</footer>
 <input hidden class="spec-sidebar-toggle" type="checkbox" id="spec-sidebar-toggle" aria-hidden /><label for="spec-sidebar-toggle" aria-hidden><div class="spec-sidebar-button">&#x2630;</div></label>
 <div class="spec-sidebar" aria-hidden>
 <div class="spec-toc">
-<div class="title"><a href="#">id v1.0</a></div>
-<ol></ol>
+<div class="title"><a href="#">federation v2.0</a></div>
+<ol><li id="_sidebar_1"><a href="#@key"><span class="spec-secid">1</span>@key</a></li>
+<li id="_sidebar_2"><a href="#@provides"><span class="spec-secid">2</span>@provides</a></li>
+<li id="_sidebar_3"><a href="#@requires"><span class="spec-secid">3</span>@requires</a></li>
+<li id="_sidebar_4"><a href="#@external"><span class="spec-secid">4</span>@external</a></li>
+<li id="_sidebar_5"><a href="#FieldSet"><span class="spec-secid">5</span>FieldSet</a></li>
+</ol>
 </div>
 <script>(function(){var e,t=[],n=document.querySelector('label[for="spec-sidebar-toggle"]');function o(e){e.preventDefault()}n.addEventListener("scroll",o),n.addEventListener("touchmove",o);for(var i=document.getElementsByTagName("section"),r=0;r<i.length;r++)i[r].getAttribute("secid")&&t.push(i[r]);var c=window.scrollY,l=!1;function d(n){for(var o,i=n+document.documentElement.clientHeight/4,r=t.length-1;r>=0;r--)if(t[r].offsetTop<i){o=t[r];break}var c=o&&o.getAttribute("secid");c!==e&&(e&&a(e,!1),c&&a(c,!0),e=c)}function a(e,t){document.getElementById("_sidebar_"+e).className=t?"viewing":"";for(var n=e.split(".");n.length;){var o=document.getElementById("_sidebar_toggle_"+n.join("."));o&&(o.checked=t),n.pop()}}window.addEventListener("scroll",(function(e){c=window.scrollY,l||(l=!0,window.requestAnimationFrame((function(){d(c),l=!1})))})),d(window.scrollY);})()</script>
 </div>

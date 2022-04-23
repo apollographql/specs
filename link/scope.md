@@ -1,7 +1,8 @@
 
+Blah blah blah
 # Renaming link
 
-It is possible to rename {@link} with the same {@link.as} mechanism used for all links:
+It is possible to rename {@link} with the same [`as`](#@link/as) mechanism used for all links:
 
 ```graphql example -- Renaming {@link} to {@linkOther}
 schema
@@ -60,4 +61,4 @@ Feature specs MUST prefix the following schema elements:
   - the names of any object types, interfaces, unions, enums, or input object types defined by the feature
   - the names of any directives introduced in the schema, with the exception of the *root directive*, which must have the same name as the schema
 
-:::[example](prefixing.graphql) -- Prefixing
+<!-- :::[example](prefixing.graphql) -- Prefixing -->

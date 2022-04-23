@@ -1,5 +1,0 @@
-extend schema @id(url: "https://specs.apollo.dev/id/v1.0")
-
-extend schema @id(url: "https://specs.apollo.dev/id/v1.0")
-
-directive @id(url: String!) on SCHEMA

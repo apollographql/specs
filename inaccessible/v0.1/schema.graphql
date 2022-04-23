@@ -1,14 +1,14 @@
-directive @link(as: String, url: String!, for: link__Purpose) repeatable on SCHEMA
+directive @core(as: String, feature: String!, for: core__Purpose) repeatable on SCHEMA
 directive @inaccessible on FIELD_DEFINITION | OBJECT | INTERFACE | UNION
 
-enum link__Purpose {
+enum core__Purpose {
   EXECUTION
   SECURITY
 }
 
 schema
-  @link(url: "https://specs.apollo.dev/link/v0.2")
-  @link(url: "https://specs.apollo.dev/inaccessible/v0.1", for: SECURITY)
+  @core(feature: "https://specs.apollo.dev/core/v0.2")
+  @core(feature: "https://specs.apollo.dev/inaccessible/v0.1", for: SECURITY)
 {
   query: Query
 }
@@ -21,7 +21,7 @@ type User {
   id: String! @inaccessible
   name: String!
   email: String!
-  bankAccount: BankAccount
+  bankAccount: BankAccount @inaccessible
   accounts: [Account]
 }
 

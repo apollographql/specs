@@ -38,7 +38,7 @@ Patch and pre-release qualifiers are judged to be not particularly meaningful in
 
 As with [semver](https://semver.org/spec/v2.0.0.html), the `0.x` version series is special: there is no expectation of compatibility between versions `0.x` and `0.y`. For example, a processor must not activate implementation `0.4` to satisfy a requested version of `0.2`.
 
-## Satisfaction
+# Satisfaction
 
 Given a version {requested} by a document and an {available} version of an implementation, the following algorithm will determine if the {available} version can satisfy the {requested} version:
 
@@ -47,7 +47,7 @@ Satisfies(requested, available) :
   2. If {requested}.{Major} = 0, return {requested}.{Minor} = {available}.{Minor}
   3. Return {requested}.{Minor} <= {available}.{Minor}
 
-## Referencing versions and activating implementations
+# Referencing versions and activating implementations
 
 Schema documents MUST reference a feature version which supports all the schema elements and behaviors required by the document. As a practical matter, authors will generally prefer to reference a version they have reason to believe is supported by the most processors; depending on context, this might be an old stable version with a low major version, or a new less-deprecated version with a large major version.
 

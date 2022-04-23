@@ -12,11 +12,11 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@queerviolet/speck": "github:queerviolet/speck",
     "express": "^4.17.1",
     "http-server": "^0.12.3",
     "jsdom": "^16.4.0",
-    "puppeteer": "^5.5.0",
-    "@queerviolet/speck": "queerviolet/speck"
+    "puppeteer": "^5.5.0"
   },
   "dependencies": {
     "commonmark": "^0.29.3"

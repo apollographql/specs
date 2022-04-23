@@ -3,6 +3,6 @@
 
 [build]
   # This site has no build step at the moment.  We just publish the contents.
-  publish = "/.graphs/https/specs.apollo.dev"
+  publish = "/"
 
 # Redirects are handled in the ./_redirects file, which has a simple format
