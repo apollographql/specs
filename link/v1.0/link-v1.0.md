@@ -617,12 +617,12 @@ IsBootstrap(directive) :
 
 Locate(scope, defOrRef) :
   1. **If** {LocateBound(scope, defOrRef)} is not {null} **Then Return** {LocateBound(scope, defOrRef)}
-  3. **Let** {selfReference} be the item `Schema()`
-  3. **Let** {myself} be the URL of the schema returned from {Lookup(scope, selfReference)}, or `Schema(null)` if none was found
-  1. Let {name} be the name of {defOrRef}
-  4. **If** {defOrRef} is a named type reference, extension, or definition, **Then**
-    1. **Return** GRef(myself, Type({name}))
-  5. Otherwise, **Return** GRef(myself, Directive({name}))
+  3. **Let** {selfReference} be the element `Schema()`
+  3. **Let** {myself} be the URL of the schema returned from {Lookup(scope, selfReference)}, or {null} if none was found
+  1. Let {name} be the Name of {defOrRef}
+  4. **If** {defOrRef} is a Directive or DirectiveDefinition **Then**
+    1. **Return** GRef(myself, Directive({name}))
+  5. Otherwise, **Return** GRef(myself, Type({name}))
 
 {LocateBound(scope, defOrRef)} returns the binding for {defOrRef} if one is specified
 in {scope}, otherwise {null}. It does not resolve local names to the local document.
@@ -651,7 +651,8 @@ GetPath(node) :
   2. ...**Else**,
     1. **Let** {prefix} be {null}
     2. **Let** {base} be Name
-  3. **If** {node} is a Directive, **Then Return** (Schema({prefix}), Directive({base}))
+  3. **If** {node} is a Directive or DirectiveDefinition, **Then**
+    1. **Return** (Schema({prefix}), Directive({base}))
   4. ...**Else Return** (Schema({prefix}), Type({base}))
 
 

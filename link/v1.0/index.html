@@ -1690,14 +1690,14 @@ This algorithm is specified as a generator. This is deemed to produce the cleare
 <div class="spec-algo" id="Locate()">
 <span class="spec-call"><a href="#Locate()" data-name="Locate">Locate</a>(<var data-name="scope">scope</var>, <var data-name="defOrRef">defOrRef</var>)</span><ol>
 <li><strong>If</strong> <span class="spec-call"><a href="#LocateBound()" data-name="LocateBound">LocateBound</a>(<var data-name="scope">scope</var>, <var data-name="defOrRef">defOrRef</var>)</span> is not <span class="spec-keyword">null</span> <strong>Then Return</strong> <span class="spec-call"><a href="#LocateBound()" data-name="LocateBound">LocateBound</a>(<var data-name="scope">scope</var>, <var data-name="defOrRef">defOrRef</var>)</span></li>
-<li><strong>Let</strong> <var data-name="selfReference">selfReference</var> be the item <code>Schema()</code></li>
-<li><strong>Let</strong> <var data-name="myself">myself</var> be the URL of the schema returned from <span class="spec-call"><span data-name="Lookup">Lookup</span>(<var data-name="scope">scope</var>, <var data-name="selfReference">selfReference</var>)</span>, or <code>Schema(null)</code> if none was found</li>
-<li>Let <var data-name="name">name</var> be the name of <var data-name="defOrRef">defOrRef</var></li>
-<li><strong>If</strong> <var data-name="defOrRef">defOrRef</var> is a named type reference, extension, or definition, <strong>Then</strong><ol>
-<li><strong>Return</strong> GRef(myself, Type(<var data-name="name">name</var>))</li>
+<li><strong>Let</strong> <var data-name="selfReference">selfReference</var> be the element <code>Schema()</code></li>
+<li><strong>Let</strong> <var data-name="myself">myself</var> be the URL of the schema returned from <span class="spec-call"><span data-name="Lookup">Lookup</span>(<var data-name="scope">scope</var>, <var data-name="selfReference">selfReference</var>)</span>, or <span class="spec-keyword">null</span> if none was found</li>
+<li>Let <var data-name="name">name</var> be the Name of <var data-name="defOrRef">defOrRef</var></li>
+<li><strong>If</strong> <var data-name="defOrRef">defOrRef</var> is a Directive or DirectiveDefinition <strong>Then</strong><ol>
+<li><strong>Return</strong> GRef(myself, Directive(<var data-name="name">name</var>))</li>
 </ol>
 </li>
-<li>Otherwise, <strong>Return</strong> GRef(myself, Directive(<var data-name="name">name</var>))</li>
+<li>Otherwise, <strong>Return</strong> GRef(myself, Type(<var data-name="name">name</var>))</li>
 </ol>
 </div>
 <p><span class="spec-call"><a href="#LocateBound()" data-name="LocateBound">LocateBound</a>(<var data-name="scope">scope</var>, <var data-name="defOrRef">defOrRef</var>)</span> returns the binding for <var data-name="defOrRef">defOrRef</var> if one is specified in <var data-name="scope">scope</var>, otherwise <span class="spec-keyword">null</span>. It does not resolve local names to the local document.</p>
@@ -1732,7 +1732,10 @@ This algorithm is specified as a generator. This is deemed to produce the cleare
 <li><strong>Let</strong> <var data-name="base">base</var> be Name</li>
 </ol>
 </li>
-<li><strong>If</strong> <var data-name="node">node</var> is a Directive, <strong>Then Return</strong> (Schema(<var data-name="prefix">prefix</var>), Directive(<var data-name="base">base</var>))</li>
+<li><strong>If</strong> <var data-name="node">node</var> is a Directive or DirectiveDefinition, <strong>Then</strong><ol>
+<li><strong>Return</strong> (Schema(<var data-name="prefix">prefix</var>), Directive(<var data-name="base">base</var>))</li>
+</ol>
+</li>
 <li>...<strong>Else Return</strong> (Schema(<var data-name="prefix">prefix</var>), Type(<var data-name="base">base</var>))</li>
 </ol>
 </div>
