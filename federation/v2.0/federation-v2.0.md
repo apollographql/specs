@@ -96,21 +96,21 @@ extend type User @key(fields: "email") {
 
 This type extension in the Reviews service extends the `User` type from the Users service. It extends it for the purpose of adding a new field called `reviews`, which returns a list of `Review`s.
 
-#! FieldSet
+#! _FieldSet
 
 ```graphql definition
-scalar FieldSet
+scalar _FieldSet
 ```
 
 A set of fields. 
 
-```graphql example -- Using `FieldSet` with a single field in a `@key`
+```graphql example -- Using `_FieldSet` with a single field in a `@key`
 type User @key(fields: "id") {
   id: ID! @external
 }
 ```
 
-```graphql example -- Using `FieldSet` with a multiple fields
+```graphql example -- Using `_FieldSet` with a multiple fields
 type User @key(fields: "uid realm") {
   uid: String
   realm: String
@@ -119,7 +119,7 @@ type User @key(fields: "uid realm") {
 
 Deeply nested fields are supported with standard GraphQL syntax
 
-```graphql example -- `FieldSet` with nested fields
+```graphql example -- `_FieldSet` with nested fields
 type User @key(fields: "contact { email }") {
   contact: Contact
 }
@@ -131,7 +131,7 @@ type Contact {
 
 Field arguments are not supported.
 
-```graphql counter-example -- `FieldSet` does not support field arguments
+```graphql counter-example -- `_FieldSet` does not support field arguments
 type User @key(fields: "emails(first: 1)") {
   emails(first: Int): [String]
 }
