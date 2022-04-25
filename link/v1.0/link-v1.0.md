@@ -276,7 +276,7 @@ extend schema
   @id(url: "https://api.example.com")
   @link(url: "https://specs.apollo.dev/link/v1.0", import: ["@id"]
 
-#    👇🏽 🌍 https://api.example.com#myOwn__Purpose (note, this document has no @id, so the url of this gref is null)
+#    👇🏽 🌍 https://api.example.com#myOwn__Purpose
 enum myOwn__Purpose { SECURITY EXECUTION }
 ```
 
@@ -291,7 +291,7 @@ extend schema
   @link(url: "https://specs.apollo.dev/link/v1.0")
 ```
 
-The bootstrapping {@link} MUST be the first {@link} in the document. Other directives may precede it, including directives which have been {@link}ed. 
+The {@link} directive for {@link} itself—the "bootstrap"—MUST be the first {@link} in the document. Other directives may precede it, including directives which have been {@link}ed. 
 
 ```graphql example -- bootstrapping {@link} and using {@id} before doing so
 extend schema
@@ -299,7 +299,7 @@ extend schema
   @link(url: "https://specs.apollo.dev/link/v1.0", import: ["@id"])
 ```
 
-There is otherwise nothing special or restricted about these "bootstrapping links". Documents MAY rename {@link}—either with [`as:`](#@link/as) or [`import:`](#@link/import) or both:
+There is otherwise nothing special or restricted about bootstraps. Documents MAY use them to rename {@link}—either with [`as:`](#@link/as) or [`import:`](#@link/import) or both:
 
 ```graphql example -- bootstrapping {@link} with a different name
 extend schema
@@ -518,9 +518,9 @@ Consumers MUST NOT serve a field if:
 
 Such fields are *unresolvable*. Consumers MAY attempt to serve schemas with unresolvable fields. Depending on the needs of the consumer, unresolvable fields MAY be removed from the schema prior to serving, or they MAY produce runtime errors if a query attempts to resolve them. Consumers MAY implement stricter policies, wholly refusing to serve schemas with unresolvable fields, or even refusing to serve schemas with any unsupported EXECUTION schemas, even if those schemas are never used in the schema. 
 
-# Appendix: Validations & Algorithms
+# Validations & Algorithms
 
-## Construct the document's scope
+## Constructing the document's scope
 
 Visit every {@link} and {@id} within the document to construct the document's scope.
 
@@ -608,7 +608,7 @@ IsBootstrap(directive) :
 
 ## Locating definitions and references
 
-Locate a definition or reference within the document's scope, returning a gref.
+{Locate} a definition or reference within the document's scope, returning a global graph reference.
 
 {defOrRef} must be one of:
 - a definition node with a name
@@ -621,18 +621,39 @@ Locate(scope, defOrRef) :
   3. **Let** {myself} be the URL of the schema returned from {Lookup(scope, selfReference)}, or `Schema(null)` if none was found
   1. Let {name} be the name of {defOrRef}
   4. **If** {defOrRef} is a named type reference, extension, or definition, **Then**
-    1. **Return** the gref (myself, Type({name}))
-  5. Otherwise, **Return** the gref (myself, Directive({name}))
+    1. **Return** GRef(myself, Type({name}))
+  5. Otherwise, **Return** GRef(myself, Directive({name}))
+
+{LocateBound(scope, defOrRef)} returns the binding for {defOrRef} if one is specified
+in {scope}, otherwise {null}. It does not resolve local names to the local document.
 
 LocateBound(scope, defOrRef) :
-  1. **Let** ({schema}, {element}) be the pair returned from {GetPathFrom(defOrRef)}
+  1. **Let** ({schema}, {element}) be the pair returned from {GetPath(defOrRef)}
   2. **If** {schema} is not {null} and exists in {scope}, **Then**
     1. Let {foundGraph} be the URL of the binding found by looking up {schema} in {scope}
-    2. **Return** the gref ({foundGraph}, {element})
+    2. **Return** GRef({foundGraph}, {element})
   3. **If** {schema} is {null} and {element} exists in {scope}, **Then**
     1. **Let** {foundElement} be the gref of the binding found by looking up {element} in {scope},
     2. **Return** {foundElement}
   4. Otherwise, **Return** {null}
+
+{GetPath(node)} [parses the name](#sec-Name-Conventions) of {node} and returns a (schema, element) pair.
+
+{node} must have a name.
+
+{schema} will be the {Schema} element parsed from the name, or {null} if {node}'s name does not have a prefix.
+{element} may be any type of {Element}.
+
+GetPath(node) :
+  1. **If** {node}'s Name contains the namespace separator {"__"}, **Then**
+    1. **Let** {prefix} be the part of {node}'s Name up to the first instance of the namespace separator {"__"}
+    2. **Let** {base} be the part of {node}'s Name after the first instance of the namespace separator {"__"}
+  2. ...**Else**,
+    1. **Let** {prefix} be {null}
+    2. **Let** {base} be Name
+  3. **If** {node} is a Directive, **Then Return** (Schema({prefix}), Directive({base}))
+  4. ...**Else Return** (Schema({prefix}), Type({base}))
+
 
 # Appendix: Versioning
 

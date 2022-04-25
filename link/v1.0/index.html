@@ -1112,8 +1112,8 @@ pre[class*="language-"] {
 </li>
 </ol>
 </li>
-<li><a href="#sec-Appendix-Validations-Algorithms"><span class="spec-secid">7</span>Appendix: Validations &amp; Algorithms</a><ol>
-<li><a href="#sec-Construct-the-document-s-scope"><span class="spec-secid">7.1</span>Construct the document&#x27;s scope</a></li>
+<li><a href="#sec-Validations-Algorithms"><span class="spec-secid">7</span>Validations &amp; Algorithms</a><ol>
+<li><a href="#sec-Constructing-the-document-s-scope"><span class="spec-secid">7.1</span>Constructing the document&#x27;s scope</a></li>
 <li><a href="#sec-Get-all-bindings-from-a-@link-directive"><span class="spec-secid">7.2</span>Get all bindings from a @link directive</a></li>
 <li><a href="#sec-Detecting-a-bootstrap-directive"><span class="spec-secid">7.3</span>Detecting a bootstrap directive</a></li>
 <li><a href="#sec-Locating-definitions-and-references"><span class="spec-secid">7.4</span>Locating definitions and references</a></li>
@@ -1326,7 +1326,7 @@ pre[class*="language-"] {
   <span class="token directive function">@id</span><span class="token punctuation">(</span><span class="token attr-name">url</span><span class="token punctuation">:</span> <span class="token string">"https://api.example.com"</span><span class="token punctuation">)</span>
   <span class="token directive function">@link</span><span class="token punctuation">(</span><span class="token attr-name">url</span><span class="token punctuation">:</span> <span class="token string">"https://specs.apollo.dev/link/v1.0"</span><span class="token punctuation">,</span> <span class="token attr-name">import</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">"@id"</span><span class="token punctuation">]</span>
 
-<span class="token comment">#    👇🏽 🌍 https://api.example.com#myOwn__Purpose (note, this document has no @id, so the url of this gref is null)</span>
+<span class="token comment">#    👇🏽 🌍 https://api.example.com#myOwn__Purpose</span>
 <span class="token keyword">enum</span> <span class="token object">myOwn__Purpose</span> <span class="token punctuation">{</span> <span class="token constant">SECURITY</span> <span class="token constant">EXECUTION</span> <span class="token punctuation">}</span>
 </code></pre>
 </figure><div id="note-7258b" class="spec-note">
@@ -1338,12 +1338,12 @@ GraphQL name conventions strongly suggest against such naming. But amongst the c
 <figure id="example-bootstrapping-@link" class="spec-example"><figcaption><a href="#example-bootstrapping-@link"><span class="spec-example-num">Example № 17</span> bootstrapping <var data-name="@link">@link</var></a></figcaption><pre class="graphql" data-language="graphql"><code><span class="token keyword">extend</span> <span class="token keyword">schema</span>
   <span class="token directive function">@link</span><span class="token punctuation">(</span><span class="token attr-name">url</span><span class="token punctuation">:</span> <span class="token string">"https://specs.apollo.dev/link/v1.0"</span><span class="token punctuation">)</span>
 </code></pre>
-</figure><p>The bootstrapping <var data-name="@link">@link</var> <a href="https://tools.ietf.org/html/rfc2119#section-1" class="spec-requirement required">MUST</a> be the first <var data-name="@link">@link</var> in the document. Other directives may precede it, including directives which have been <var data-name="@link">@link</var>ed. </p>
+</figure><p>The <var data-name="@link">@link</var> directive for <var data-name="@link">@link</var> itself&mdash;the &ldquo;bootstrap&rdquo;&mdash;<a href="https://tools.ietf.org/html/rfc2119#section-1" class="spec-requirement required">MUST</a> be the first <var data-name="@link">@link</var> in the document. Other directives may precede it, including directives which have been <var data-name="@link">@link</var>ed. </p>
 <figure id="example-bootstrapping-@link-and-using-@id-before-doing-so" class="spec-example"><figcaption><a href="#example-bootstrapping-@link-and-using-@id-before-doing-so"><span class="spec-example-num">Example № 18</span> bootstrapping <var data-name="@link">@link</var> and using <var data-name="@id">@id</var> before doing so</a></figcaption><pre class="graphql" data-language="graphql"><code><span class="token keyword">extend</span> <span class="token keyword">schema</span>
   <span class="token directive function">@id</span><span class="token punctuation">(</span><span class="token attr-name">url</span><span class="token punctuation">:</span> <span class="token string">"https://api.example.com"</span><span class="token punctuation">)</span>
   <span class="token directive function">@link</span><span class="token punctuation">(</span><span class="token attr-name">url</span><span class="token punctuation">:</span> <span class="token string">"https://specs.apollo.dev/link/v1.0"</span><span class="token punctuation">,</span> <span class="token attr-name">import</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">"@id"</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
 </code></pre>
-</figure><p>There is otherwise nothing special or restricted about these &ldquo;bootstrapping links&rdquo;. Documents <a href="https://tools.ietf.org/html/rfc2119#section-5" class="spec-requirement optional">MAY</a> rename <var data-name="@link">@link</var>&mdash;either with <a href="#@link/as"><code>as:</code></a> or <a href="#@link/import"><code>import:</code></a> or both:</p>
+</figure><p>There is otherwise nothing special or restricted about bootstraps. Documents <a href="https://tools.ietf.org/html/rfc2119#section-5" class="spec-requirement optional">MAY</a> use them to rename <var data-name="@link">@link</var>&mdash;either with <a href="#@link/as"><code>as:</code></a> or <a href="#@link/import"><code>import:</code></a> or both:</p>
 <figure id="example-bootstrapping-@link-with-a-different-name" class="spec-example"><figcaption><a href="#example-bootstrapping-@link-with-a-different-name"><span class="spec-example-num">Example № 19</span> bootstrapping <var data-name="@link">@link</var> with a different name</a></figcaption><pre class="graphql" data-language="graphql"><code><span class="token keyword">extend</span> <span class="token keyword">schema</span>
   <span class="token directive function">@core</span><span class="token punctuation">(</span><span class="token attr-name">url</span><span class="token punctuation">:</span> <span class="token string">"https://specs.apollo.dev/link/v1.0"</span><span class="token punctuation">,</span> <span class="token attr-name">as</span><span class="token punctuation">:</span> <span class="token string">"core"</span><span class="token punctuation">)</span>
 </code></pre>
@@ -1534,10 +1534,10 @@ we&rsquo;ll refer to directives from links which are <code>for: SECURITY</code> 
 </section>
 </section>
 </section>
-<section id="sec-Appendix-Validations-Algorithms" secid="7">
-<h1><span class="spec-secid" title="link to this section"><a href="#sec-Appendix-Validations-Algorithms">7</a></span>Appendix: Validations &amp; Algorithms</h1>
-<section id="sec-Construct-the-document-s-scope" secid="7.1">
-<h2><span class="spec-secid" title="link to this section"><a href="#sec-Construct-the-document-s-scope">7.1</a></span>Construct the document&#x27;s scope</h2>
+<section id="sec-Validations-Algorithms" secid="7">
+<h1><span class="spec-secid" title="link to this section"><a href="#sec-Validations-Algorithms">7</a></span>Validations &amp; Algorithms</h1>
+<section id="sec-Constructing-the-document-s-scope" secid="7.1">
+<h2><span class="spec-secid" title="link to this section"><a href="#sec-Constructing-the-document-s-scope">7.1</a></span>Constructing the document&#x27;s scope</h2>
 <p>Visit every <var data-name="@link">@link</var> and <var data-name="@id">@id</var> within the document to construct the document&rsquo;s scope.</p>
 <div id="note-e2e7b" class="spec-note">
 <a href="#note-e2e7b">Note</a>
@@ -1680,7 +1680,7 @@ This algorithm is specified as a generator. This is deemed to produce the cleare
 </section>
 <section id="sec-Locating-definitions-and-references" secid="7.4">
 <h2><span class="spec-secid" title="link to this section"><a href="#sec-Locating-definitions-and-references">7.4</a></span>Locating definitions and references</h2>
-<p>Locate a definition or reference within the document&rsquo;s scope, returning a gref.</p>
+<p><span class="spec-nt"><span data-name="Locate">Locate</span></span> a definition or reference within the document&rsquo;s scope, returning a global graph reference.</p>
 <p><var data-name="defOrRef">defOrRef</var> must be one of:</p>
 <ul>
 <li>a definition node with a name</li>
@@ -1694,18 +1694,19 @@ This algorithm is specified as a generator. This is deemed to produce the cleare
 <li><strong>Let</strong> <var data-name="myself">myself</var> be the URL of the schema returned from <span class="spec-call"><span data-name="Lookup">Lookup</span>(<var data-name="scope">scope</var>, <var data-name="selfReference">selfReference</var>)</span>, or <code>Schema(null)</code> if none was found</li>
 <li>Let <var data-name="name">name</var> be the name of <var data-name="defOrRef">defOrRef</var></li>
 <li><strong>If</strong> <var data-name="defOrRef">defOrRef</var> is a named type reference, extension, or definition, <strong>Then</strong><ol>
-<li><strong>Return</strong> the gref (myself, Type(<var data-name="name">name</var>))</li>
+<li><strong>Return</strong> GRef(myself, Type(<var data-name="name">name</var>))</li>
 </ol>
 </li>
-<li>Otherwise, <strong>Return</strong> the gref (myself, Directive(<var data-name="name">name</var>))</li>
+<li>Otherwise, <strong>Return</strong> GRef(myself, Directive(<var data-name="name">name</var>))</li>
 </ol>
 </div>
+<p><span class="spec-call"><a href="#LocateBound()" data-name="LocateBound">LocateBound</a>(<var data-name="scope">scope</var>, <var data-name="defOrRef">defOrRef</var>)</span> returns the binding for <var data-name="defOrRef">defOrRef</var> if one is specified in <var data-name="scope">scope</var>, otherwise <span class="spec-keyword">null</span>. It does not resolve local names to the local document.</p>
 <div class="spec-algo" id="LocateBound()">
 <span class="spec-call"><a href="#LocateBound()" data-name="LocateBound">LocateBound</a>(<var data-name="scope">scope</var>, <var data-name="defOrRef">defOrRef</var>)</span><ol>
-<li><strong>Let</strong> (<var data-name="schema">schema</var>, <var data-name="element">element</var>) be the pair returned from <span class="spec-call"><span data-name="GetPathFrom">GetPathFrom</span>(<var data-name="defOrRef">defOrRef</var>)</span></li>
+<li><strong>Let</strong> (<var data-name="schema">schema</var>, <var data-name="element">element</var>) be the pair returned from <span class="spec-call"><a href="#GetPath()" data-name="GetPath">GetPath</a>(<var data-name="defOrRef">defOrRef</var>)</span></li>
 <li><strong>If</strong> <var data-name="schema">schema</var> is not <span class="spec-keyword">null</span> and exists in <var data-name="scope">scope</var>, <strong>Then</strong><ol>
 <li>Let <var data-name="foundGraph">foundGraph</var> be the URL of the binding found by looking up <var data-name="schema">schema</var> in <var data-name="scope">scope</var></li>
-<li><strong>Return</strong> the gref (<var data-name="foundGraph">foundGraph</var>, <var data-name="element">element</var>)</li>
+<li><strong>Return</strong> GRef(<var data-name="foundGraph">foundGraph</var>, <var data-name="element">element</var>)</li>
 </ol>
 </li>
 <li><strong>If</strong> <var data-name="schema">schema</var> is <span class="spec-keyword">null</span> and <var data-name="element">element</var> exists in <var data-name="scope">scope</var>, <strong>Then</strong><ol>
@@ -1714,6 +1715,25 @@ This algorithm is specified as a generator. This is deemed to produce the cleare
 </ol>
 </li>
 <li>Otherwise, <strong>Return</strong> <span class="spec-keyword">null</span></li>
+</ol>
+</div>
+<p><span class="spec-call"><a href="#GetPath()" data-name="GetPath">GetPath</a>(<var data-name="node">node</var>)</span> <a href="#sec-Name-Conventions">parses the name</a> of <var data-name="node">node</var> and returns a (schema, element) pair.</p>
+<p><var data-name="node">node</var> must have a name.</p>
+<p><var data-name="schema">schema</var> will be the <span class="spec-nt"><span data-name="Schema">Schema</span></span> element parsed from the name, or <span class="spec-keyword">null</span> if <var data-name="node">node</var>&lsquo;s name does not have a prefix. <var data-name="element">element</var> may be any type of <span class="spec-nt"><span data-name="Element">Element</span></span>.</p>
+<div class="spec-algo" id="GetPath()">
+<span class="spec-call"><a href="#GetPath()" data-name="GetPath">GetPath</a>(<var data-name="node">node</var>)</span><ol>
+<li><strong>If</strong> <var data-name="node">node</var>&lsquo;s Name contains the namespace separator <span class="spec-string">"__"</span>, <strong>Then</strong><ol>
+<li><strong>Let</strong> <var data-name="prefix">prefix</var> be the part of <var data-name="node">node</var>&lsquo;s Name up to the first instance of the namespace separator <span class="spec-string">"__"</span></li>
+<li><strong>Let</strong> <var data-name="base">base</var> be the part of <var data-name="node">node</var>&lsquo;s Name after the first instance of the namespace separator <span class="spec-string">"__"</span></li>
+</ol>
+</li>
+<li>...<strong>Else</strong>,<ol>
+<li><strong>Let</strong> <var data-name="prefix">prefix</var> be <span class="spec-keyword">null</span></li>
+<li><strong>Let</strong> <var data-name="base">base</var> be Name</li>
+</ol>
+</li>
+<li><strong>If</strong> <var data-name="node">node</var> is a Directive, <strong>Then Return</strong> (Schema(<var data-name="prefix">prefix</var>), Directive(<var data-name="base">base</var>))</li>
+<li>...<strong>Else Return</strong> (Schema(<var data-name="prefix">prefix</var>), Type(<var data-name="base">base</var>))</li>
 </ol>
 </div>
 </section>
@@ -1767,7 +1787,7 @@ v0.1
 </div>
 </section>
 </section>
-<section id="index" secid="index" class="spec-index"><h1><span class="spec-secid" title="link to the index"><a href="#index">§</a></span>Index</h1><ol><li><a href="#BindingsFromLink()">BindingsFromLink</a></li><li><a href="#ConstructScope()">ConstructScope</a></li><li><a href="#Digit">Digit</a></li><li><a href="#IsBootstrap()">IsBootstrap</a></li><li><a href="#Locate()">Locate</a></li><li><a href="#LocateBound()">LocateBound</a></li><li><a href="#Major">Major</a></li><li><a href="#Minor">Minor</a></li><li><a href="#NumericIdentifier">NumericIdentifier</a></li><li><a href="#PositiveDigit">PositiveDigit</a></li><li><a href="#Satisfies()">Satisfies</a></li><li><a href="#Version">Version</a></li><li><a href="#VersionTag">VersionTag</a></li></ol></section></article>
+<section id="index" secid="index" class="spec-index"><h1><span class="spec-secid" title="link to the index"><a href="#index">§</a></span>Index</h1><ol><li><a href="#BindingsFromLink()">BindingsFromLink</a></li><li><a href="#ConstructScope()">ConstructScope</a></li><li><a href="#Digit">Digit</a></li><li><a href="#GetPath()">GetPath</a></li><li><a href="#IsBootstrap()">IsBootstrap</a></li><li><a href="#Locate()">Locate</a></li><li><a href="#LocateBound()">LocateBound</a></li><li><a href="#Major">Major</a></li><li><a href="#Minor">Minor</a></li><li><a href="#NumericIdentifier">NumericIdentifier</a></li><li><a href="#PositiveDigit">PositiveDigit</a></li><li><a href="#Satisfies()">Satisfies</a></li><li><a href="#Version">Version</a></li><li><a href="#VersionTag">VersionTag</a></li></ol></section></article>
 <footer>
 Written in <a href="https://spec-md.com" target="_blank">Spec Markdown</a>.</footer>
 <input hidden class="spec-sidebar-toggle" type="checkbox" id="spec-sidebar-toggle" aria-hidden /><label for="spec-sidebar-toggle" aria-hidden><div class="spec-sidebar-button">&#x2630;</div></label>
@@ -1823,10 +1843,10 @@ Written in <a href="https://spec-md.com" target="_blank">Spec Markdown</a>.</foo
 </li>
 </ol>
 </li>
-<li id="_sidebar_7"><a href="#sec-Appendix-Validations-Algorithms"><span class="spec-secid">7</span>Appendix: Validations &amp; Algorithms</a>
+<li id="_sidebar_7"><a href="#sec-Validations-Algorithms"><span class="spec-secid">7</span>Validations &amp; Algorithms</a>
 <input hidden class="toggle" type="checkbox" id="_toggle_7" /><label for="_toggle_7"></label>
 <ol>
-<li id="_sidebar_7.1"><a href="#sec-Construct-the-document-s-scope"><span class="spec-secid">7.1</span>Construct the document&#x27;s scope</a></li>
+<li id="_sidebar_7.1"><a href="#sec-Constructing-the-document-s-scope"><span class="spec-secid">7.1</span>Constructing the document&#x27;s scope</a></li>
 <li id="_sidebar_7.2"><a href="#sec-Get-all-bindings-from-a-@link-directive"><span class="spec-secid">7.2</span>Get all bindings from a @link directive</a></li>
 <li id="_sidebar_7.3"><a href="#sec-Detecting-a-bootstrap-directive"><span class="spec-secid">7.3</span>Detecting a bootstrap directive</a></li>
 <li id="_sidebar_7.4"><a href="#sec-Locating-definitions-and-references"><span class="spec-secid">7.4</span>Locating definitions and references</a></li>
