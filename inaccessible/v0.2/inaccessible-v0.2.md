@@ -5,21 +5,17 @@
 ```raw html
 <table class=spec-data>
   <tr><td>Status</td><td>Release</td>
-  <tr><td>Version</td><td>0.1</td>
+  <tr><td>Version</td><td>0.2</td>
 </table>
 <link rel=stylesheet href=https://specs.apollo.dev/apollo-light.css>
 <script type=module async defer src=https://specs.apollo.dev/inject-logo.js></script>
 ```
 
-This document defines the `@inaccessible` directive, which marks schema elements which should not be accessible in the public-facing schema. This version of the spec supports Object, Interface, and Union types.
+This document defines the `@inaccessible` directive, which marks schema elements which should not be accessible in the public-facing schema. This version of the spec supports Object, Interface, Enum, and Union types along with enum values.
 
 # How to read this document
 
 This document uses [RFC 2119](https://www.ietf.org/rfc/rfc2119.txt) guidance regarding normative terms: MUST / MUST NOT / REQUIRED / SHALL / SHALL NOT / SHOULD / SHOULD NOT / RECOMMENDED / MAY / OPTIONAL.
-
-#! @inaccessible
-
-:::[definition](./inaccessible-v0.1.graphql#@inaccessible)
 
 # Definitions
 
@@ -63,7 +59,7 @@ As described in the [core schema specification](https://specs.apollo.dev/core/v0
 
 In order to use the directive described by this specification, GraphQL requires you to include the definition in your schema.
 
-:::[definition](./inaccessible-v0.1.graphql)
+:::[definition](./inaccessible-v0.2.graphql)
 
 ## Producer Responsibilities
 

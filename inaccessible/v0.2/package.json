@@ -1,0 +1,19 @@
+{
+  "name": "spec-site",
+  "private": true,
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "rsync -avz --exclude .dist . .dist && spec-md spec.md > .dist/index.html",
+    "dev": "npm run build || true && chokidar '**/*' -i '.dist' -c 'npm run build'"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@queerviolet/speck": "https://github.com/queerviolet/speck.git#main",
+    "chokidar-cli": "^2.1.0",
+    "watch": "^1.0.2"
+  }
+}

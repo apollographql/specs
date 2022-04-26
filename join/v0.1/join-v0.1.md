@@ -375,7 +375,7 @@ In order to use the directives described by this specification, GraphQL requires
 
 Processors MUST validate that you have defined the directives with the same arguments, locations, and `repeatable` flag as given below.
 
-:::[definition](spec.graphql)
+:::[definition](join-v0.1.graphql)
 
 Processors MUST validate that the schema contains an enum named {join__Graph}; see [its section below](#join__Graph) for other required properties of this enum.
 
