@@ -16,6 +16,7 @@ SPECS="
 "
 for spec in $SPECS; do
   echo $spec
-  $SPEC_MD $spec/$(dirname $spec)-$(basename $spec).md > $spec/index.html
+  md="$spec/$(dirname $spec)-$(basename $spec).md"
+  $SPEC_MD $md > $spec/index.html
 done
 $SPEC_MD index.md > index.html
