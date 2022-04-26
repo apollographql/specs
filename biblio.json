@@ -7,7 +7,9 @@
     },
     "/link/v1.0": {
       "@link()": "#@link",
-      "@id()": "#@id"
+      "@id()": "#@id",
+      "Import": "#Import",
+      "Url": "#Url"
     }
   }
 }

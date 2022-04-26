@@ -1067,7 +1067,7 @@ pre[class*="language-"] {
 </ol>
 </li>
 <li><a href="#@id"><span class="spec-secid">2</span>@id</a></li>
-<li><a href="#Import"><span class="spec-secid">3</span>Import</a></li>
+<li><a href="/link/v1.0#Import"><span class="spec-secid">3</span>Import</a></li>
 <li><a href="#Purpose"><span class="spec-secid">4</span>Purpose</a><ol>
 <li><a href="#Purpose.SECURITY"><span class="spec-secid">4.1</span>SECURITY</a></li>
 <li><a href="#Purpose.EXECUTION"><span class="spec-secid">4.2</span>EXECUTION</a></li>
@@ -1156,7 +1156,7 @@ pre[class*="language-"] {
 <section id="@link.import" secid="1.3">
 <h2 class="spec-definition-head"><span class="spec-secid" title="link to this section"><a href="#@link.import">1.3</a></span>import: [Import]</h2>
 <p>A list of names, possibly with aliases, to import from the foreign schema into the document.</p>
-<p>See the <a href="#Import">Import</a> scalar for a description of the format.</p>
+<p>See the <a href="/link/v1.0#Import">Import</a> scalar for a description of the format.</p>
 </section>
 <section id="@link.for" secid="1.4">
 <h2 class="spec-definition-head"><span class="spec-secid" title="link to this section"><a href="#@link.for">1.4</a></span>for: Purpose</h2>
@@ -1177,11 +1177,11 @@ pre[class*="language-"] {
 <p><span class="spec-call"><a href="/link/v1.0#@id" data-name="@id">@id</a></span> <a href="/core/v1.0#sec-Entry-added-by-@id">introduces an item</a> into the document&rsquo;s <a href="/core/v1.0#sec-Scope">Scope</a>.</p>
 </section>
 <section id="Import" secid="3">
-<h1 class="spec-definition-head"><span class="spec-secid" title="link to this section"><a href="#Import">3</a></span>Import</h1>
+<h1 class="spec-definition-head"><span class="spec-secid" title="link to this section"><a href="/link/v1.0#Import">3</a></span>Import</h1>
 <figure id="example-a8aa7" class="spec-definition"><pre class="graphql" data-language="graphql"><code><span class="token keyword">scalar</span> <span class="token class-name">Import</span>
 </code></pre>
 </figure><p>An element, possibly aliased, to import into the document.</p>
-<p><code>Import</code> can take the form of a string:</p>
+<p><span class="spec-nt"><a href="/link/v1.0#Import" data-name="Import">Import</a></span> can take the form of a string:</p>
 <figure id="example-import-a-string-name" class="spec-example"><figcaption><a href="#example-import-a-string-name"><span class="spec-example-num">Example № 2</span> import a string name</a></figcaption><pre class="graphql" data-language="graphql"><code>  <span class="token directive function">@link</span><span class="token punctuation">(</span><span class="token attr-name">url</span><span class="token punctuation">:</span> <span class="token string">"https://specs.apollo.dev/link/v1.0"</span><span class="token punctuation">,</span> <span class="token attr-name">import</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">"@link"</span><span class="token punctuation">,</span> <span class="token string">"Purpose"</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
 </code></pre>
 </figure><p>or an object with <code>name</code> and (optionally <code>as</code>):</p>
@@ -1205,7 +1205,7 @@ Future versions may support this.</div>
 </section>
 <section id="Purpose" secid="4">
 <h1 class="spec-definition-head"><span class="spec-secid" title="link to this section"><a href="#Purpose">4</a></span>Purpose</h1>
-<p>The role of a schema referenced with <span class="spec-call"><a href="/link/v1.0#@link" data-name="@link">@link</a></span>.</p>
+<p>The role of a <span class="spec-call"><a href="/link/v1.0#@link" data-name="@link">@link</a></span>ed schema.</p>
 <p>This is not intended to be an exhaustive list of all the purposes a foreign schema or its metadata might serve. Rather, it is intended to capture cases where the default fail&#8208;open behavior of core schema consumers is undesirable.</p>
 <div id="note-97217" class="spec-note">
 <a href="#note-97217">Note</a>
@@ -1254,7 +1254,7 @@ Written in <a href="https://spec-md.com" target="_blank">Spec Markdown</a>.</foo
 </ol>
 </li>
 <li id="_sidebar_2"><a href="#@id"><span class="spec-secid">2</span>@id</a></li>
-<li id="_sidebar_3"><a href="#Import"><span class="spec-secid">3</span>Import</a></li>
+<li id="_sidebar_3"><a href="/link/v1.0#Import"><span class="spec-secid">3</span>Import</a></li>
 <li id="_sidebar_4"><a href="#Purpose"><span class="spec-secid">4</span>Purpose</a>
 <input hidden class="toggle" type="checkbox" id="_toggle_4" /><label for="_toggle_4"></label>
 <ol>

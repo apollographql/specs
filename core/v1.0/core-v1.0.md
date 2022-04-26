@@ -1,6 +1,7 @@
 # Core Schemas v1.0
 
 ```raw html
+<h2>schemas for the global graph</h2>
 <table class=spec-data>
   <tr><td>Status</td><td>Draft</td>
   <tr><td>Version</td><td>1.0</td>
@@ -59,7 +60,7 @@ Types and directives are separated in this way because that's how GraphQL does i
 
 ## URL representation
 
-Since [link urls](#Url) explicitly cannot have fragments, we can represent global graph references as a URL with a fragment. For example, a reference to this document's {@link} directive can be rendered as `https://specs.apollo.dev/link/v1.0#@link`. A reference to this document's {Import} scalar can be rendered as `https://specs.apollo.dev/link/v1.0#Import`.
+Since [link urls](#Url) explicitly cannot have fragments, we can represent global graph references as a URL with a fragment. For example, a reference to {@link} from the schema `https://specs.apollo.dev/link/v1.0` can be rendered as `https://specs.apollo.dev/link/v1.0#@link`. A reference to the same spec's {Import} scalar can be rendered as `https://specs.apollo.dev/link/v1.0#Import`.
 
 This is particularly convenient for providing links to documentation. We'll use this form in examples throughout this document.
 

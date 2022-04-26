@@ -1046,6 +1046,7 @@ pre[class*="language-"] {
 <header>
 <h1>Core Schemas v1.0</h1>
 <section id="intro">
+<h2>schemas for the global graph</h2>
 <table class=spec-data>
   <tr><td>Status</td><td>Draft</td>
   <tr><td>Version</td><td>1.0</td>
@@ -1121,7 +1122,7 @@ pre[class*="language-"] {
 <li>Type(<var data-name="name">name</var>) &mdash; a named type of any kind</li>
 <li>Schema(<var data-name="name">name</var>?) &mdash; a further link to yet another schema. <var data-name="name">name</var> may be <span class="spec-keyword">null</span> to indicate the schema itself.</li>
 </ul>
-<p>Implementations may represent these internally in a variety of ways. They also have a canonical string form, which is used in <a href="#Import"><span class="spec-nt"><span data-name="Import">Import</span></span></a></p>
+<p>Implementations may represent these internally in a variety of ways. They also have a canonical string form, which is used in <a href="/link/v1.0#Import"><span class="spec-nt"><a href="/link/v1.0#Import" data-name="Import">Import</a></span></a></p>
 <ul>
 <li>Directive(<var data-name="name">name</var>) is represented with &ldquo;@<var data-name="name">name</var>&rdquo;</li>
 <li>Type(<var data-name="name">name</var>) is simply represented with &ldquo;<var data-name="name">name</var>&rdquo;</li>
@@ -1130,7 +1131,7 @@ pre[class*="language-"] {
 <p>Types and directives are separated in this way because that&rsquo;s how GraphQL does it&mdash;you can have a <code>User</code> type and a <code>@User</code> directive in the same schema (though GraphQL naming conventions would suggest againt it).</p>
 <section id="sec-URL-representation" secid="1.1">
 <h2><span class="spec-secid" title="link to this section"><a href="#sec-URL-representation">1.1</a></span>URL representation</h2>
-<p>Since <a href="#Url">link urls</a> explicitly cannot have fragments, we can represent global graph references as a URL with a fragment. For example, a reference to this document&rsquo;s <span class="spec-call"><a href="/link/v1.0#@link" data-name="@link">@link</a></span> directive can be rendered as <code>https://specs.apollo.dev/link/v1.0#@link</code>. A reference to this document&rsquo;s <span class="spec-nt"><span data-name="Import">Import</span></span> scalar can be rendered as <code>https://specs.apollo.dev/link/v1.0#Import</code>.</p>
+<p>Since <a href="/link/v1.0#Url">link urls</a> explicitly cannot have fragments, we can represent global graph references as a URL with a fragment. For example, a reference to <span class="spec-call"><a href="/link/v1.0#@link" data-name="@link">@link</a></span> from the schema <code>https://specs.apollo.dev/link/v1.0</code> can be rendered as <code>https://specs.apollo.dev/link/v1.0#@link</code>. A reference to the same spec&rsquo;s <span class="spec-nt"><a href="/link/v1.0#Import" data-name="Import">Import</a></span> scalar can be rendered as <code>https://specs.apollo.dev/link/v1.0#Import</code>.</p>
 <p>This is particularly convenient for providing links to documentation. We&rsquo;ll use this form in examples throughout this document.</p>
 </section>
 </section>
