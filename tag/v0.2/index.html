@@ -2,7 +2,7 @@
 <!-- Built with spec-md https://spec-md.com -->
 <html>
 <head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1"><title>Tag</title>
+<meta name="viewport" content="width=device-width, initial-scale=1"><title>tag v0.2</title>
 <style>
 :root {
   color: #333333;
@@ -1044,12 +1044,12 @@ pre[class*="language-"] {
 </head>
 <body><article>
 <header>
-<h1>Tag</h1>
+<h1>tag v0.2</h1>
 <section id="intro">
 <p><h2>for tagging GraphQL schema elements with names</h2></p>
 <table class=spec-data>
   <tr><td>Status</td><td>Release</td>
-  <tr><td>Version</td><td>0.1</td>
+  <tr><td>Version</td><td>0.2</td>
 </table>
 <link rel=stylesheet href=https://specs.apollo.dev/apollo-light.css>
 <script type=module async defer src=https://specs.apollo.dev/inject-logo.js></script>
@@ -1065,7 +1065,7 @@ pre[class*="language-"] {
 </li>
 <li><a href="#sec-Example-Team-Ownership-Metadata"><span class="spec-secid">2</span>Example: Team Ownership Metadata</a></li>
 <li><a href="#sec-Overview"><span class="spec-secid">3</span>Overview</a></li>
-<li><a href="#sec-Basic-Requirements"><span class="spec-secid">4</span>Basic Requirements</a></li>
+<li><a href="#@tag"><span class="spec-secid">4</span>@tag</a></li>
 </ol>
 </nav>
 </header>
@@ -1120,15 +1120,20 @@ pre[class*="language-"] {
 <p><em>This section is non&#8208;normative.</em> It describes the motivation behind the directives defined by this specification.</p>
 <p>The <code>@tag</code> directive is, in its simplest form, a mechanism for applying arbitrary string metadata to the fields and types of a schema. This metadata is potentially useful throughout the schema&rsquo;s lifecycle, including, but not limited to, processing, static analysis, and documentation.</p>
 </section>
-<section id="sec-Basic-Requirements" secid="4">
-<h1><span class="spec-secid" title="link to this section"><a href="#sec-Basic-Requirements">4</a></span>Basic Requirements</h1>
+<section id="@tag" secid="4">
+<h1 class="spec-definition-head"><span class="spec-secid" title="link to this section"><a href="#@tag">4</a></span>@tag</h1>
 <p>A schema which implements the <code>@tag</code> spec <a href="https://tools.ietf.org/html/rfc2119#section-1" class="spec-requirement required">MUST</a> provide a definition which is compatible with the definition below:</p>
-<figure id="example-ad25f" class="spec-definition"><pre class="graphql" data-language="graphql"><code><span class="token keyword">directive</span> <span class="token directive function">@tag</span><span class="token punctuation">(</span><span class="token attr-name">name</span><span class="token punctuation">:</span> String<span class="token operator">!</span><span class="token punctuation">)</span> <span class="token keyword">repeatable</span> <span class="token keyword">on</span>
+<figure id="example-9d3f3" class="spec-definition"><pre class="graphql" data-language="graphql"><code><span class="token keyword">directive</span> <span class="token directive function">@tag</span><span class="token punctuation">(</span><span class="token attr-name">name</span><span class="token punctuation">:</span> String<span class="token operator">!</span><span class="token punctuation">)</span> <span class="token keyword">repeatable</span> <span class="token keyword">on</span>
   <span class="token operator">|</span> <span class="token constant">FIELD_DEFINITION</span>
   <span class="token operator">|</span> <span class="token constant">INTERFACE</span>
   <span class="token operator">|</span> <span class="token constant">OBJECT</span>
   <span class="token operator">|</span> <span class="token constant">UNION</span>
-</code></pre>
+  <span class="token operator">|</span> <span class="token constant">ARGUMENT_DEFINITION</span>
+  <span class="token operator">|</span> <span class="token constant">SCALAR</span>
+  <span class="token operator">|</span> <span class="token constant">ENUM</span>
+  <span class="token operator">|</span> <span class="token constant">ENUM_VALUE</span>
+  <span class="token operator">|</span> <span class="token constant">INPUT_OBJECT</span>
+  <span class="token operator">|</span> <span class="token constant">INPUT_FIELD_DEFINITION</span></code></pre>
 </figure></section>
 </article>
 <footer>
@@ -1136,7 +1141,7 @@ Written in <a href="https://spec-md.com" target="_blank">Spec Markdown</a>.</foo
 <input hidden class="spec-sidebar-toggle" type="checkbox" id="spec-sidebar-toggle" aria-hidden /><label for="spec-sidebar-toggle" aria-hidden><div class="spec-sidebar-button">&#x2630;</div></label>
 <div class="spec-sidebar" aria-hidden>
 <div class="spec-toc">
-<div class="title"><a href="#">Tag</a></div>
+<div class="title"><a href="#">tag v0.2</a></div>
 <ol><li id="_sidebar_1"><a href="#sec-How-to-read-this-document"><span class="spec-secid">1</span>How to read this document</a>
 <input hidden class="toggle" type="checkbox" id="_toggle_1" /><label for="_toggle_1"></label>
 <ol>
@@ -1145,7 +1150,7 @@ Written in <a href="https://spec-md.com" target="_blank">Spec Markdown</a>.</foo
 </li>
 <li id="_sidebar_2"><a href="#sec-Example-Team-Ownership-Metadata"><span class="spec-secid">2</span>Example: Team Ownership Metadata</a></li>
 <li id="_sidebar_3"><a href="#sec-Overview"><span class="spec-secid">3</span>Overview</a></li>
-<li id="_sidebar_4"><a href="#sec-Basic-Requirements"><span class="spec-secid">4</span>Basic Requirements</a></li>
+<li id="_sidebar_4"><a href="#@tag"><span class="spec-secid">4</span>@tag</a></li>
 </ol>
 </div>
 <script>(function(){var e,t=[],n=document.querySelector('label[for="spec-sidebar-toggle"]');function o(e){e.preventDefault()}n.addEventListener("scroll",o),n.addEventListener("touchmove",o);for(var i=document.getElementsByTagName("section"),r=0;r<i.length;r++)i[r].getAttribute("secid")&&t.push(i[r]);var c=window.scrollY,l=!1;function d(n){for(var o,i=n+document.documentElement.clientHeight/4,r=t.length-1;r>=0;r--)if(t[r].offsetTop<i){o=t[r];break}var c=o&&o.getAttribute("secid");c!==e&&(e&&a(e,!1),c&&a(c,!0),e=c)}function a(e,t){document.getElementById("_sidebar_"+e).className=t?"viewing":"";for(var n=e.split(".");n.length;){var o=document.getElementById("_sidebar_toggle_"+n.join("."));o&&(o.checked=t),n.pop()}}window.addEventListener("scroll",(function(e){c=window.scrollY,l||(l=!0,window.requestAnimationFrame((function(){d(c),l=!1})))})),d(window.scrollY);})()</script>
