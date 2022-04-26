@@ -11,9 +11,7 @@
 
 #! @key
 
-```graphql definition
-directive @key(fields: FieldSet!) repeatable on OBJECT | INTERFACE
-```
+:::[definition](./federation-v2.0.graphql#@key)
 
 The `@key` directive is used to indicate a combination of fields that can be used to uniquely identify and fetch an object or interface.
 
@@ -39,9 +37,7 @@ Note: Repeated directives (in this case, `@key`, used multiple times) require su
 
 #! @provides
 
-```graphql definition
-directive @provides(fields: FieldSet!) on FIELD_DEFINITION
-```
+:::[definition](./federation-v2.0.graphql#@provides)
 
 The `@provides` directive is used to annotate the expected returned fieldset from a field on a base type that is guaranteed to be selectable by the gateway. Given the following example:
 
@@ -61,9 +57,7 @@ When fetching `Review.product` from the Reviews service, it is possible to reque
 
 #! @requires
 
-```graphql definition
-directive @requires(fields: FieldSet!) on FIELD_DEFINITION
-```
+:::[definition](./federation-v2.0.graphql#@requires)
 
 The `@requires` directive is used to annotate the required input fieldset from a base type for a resolver. It is used to develop a query plan where the required fields may not be needed by the client, but the service may need additional information from other services. For example:
 
@@ -80,9 +74,7 @@ In this case, the Reviews service adds new capabilities to the `User` type by pr
 
 #! @external
 
-```graphql definition
-directive @external on FIELD_DEFINITION
-```
+:::[definition](./federation-v2.0.graphql#@external)
 
 The `@external` directive is used to mark a field as owned by another service. This allows service A to use fields from service B while also knowing at runtime the types of that field. For example:
 
@@ -96,11 +88,52 @@ extend type User @key(fields: "email") {
 
 This type extension in the Reviews service extends the `User` type from the Users service. It extends it for the purpose of adding a new field called `reviews`, which returns a list of `Review`s.
 
+#! @shareable
+
+:::[definition](./federation-v2.0.graphql#@shareable)
+
+The `@shareable` directive is used to indicate that a field can be resolved by multiple subgraphs. Any subgraph that includes a shareable field can potentially resolve a query for that field.  To successfully compose, a field must have the same shareability mode (either shareable or non-shareable) across all subgraphs.
+
+Any field using the [`@key` directive](#key) is automatically shareable. Adding the `@shareable` directive to an object is equivalent to marking each field on the object `@shareable`.
+
+```graphql example -- using {@shareable}
+type Product @key(fields: "upc") {
+  upc: UPC!                         # shareable because upc is a key field
+  name: String                      # non-shareable
+  description: String @shareable    # shareable
+}
+
+type User @key(fields: "email") @shareable {
+  email: String                    # shareable because User is marked shareable
+  name: String                     # shareable because User is marked shareable
+}
+```
+
+#! @override
+
+:::[definition](./federation-v2.0.graphql#@override)
+
+The `@override` directive is used to indicate that the current subgraph is taking responsibility for resolving the marked field _away_ from the subgraph specified in the `from` argument. 
+
+The following example will result in all query plans made to resolve `User.name` to be directed to SubgraphB.
+
+```graphql example -- using {@override}
+# in SubgraphA
+type User @key(fields: "id") {
+  id: ID!
+  name: String
+}
+
+# in SubgraphB
+type User @key(fields: "id") {
+  id: ID!
+  name: String @override(from: "SubgraphA")
+}
+```
+
 #! _FieldSet
 
-```graphql definition
-scalar _FieldSet
-```
+:::[definition](./federation-v2.0.graphql#@_FieldSet)
 
 A set of fields. 
 

@@ -1088,10 +1088,10 @@ pre[class*="language-"] {
 <h1><span class="spec-secid" title="link to this section"><a href="#sec-Example-Sensitive-User-Data">3</a></span>Example: Sensitive User Data</h1>
 <p><em>This section is non&#8208;normative.</em></p>
 <p>We&rsquo;ll refer to this example of a core schema with sensitive user data throughout the document:</p>
-<figure id="example-Core-schema-example" class="spec-example"><figcaption><a href="#example-Core-schema-example"><span class="spec-example-num">Example № 1</span> Core schema example</a></figcaption><pre class="graphql" data-language="graphql"><code><span class="token keyword">directive</span> <span class="token directive function">@core</span><span class="token punctuation">(</span><span class="token attr-name">as</span><span class="token punctuation">:</span> <span class="token scalar">String</span><span class="token punctuation">,</span> <span class="token attr-name">feature</span><span class="token punctuation">:</span> <span class="token scalar">String</span><span class="token operator">!</span><span class="token punctuation">,</span> <span class="token attr-name">for</span><span class="token punctuation">:</span> <span class="token property">core__Purpose</span><span class="token punctuation">)</span> <span class="token keyword">repeatable</span> <span class="token keyword">on</span> <span class="token constant">SCHEMA</span>
-<span class="token keyword">directive</span> <span class="token directive function">@inaccessible</span> <span class="token keyword">on</span> <span class="token constant">FIELD_DEFINITION</span> <span class="token operator">|</span> <span class="token constant">OBJECT</span> <span class="token operator">|</span> <span class="token constant">INTERFACE</span> <span class="token operator">|</span> <span class="token constant">UNION</span>
+<figure id="example-Core-schema-example" class="spec-example"><figcaption><a href="#example-Core-schema-example"><span class="spec-example-num">Example № 1</span> Core schema example</a></figcaption><pre class="graphql" data-language="graphql"><code><span class="token keyword">directive</span> <span class="token directive function">@core</span><span class="token punctuation">(</span><span class="token attr-name">as</span><span class="token punctuation">:</span> String<span class="token punctuation">,</span> <span class="token attr-name">feature</span><span class="token punctuation">:</span> String<span class="token operator">!</span><span class="token punctuation">,</span> <span class="token attr-name">for</span><span class="token punctuation">:</span> core__Purpose<span class="token punctuation">)</span> <span class="token keyword">repeatable</span> <span class="token keyword">on</span> <span class="token class-name">SCHEMA</span>
+<span class="token keyword">directive</span> <span class="token directive function">@inaccessible</span> <span class="token keyword">on</span> <span class="token class-name">FIELD_DEFINITION</span> <span class="token operator">|</span> <span class="token constant">OBJECT</span> <span class="token operator">|</span> <span class="token constant">INTERFACE</span> <span class="token operator">|</span> <span class="token constant">UNION</span>
 
-<span class="token keyword">enum</span> <span class="token object">core__Purpose</span> <span class="token punctuation">{</span>
+<span class="token keyword">enum</span> <span class="token class-name">core__Purpose</span> <span class="token punctuation">{</span>
   <span class="token constant">EXECUTION</span>
   <span class="token constant">SECURITY</span>
 <span class="token punctuation">}</span>
@@ -1100,31 +1100,31 @@ pre[class*="language-"] {
   <span class="token directive function">@core</span><span class="token punctuation">(</span><span class="token attr-name">feature</span><span class="token punctuation">:</span> <span class="token string">"https://specs.apollo.dev/core/v0.2"</span><span class="token punctuation">)</span>
   <span class="token directive function">@core</span><span class="token punctuation">(</span><span class="token attr-name">feature</span><span class="token punctuation">:</span> <span class="token string">"https://specs.apollo.dev/inaccessible/v0.1"</span><span class="token punctuation">,</span> <span class="token attr-name">for</span><span class="token punctuation">:</span> <span class="token constant">SECURITY</span><span class="token punctuation">)</span>
 <span class="token punctuation">{</span>
-  <span class="token attr-name">query</span><span class="token punctuation">:</span> <span class="token class-name">Query</span>
+  <span class="token attr-name">query</span><span class="token punctuation">:</span> Query
 <span class="token punctuation">}</span>
 
 <span class="token keyword">type</span> <span class="token class-name">Query</span> <span class="token punctuation">{</span>
-  <span class="token attr-name">user</span><span class="token punctuation">(</span><span class="token attr-name">id</span><span class="token punctuation">:</span> <span class="token scalar">String</span><span class="token operator">!</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token class-name">User</span>
+  <span class="token attr-name">user</span><span class="token punctuation">(</span><span class="token attr-name">id</span><span class="token punctuation">:</span> String<span class="token operator">!</span><span class="token punctuation">)</span><span class="token punctuation">:</span> User
 <span class="token punctuation">}</span>
 
 <span class="token keyword">type</span> <span class="token class-name">User</span> <span class="token punctuation">{</span>
-  <span class="token attr-name">id</span><span class="token punctuation">:</span> <span class="token scalar">String</span><span class="token operator">!</span> <span class="token directive function">@inaccessible</span>
-  <span class="token attr-name">name</span><span class="token punctuation">:</span> <span class="token scalar">String</span><span class="token operator">!</span>
-  <span class="token attr-name">email</span><span class="token punctuation">:</span> <span class="token scalar">String</span><span class="token operator">!</span>
-  <span class="token attr-name">bankAccount</span><span class="token punctuation">:</span> <span class="token class-name">BankAccount</span> <span class="token directive function">@inaccessible</span>
-  <span class="token attr-name">accounts</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token class-name">Account</span><span class="token punctuation">]</span>
+  <span class="token attr-name">id</span><span class="token punctuation">:</span> String<span class="token operator">!</span> <span class="token directive function">@inaccessible</span>
+  <span class="token attr-name">name</span><span class="token punctuation">:</span> String<span class="token operator">!</span>
+  <span class="token attr-name">email</span><span class="token punctuation">:</span> String<span class="token operator">!</span>
+  <span class="token attr-name">bankAccount</span><span class="token punctuation">:</span> BankAccount <span class="token directive function">@inaccessible</span>
+  <span class="token attr-name">accounts</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>Account<span class="token punctuation">]</span>
 <span class="token punctuation">}</span>
 
 <span class="token keyword">type</span> <span class="token class-name">BankAccount</span> <span class="token directive function">@inaccessible</span> <span class="token punctuation">{</span>
-  <span class="token attr-name">id</span><span class="token punctuation">:</span> <span class="token scalar">String</span><span class="token operator">!</span>
-  <span class="token attr-name">accountNumber</span><span class="token punctuation">:</span> <span class="token scalar">String</span><span class="token operator">!</span>
+  <span class="token attr-name">id</span><span class="token punctuation">:</span> String<span class="token operator">!</span>
+  <span class="token attr-name">accountNumber</span><span class="token punctuation">:</span> String<span class="token operator">!</span>
 <span class="token punctuation">}</span>
 
 <span class="token keyword">type</span> <span class="token class-name">ForumAccount</span> <span class="token punctuation">{</span>
-  <span class="token attr-name">handle</span><span class="token punctuation">:</span> <span class="token scalar">String</span><span class="token operator">!</span>
+  <span class="token attr-name">handle</span><span class="token punctuation">:</span> String<span class="token operator">!</span>
 <span class="token punctuation">}</span>
 
-<span class="token keyword">union</span> <span class="token class-name">Account</span> <span class="token operator">=</span> <span class="token property">BankAccount</span> <span class="token operator">|</span> <span class="token property">ForumAccount</span>
+<span class="token keyword">union</span> <span class="token class-name">Account</span> <span class="token operator">=</span> BankAccount <span class="token operator">|</span> ForumAccount
 
 </code></pre>
 </figure><p>The schema above contains both a field (<code>User.id</code>) and type (<code>BankAccount</code>) that are marked as <code>@inaccessible</code>. These symbols should be omitted from the processed schema anywhere they would appear. When the processed schema below is generated from this core schema, notice what has been removed:</p>
@@ -1134,9 +1134,9 @@ pre[class*="language-"] {
 <li><code>User.bankAccount</code> field</li>
 <li><code>Account</code> union&rsquo;s <code>BankAccount</code> type</li>
 </ul>
-<figure id="example-Core-schema-after-processing" class="spec-example"><figcaption><a href="#example-Core-schema-after-processing"><span class="spec-example-num">Example № 2</span> Core schema after processing</a></figcaption><pre class="graphql" data-language="graphql"><code><span class="token keyword">directive</span> <span class="token directive function">@core</span><span class="token punctuation">(</span><span class="token attr-name">as</span><span class="token punctuation">:</span> <span class="token scalar">String</span><span class="token punctuation">,</span> <span class="token attr-name">feature</span><span class="token punctuation">:</span> <span class="token scalar">String</span><span class="token operator">!</span><span class="token punctuation">,</span> <span class="token attr-name">for</span><span class="token punctuation">:</span> <span class="token property">core__Purpose</span><span class="token punctuation">)</span> <span class="token keyword">repeatable</span> <span class="token keyword">on</span> <span class="token constant">SCHEMA</span>
+<figure id="example-Core-schema-after-processing" class="spec-example"><figcaption><a href="#example-Core-schema-after-processing"><span class="spec-example-num">Example № 2</span> Core schema after processing</a></figcaption><pre class="graphql" data-language="graphql"><code><span class="token keyword">directive</span> <span class="token directive function">@core</span><span class="token punctuation">(</span><span class="token attr-name">as</span><span class="token punctuation">:</span> String<span class="token punctuation">,</span> <span class="token attr-name">feature</span><span class="token punctuation">:</span> String<span class="token operator">!</span><span class="token punctuation">,</span> <span class="token attr-name">for</span><span class="token punctuation">:</span> core__Purpose<span class="token punctuation">)</span> <span class="token keyword">repeatable</span> <span class="token keyword">on</span> <span class="token class-name">SCHEMA</span>
 
-<span class="token keyword">enum</span> <span class="token object">core__Purpose</span> <span class="token punctuation">{</span>
+<span class="token keyword">enum</span> <span class="token class-name">core__Purpose</span> <span class="token punctuation">{</span>
   <span class="token constant">EXECUTION</span>
   <span class="token constant">SECURITY</span>
 <span class="token punctuation">}</span>
@@ -1144,24 +1144,24 @@ pre[class*="language-"] {
 <span class="token keyword">schema</span>
   <span class="token directive function">@core</span><span class="token punctuation">(</span><span class="token attr-name">feature</span><span class="token punctuation">:</span> <span class="token string">"https://specs.apollo.dev/core/v0.2"</span><span class="token punctuation">)</span>
 <span class="token punctuation">{</span>
-  <span class="token attr-name">query</span><span class="token punctuation">:</span> <span class="token class-name">Query</span>
+  <span class="token attr-name">query</span><span class="token punctuation">:</span> Query
 <span class="token punctuation">}</span>
 
 <span class="token keyword">type</span> <span class="token class-name">Query</span> <span class="token punctuation">{</span>
-  <span class="token attr-name">user</span><span class="token punctuation">(</span><span class="token attr-name">id</span><span class="token punctuation">:</span> <span class="token scalar">String</span><span class="token operator">!</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token class-name">User</span>
+  <span class="token attr-name">user</span><span class="token punctuation">(</span><span class="token attr-name">id</span><span class="token punctuation">:</span> String<span class="token operator">!</span><span class="token punctuation">)</span><span class="token punctuation">:</span> User
 <span class="token punctuation">}</span>
 
 <span class="token keyword">type</span> <span class="token class-name">User</span> <span class="token punctuation">{</span>
-  <span class="token attr-name">name</span><span class="token punctuation">:</span> <span class="token scalar">String</span><span class="token operator">!</span>
-  <span class="token attr-name">email</span><span class="token punctuation">:</span> <span class="token scalar">String</span><span class="token operator">!</span>
-  <span class="token attr-name">accounts</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token class-name">Account</span><span class="token punctuation">]</span>
+  <span class="token attr-name">name</span><span class="token punctuation">:</span> String<span class="token operator">!</span>
+  <span class="token attr-name">email</span><span class="token punctuation">:</span> String<span class="token operator">!</span>
+  <span class="token attr-name">accounts</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>Account<span class="token punctuation">]</span>
 <span class="token punctuation">}</span>
 
 <span class="token keyword">type</span> <span class="token class-name">ForumAccount</span> <span class="token punctuation">{</span>
-  <span class="token attr-name">handle</span><span class="token punctuation">:</span> <span class="token scalar">String</span><span class="token operator">!</span>
+  <span class="token attr-name">handle</span><span class="token punctuation">:</span> String<span class="token operator">!</span>
 <span class="token punctuation">}</span>
 
-<span class="token keyword">union</span> <span class="token class-name">Account</span> <span class="token operator">=</span> <span class="token property">ForumAccount</span></code></pre>
+<span class="token keyword">union</span> <span class="token class-name">Account</span> <span class="token operator">=</span> ForumAccount</code></pre>
 </figure></section>
 <section id="sec-Overview" secid="4">
 <h1><span class="spec-secid" title="link to this section"><a href="#sec-Overview">4</a></span>Overview</h1>
@@ -1170,16 +1170,16 @@ pre[class*="language-"] {
 </section>
 <section id="sec-Basic-Requirements" secid="5">
 <h1><span class="spec-secid" title="link to this section"><a href="#sec-Basic-Requirements">5</a></span>Basic Requirements</h1>
-<p>Schemas using <var data-name="@inaccessible">@inaccessible</var> must be valid <a href="https://specs.apollo.dev/core/v0.2">core schema documents</a> and must reference <a href="#">this specification</a>.</p>
+<p>Schemas using <span class="spec-call"><span data-name="@inaccessible">@inaccessible</span></span> must be valid <a href="https://specs.apollo.dev/core/v0.2">core schema documents</a> and must reference <a href="#">this specification</a>.</p>
 <p>Here is an example <code>@core</code> usage:</p>
 <figure id="example-required-@core-directives" class="spec-example"><figcaption><a href="#example-required-@core-directives"><span class="spec-example-num">Example № 3</span> required @core directives</a></figcaption><pre class="graphql" data-language="graphql"><code><span class="token keyword">schema</span>
   <span class="token directive function">@core</span><span class="token punctuation">(</span><span class="token attr-name">feature</span><span class="token punctuation">:</span> <span class="token string">"https://specs.apollo.dev/core/v0.2"</span><span class="token punctuation">)</span>
   <span class="token directive function">@core</span><span class="token punctuation">(</span><span class="token attr-name">feature</span><span class="token punctuation">:</span> <span class="token string">"https://specs.apollo.dev/inaccessible/v0.1"</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-  <span class="token attr-name">query</span><span class="token punctuation">:</span> <span class="token class-name">Query</span>
+  <span class="token attr-name">query</span><span class="token punctuation">:</span> Query
 <span class="token punctuation">}</span></code></pre>
 </figure><p>As described in the <a href="https://specs.apollo.dev/core/v0.2/#sec-Prefixing">core schema specification</a>, your schema may rename the <code>@inaccessible</code> directive by including an <code>as</code> argument to the <code>@core</code> directive which references this specification. All references to <code>@inaccessible</code> in this specification <a href="https://tools.ietf.org/html/rfc2119#section-1" class="spec-requirement required">MUST</a> be interpreted as referring to names with the appropriate prefix chosen within your schema.</p>
 <p>In order to use the directive described by this specification, GraphQL requires you to include the definition in your schema.</p>
-<figure id="example-d9963" class="spec-definition"><pre class="graphql" data-language="graphql"><code><span class="token keyword">directive</span> <span class="token directive function">@inaccessible</span> <span class="token keyword">on</span> <span class="token constant">FIELD_DEFINITION</span> <span class="token operator">|</span> <span class="token constant">OBJECT</span> <span class="token operator">|</span> <span class="token constant">INTERFACE</span> <span class="token operator">|</span> <span class="token constant">UNION</span></code></pre>
+<figure id="example-d9963" class="spec-definition"><pre class="graphql" data-language="graphql"><code><span class="token keyword">directive</span> <span class="token directive function">@inaccessible</span> <span class="token keyword">on</span> <span class="token class-name">FIELD_DEFINITION</span> <span class="token operator">|</span> <span class="token constant">OBJECT</span> <span class="token operator">|</span> <span class="token constant">INTERFACE</span> <span class="token operator">|</span> <span class="token constant">UNION</span></code></pre>
 </figure><section id="sec-Producer-Responsibilities" secid="5.1">
 <h2><span class="spec-secid" title="link to this section"><a href="#sec-Producer-Responsibilities">5.1</a></span>Producer Responsibilities</h2>
 <p><a href="https://specs.apollo.dev/core/v0.2/#sec-Actors">Producers</a> <a href="https://tools.ietf.org/html/rfc2119#section-1" class="spec-requirement required">MUST</a> include a definition of the directive compatible with the above definition and all usages in the document.</p>

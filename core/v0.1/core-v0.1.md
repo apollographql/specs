@@ -156,12 +156,7 @@ When writing a specification for your own core feature, you SHOULD include a sec
 
 Declare a core feature present in this schema.
 
-```graphql definition
-directive @core(
-  feature: String!,
-  as: String)
-  repeatable on SCHEMA
-```
+:::[definition](./core-v0.1.graphql#@core)
 
 Documents MUST include a definition for the {@core} directive which includes all of the arguments defined above with the same types and default values.
 

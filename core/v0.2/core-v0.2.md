@@ -167,13 +167,7 @@ When writing a specification for your own core feature, you SHOULD include a sec
 
 Declare a core feature present in this schema.
 
-```graphql definition
-directive @core(
-  feature: String!,
-  as: String,
-  for: core__Purpose)
-  repeatable on SCHEMA
-```
+:::[definition](./core-v0.2.graphql#@core)
 
 Documents MUST include a definition for the {@core} directive which includes all of the arguments defined above with the same types and default values.
 
@@ -261,15 +255,15 @@ directive @eg(data: eg__Data) on FIELD_DEFINITION
 directive @core(feature: String!, as: String) repeatable on SCHEMA
 ```
 
-###! for: core__Purpose
+###! for: Purpose
 
-An optional [purpose](#core__Purpose) for this feature. This hints to consumers as to whether they can safely ignore metadata from a given feature.
+An optional [purpose](#Purpose) for this feature. This hints to consumers as to whether they can safely ignore metadata from a given feature.
 
 By default, core features SHOULD fail open. This means that an unknown feature SHOULD NOT prevent a schema from being served or processed. Instead, consumers SHOULD ignore unknown feature metadata and serve or process the rest of the schema normally.
 
 This behavior is different for features with a specified purpose:
-  - [`SECURITY`](#core__Purpose/SECURITY) features convey metadata necessary to securely resolve fields within the schema
-  - [`EXECUTION`](#core__Purpose/EXECUTION) features convey metadata necessary to correctly resolve fields within the schema
+  - [`SECURITY`](#Purpose.SECURITY) features convey metadata necessary to securely resolve fields within the schema
+  - [`EXECUTION`](#Purpose.EXECUTION) features convey metadata necessary to correctly resolve fields within the schema
 
 # Enums
 
