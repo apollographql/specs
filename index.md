@@ -23,17 +23,31 @@
 
 [federation v2.0](/federation/v2.0) provides graph composition primitives for use in subgraphs.
 
-## join v0.1
+## join v0.2
 
-[join v0.1](/join/v0.1) declaratively describes joins between types in a supergraph.
+[join v0.2](/join/v0.2) declaratively describes joins between types in a supergraph.
 
-## tag v0.1
+## tag v0.2
 
-[tag v0.1](tag/v0.1) attaches a single piece of string metadata to various GraphQL definitions (it is mainly used for contracts)
+[tag v0.2](tag/v0.2) attaches a single piece of string metadata to various GraphQL definitions (it is mainly used for contracts)
 
 ## inaccessible v0.1
 
 [inaccessible v0.1](inaccessible/v0.1) masks fields and types from a graph's public API
 
+# All Schemas
+
+All schemas and documentation in this library:
+
+- **[core/v0.1](/core/v0.1)** ([schema](core/v0.1/core-v0.1.graphql)
+- **[core/v0.2](/core/v0.2)** ([schema](core/v0.2/core-v0.2.graphql)
+- **[federation/v1.0](/federation/v1.0)** ([schema](federation/v1.0/federation-v1.0.graphql)
+- **[federation/v2.0](/federation/v2.0)** ([schema](federation/v2.0/federation-v2.0.graphql)
+- **[inaccessible/v0.1](/inaccessible/v0.1)** ([schema](inaccessible/v0.1/inaccessible-v0.1.graphql)
+- **[inaccessible/v0.2](/inaccessible/v0.2)** ([schema](inaccessible/v0.2/inaccessible-v0.2.graphql)
+- **[join/v0.1](/join/v0.1)** ([schema](join/v0.1/join-v0.1.graphql)
+- **[join/v0.2](/join/v0.2)** ([schema](join/v0.2/join-v0.2.graphql)
+- **[link/v1.0](/link/v1.0)** ([schema](link/v1.0/link-v1.0.graphql)
+- **[tag/v0.1](/tag/v0.1)** ([schema](tag/v0.1/tag-v0.1.graphql)
 
 

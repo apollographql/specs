@@ -1,4 +1,4 @@
-# Inaccessible
+# inaccessible v0.2
 
 <h2>for removing elements from a core schema</h2>
 

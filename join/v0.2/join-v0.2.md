@@ -1,4 +1,4 @@
-# Join
+# join v0.2
 
 <h2>for defining *supergraphs* which join multiple *subgraphs*</h2>
 

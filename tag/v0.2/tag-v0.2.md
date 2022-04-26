@@ -1,11 +1,11 @@
-# tag v0.1
+# tag v0.2
 
 <h2>for tagging GraphQL schema elements with names</h2>
 
 ```raw html
 <table class=spec-data>
   <tr><td>Status</td><td>Release</td>
-  <tr><td>Version</td><td>0.1</td>
+  <tr><td>Version</td><td>0.2</td>
 </table>
 <link rel=stylesheet href=https://specs.apollo.dev/apollo-light.css>
 <script type=module async defer src=https://specs.apollo.dev/inject-logo.js></script>
@@ -39,4 +39,4 @@ The `@tag` directive is, in its simplest form, a mechanism for applying arbitrar
 
 A schema which implements the `@tag` spec MUST provide a definition which is compatible with the definition below:
 
-:::[definition](tag-v0.1.graphql#@tag)
+:::[definition](tag-v0.2.graphql#@tag)
