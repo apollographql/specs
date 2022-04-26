@@ -1,11 +1,13 @@
 #!/bin/sh
 
-PATH=$PATH:node_modules/.bin
-spec-md tag/v0.1/tag-v0.1.md > tag/v0.1/index.html
-spec-md core/v0.1/core-v0.1.md > core/v0.1/index.html
-spec-md core/v0.2/core-v0.2.md > core/v0.2/index.html
-spec-md inaccessible/v0.1/inaccessible-v0.1.md > inaccessible/v0.1/index.html
-spec-md link/v1.0/link-v1.0.md > link/v1.0/index.html
-spec-md join/v0.1/join-v0.1.md > join/v0.1/index.html
-spec-md federation/v2.0/federation-v2.0.md > federation/v2.0/index.html
-spec-md index.md > index.html
+echo $(dirname $0)
+spec_md="node_modules/.bin/spec-md -m biblio.json"
+$spec_md tag/v0.1/tag-v0.1.md > tag/v0.1/index.html
+$spec_md core/v0.1/core-v0.1.md > core/v0.1/index.html
+$spec_md core/v0.2/core-v0.2.md > core/v0.2/index.html
+$spec_md core/v1.0/core-v1.0.md > core/v1.0/index.html
+$spec_md inaccessible/v0.1/inaccessible-v0.1.md > inaccessible/v0.1/index.html
+$spec_md link/v1.0/link-v1.0.md > link/v1.0/index.html
+$spec_md join/v0.1/join-v0.1.md > join/v0.1/index.html
+$spec_md federation/v2.0/federation-v2.0.md > federation/v2.0/index.html
+$spec_md index.md > index.html
