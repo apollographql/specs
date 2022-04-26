@@ -246,9 +246,9 @@ type X {
 
 ##! Graph
 
-Enumerate subgraphs.
-
 :::[definition](./join-v0.2.graphql#Graph)
+
+Enumerate subgraphs.
 
 Documents MUST define a {Graph} enum. Each enum value describes a subgraph. Each enum value MUST have a [{@graph}](#@graph) directive applied to it.
 
