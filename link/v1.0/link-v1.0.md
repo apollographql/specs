@@ -134,7 +134,7 @@ scalar Import
 
 An element, possibly aliased, to import into the document.
 
-`Import` can take the form of a string:
+{Import} can take the form of a string:
 
 ```graphql example -- import a string name
   @link(url: "https://specs.apollo.dev/link/v1.0", import: ["@link", "Purpose"])
@@ -168,7 +168,7 @@ Note: Future versions may support this.
 
 #! Purpose
 
-The role of a schema referenced with {@link}.
+The role of a {@link}ed schema.
 
 This is not intended to be an exhaustive list of all the purposes a foreign schema or its metadata might serve. Rather, it is intended to capture cases where the default fail-open behavior of core schema consumers is undesirable.
 
