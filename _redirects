@@ -20,7 +20,7 @@
 /core/ /core/v0.2/ 302!
 
 # Federation 2.0 spec
-/federation/v2.0/* https://www.apollographql.com/docs/federation/federation-spec/:splat 302!
+/federation/v2.0/* https://www.apollographql.com/docs/federation/federation-spec/:splat 302
 
 # This represents what's on "main" but acts as work in progress.
 /core/draft/* https://apollo-specs-core.netlify.app/:splat 200!
