@@ -14,9 +14,13 @@ SPECS="
   tag/v0.1
   tag/v0.2
 "
+echo > __index__.md
 for spec in $SPECS; do
   echo $spec
-  md="$spec/$(dirname $spec)-$(basename $spec).md"
+  base=$(dirname $spec)-$(basename $spec)
+  md=$spec/$base.md
+  gql=$spec/$base.graphql
   $SPEC_MD $md > $spec/index.html
+  echo "- **[$spec](/$spec)** ([📄 graphql]($gql))" >> __index__.md
 done
 $SPEC_MD index.md > index.html

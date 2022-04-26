@@ -17,10 +17,6 @@ This document defines the `@inaccessible` directive, which marks schema elements
 
 This document uses [RFC 2119](https://www.ietf.org/rfc/rfc2119.txt) guidance regarding normative terms: MUST / MUST NOT / REQUIRED / SHALL / SHALL NOT / SHOULD / SHOULD NOT / RECOMMENDED / MAY / OPTIONAL.
 
-#! @inaccessible
-
-:::[definition](./inaccessible-v0.1.graphql#@inaccessible)
-
 # Definitions
 
 ## Processor

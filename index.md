@@ -39,16 +39,4 @@
 
 Everything in this library:
 
-- **[core/v0.1](/core/v0.1)** ([📄 schema](core/v0.1/core-v0.1.graphql)
-- **[core/v0.2](/core/v0.2)** ([📄 schema](core/v0.2/core-v0.2.graphql)
-- **[federation/v1.0](/federation/v1.0)** ([📄 schema](federation/v1.0/federation-v1.0.graphql)
-- **[federation/v2.0](/federation/v2.0)** ([📄 schema](federation/v2.0/federation-v2.0.graphql)
-- **[inaccessible/v0.1](/inaccessible/v0.1)** ([📄 schema](inaccessible/v0.1/inaccessible-v0.1.graphql)
-- **[inaccessible/v0.2](/inaccessible/v0.2)** ([📄 schema](inaccessible/v0.2/inaccessible-v0.2.graphql)
-- **[join/v0.1](/join/v0.1)** ([📄 schema](join/v0.1/join-v0.1.graphql)
-- **[join/v0.2](/join/v0.2)** ([📄 schema](join/v0.2/join-v0.2.graphql)
-- **[link/v1.0](/link/v1.0)** ([📄 schema](link/v1.0/link-v1.0.graphql)
-- **[tag/v0.1](/tag/v0.1)** ([📄 schema](tag/v0.1/tag-v0.1.graphql)
-- **[tag/v0.2](/tag/v0.2)** ([📄 schema](tag/v0.2/tag-v0.2.graphql)
-
-
+[everything](__index__.md)

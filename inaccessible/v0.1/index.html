@@ -1059,17 +1059,16 @@ pre[class*="language-"] {
 <div class="title">Contents</div>
 <ol>
 <li><a href="#sec-How-to-read-this-document"><span class="spec-secid">1</span>How to read this document</a></li>
-<li><a href="#@inaccessible"><span class="spec-secid">2</span>@inaccessible</a></li>
-<li><a href="#sec-Definitions"><span class="spec-secid">3</span>Definitions</a><ol>
-<li><a href="#sec-Processor"><span class="spec-secid">3.1</span>Processor</a></li>
+<li><a href="#sec-Definitions"><span class="spec-secid">2</span>Definitions</a><ol>
+<li><a href="#sec-Processor"><span class="spec-secid">2.1</span>Processor</a></li>
 </ol>
 </li>
-<li><a href="#sec-Example-Sensitive-User-Data"><span class="spec-secid">4</span>Example: Sensitive User Data</a></li>
-<li><a href="#sec-Overview"><span class="spec-secid">5</span>Overview</a></li>
-<li><a href="#sec-Basic-Requirements"><span class="spec-secid">6</span>Basic Requirements</a><ol>
-<li><a href="#@inaccessible"><span class="spec-secid">6.1</span>@inaccessible</a></li>
-<li><a href="#sec-Producer-Responsibilities"><span class="spec-secid">6.2</span>Producer Responsibilities</a></li>
-<li><a href="#sec-Processor-Responsibilities"><span class="spec-secid">6.3</span>Processor Responsibilities</a></li>
+<li><a href="#sec-Example-Sensitive-User-Data"><span class="spec-secid">3</span>Example: Sensitive User Data</a></li>
+<li><a href="#sec-Overview"><span class="spec-secid">4</span>Overview</a></li>
+<li><a href="#sec-Basic-Requirements"><span class="spec-secid">5</span>Basic Requirements</a><ol>
+<li><a href="#@inaccessible"><span class="spec-secid">5.1</span>@inaccessible</a></li>
+<li><a href="#sec-Producer-Responsibilities"><span class="spec-secid">5.2</span>Producer Responsibilities</a></li>
+<li><a href="#sec-Processor-Responsibilities"><span class="spec-secid">5.3</span>Processor Responsibilities</a></li>
 </ol>
 </li>
 </ol>
@@ -1079,19 +1078,15 @@ pre[class*="language-"] {
 <h1><span class="spec-secid" title="link to this section"><a href="#sec-How-to-read-this-document">1</a></span>How to read this document</h1>
 <p>This document uses <a href="https://www.ietf.org/rfc/rfc2119.txt">RFC 2119</a> guidance regarding normative terms: <a href="https://tools.ietf.org/html/rfc2119#section-1" class="spec-requirement required">MUST</a> / <a href="https://tools.ietf.org/html/rfc2119#section-2" class="spec-requirement not required">MUST NOT</a> / <a href="https://tools.ietf.org/html/rfc2119#section-1" class="spec-requirement required">REQUIRED</a> / <a href="https://tools.ietf.org/html/rfc2119#section-1" class="spec-requirement required">SHALL</a> / <a href="https://tools.ietf.org/html/rfc2119#section-2" class="spec-requirement not required">SHALL NOT</a> / <a href="https://tools.ietf.org/html/rfc2119#section-3" class="spec-requirement recommended">SHOULD</a> / <a href="https://tools.ietf.org/html/rfc2119#section-4" class="spec-requirement not recommended">SHOULD NOT</a> / <a href="https://tools.ietf.org/html/rfc2119#section-3" class="spec-requirement recommended">RECOMMENDED</a> / <a href="https://tools.ietf.org/html/rfc2119#section-5" class="spec-requirement optional">MAY</a> / <a href="https://tools.ietf.org/html/rfc2119#section-5" class="spec-requirement optional">OPTIONAL</a>.</p>
 </section>
-<section id="@inaccessible" secid="2">
-<h1 class="spec-definition-head"><span class="spec-secid" title="link to this section"><a href="#@inaccessible">2</a></span>@inaccessible</h1>
-<figure id="example-d9963" class="spec-definition"><pre class="graphql" data-language="graphql"><code><span class="token keyword">directive</span> <span class="token directive function">@inaccessible</span> <span class="token keyword">on</span> <span class="token class-name">FIELD_DEFINITION</span> <span class="token operator">|</span> <span class="token constant">OBJECT</span> <span class="token operator">|</span> <span class="token constant">INTERFACE</span> <span class="token operator">|</span> <span class="token constant">UNION</span></code></pre>
-</figure></section>
-<section id="sec-Definitions" secid="3">
-<h1><span class="spec-secid" title="link to this section"><a href="#sec-Definitions">3</a></span>Definitions</h1>
-<section id="sec-Processor" secid="3.1">
-<h2><span class="spec-secid" title="link to this section"><a href="#sec-Processor">3.1</a></span>Processor</h2>
+<section id="sec-Definitions" secid="2">
+<h1><span class="spec-secid" title="link to this section"><a href="#sec-Definitions">2</a></span>Definitions</h1>
+<section id="sec-Processor" secid="2.1">
+<h2><span class="spec-secid" title="link to this section"><a href="#sec-Processor">2.1</a></span>Processor</h2>
 <p>This specification makes references to <strong>Processors</strong>. Processors are described in the <a href="https://specs.apollo.dev/core/v0.2/#sec-Actors">Actors section of the <code>@core</code> spec</a> as an actor which can perform transformations on a core schema. In the case of <code>@inaccessible</code>, the Processor will be expected to remove various parts of a core schema.</p>
 </section>
 </section>
-<section id="sec-Example-Sensitive-User-Data" secid="4">
-<h1><span class="spec-secid" title="link to this section"><a href="#sec-Example-Sensitive-User-Data">4</a></span>Example: Sensitive User Data</h1>
+<section id="sec-Example-Sensitive-User-Data" secid="3">
+<h1><span class="spec-secid" title="link to this section"><a href="#sec-Example-Sensitive-User-Data">3</a></span>Example: Sensitive User Data</h1>
 <p><em>This section is non&#8208;normative.</em></p>
 <p>We&rsquo;ll refer to this example of a core schema with sensitive user data throughout the document:</p>
 <figure id="example-Core-schema-example" class="spec-example"><figcaption><a href="#example-Core-schema-example"><span class="spec-example-num">Example № 1</span> Core schema example</a></figcaption><pre class="graphql" data-language="graphql"><code><span class="token keyword">directive</span> <span class="token directive function">@core</span><span class="token punctuation">(</span><span class="token attr-name">as</span><span class="token punctuation">:</span> String<span class="token punctuation">,</span> <span class="token attr-name">feature</span><span class="token punctuation">:</span> String<span class="token operator">!</span><span class="token punctuation">,</span> <span class="token attr-name">for</span><span class="token punctuation">:</span> core__Purpose<span class="token punctuation">)</span> <span class="token keyword">repeatable</span> <span class="token keyword">on</span> <span class="token class-name">SCHEMA</span>
@@ -1169,13 +1164,13 @@ pre[class*="language-"] {
 
 <span class="token keyword">union</span> <span class="token class-name">Account</span> <span class="token operator">=</span> ForumAccount</code></pre>
 </figure></section>
-<section id="sec-Overview" secid="5">
-<h1><span class="spec-secid" title="link to this section"><a href="#sec-Overview">5</a></span>Overview</h1>
+<section id="sec-Overview" secid="4">
+<h1><span class="spec-secid" title="link to this section"><a href="#sec-Overview">4</a></span>Overview</h1>
 <p><em>This section is non&#8208;normative.</em> It describes the motivation behind the directives defined by this specification.</p>
 <p>A core schema which has been processed according to the inaccessible spec is a queryable graph, intended to be served by a <a href="https://specs.apollo.dev/core/v0.2/#sec-Actors">Data Core</a>. Various use cases require that fields and types should not be visible to or queried for by clients. The <code>@inaccessible</code> directive fulfills this requirement, providing schema authors a mechanism to specify which fields and types should be omitted from the processed schema.</p>
 </section>
-<section id="sec-Basic-Requirements" secid="6">
-<h1><span class="spec-secid" title="link to this section"><a href="#sec-Basic-Requirements">6</a></span>Basic Requirements</h1>
+<section id="sec-Basic-Requirements" secid="5">
+<h1><span class="spec-secid" title="link to this section"><a href="#sec-Basic-Requirements">5</a></span>Basic Requirements</h1>
 <p>Schemas using <span class="spec-call"><span data-name="@inaccessible">@inaccessible</span></span> must be valid <a href="https://specs.apollo.dev/core/v0.2">core schema documents</a> and must reference <a href="#">this specification</a>.</p>
 <p>Here is an example <code>@core</code> usage:</p>
 <figure id="example-required-@core-directives" class="spec-example"><figcaption><a href="#example-required-@core-directives"><span class="spec-example-num">Example № 3</span> required @core directives</a></figcaption><pre class="graphql" data-language="graphql"><code><span class="token keyword">schema</span>
@@ -1184,17 +1179,17 @@ pre[class*="language-"] {
   <span class="token attr-name">query</span><span class="token punctuation">:</span> Query
 <span class="token punctuation">}</span></code></pre>
 </figure><p>As described in the <a href="https://specs.apollo.dev/core/v0.2/#sec-Prefixing">core schema specification</a>, your schema may rename the <code>@inaccessible</code> directive by including an <code>as</code> argument to the <code>@core</code> directive which references this specification. All references to <code>@inaccessible</code> in this specification <a href="https://tools.ietf.org/html/rfc2119#section-1" class="spec-requirement required">MUST</a> be interpreted as referring to names with the appropriate prefix chosen within your schema.</p>
-<section id="@inaccessible" secid="6.1">
-<h2 class="spec-definition-head"><span class="spec-secid" title="link to this section"><a href="#@inaccessible">6.1</a></span>@inaccessible</h2>
+<section id="@inaccessible" secid="5.1">
+<h2 class="spec-definition-head"><span class="spec-secid" title="link to this section"><a href="#@inaccessible">5.1</a></span>@inaccessible</h2>
 <p>In order to use the directive described by this specification, GraphQL requires you to include the definition in your schema.</p>
-<figure id="example-2b49e" class="spec-definition"><pre class="graphql" data-language="graphql"><code><span class="token keyword">directive</span> <span class="token directive function">@inaccessible</span> <span class="token keyword">on</span> <span class="token class-name">FIELD_DEFINITION</span> <span class="token operator">|</span> <span class="token constant">OBJECT</span> <span class="token operator">|</span> <span class="token constant">INTERFACE</span> <span class="token operator">|</span> <span class="token constant">UNION</span></code></pre>
+<figure id="example-d9963" class="spec-definition"><pre class="graphql" data-language="graphql"><code><span class="token keyword">directive</span> <span class="token directive function">@inaccessible</span> <span class="token keyword">on</span> <span class="token class-name">FIELD_DEFINITION</span> <span class="token operator">|</span> <span class="token constant">OBJECT</span> <span class="token operator">|</span> <span class="token constant">INTERFACE</span> <span class="token operator">|</span> <span class="token constant">UNION</span></code></pre>
 </figure></section>
-<section id="sec-Producer-Responsibilities" secid="6.2">
-<h2><span class="spec-secid" title="link to this section"><a href="#sec-Producer-Responsibilities">6.2</a></span>Producer Responsibilities</h2>
+<section id="sec-Producer-Responsibilities" secid="5.2">
+<h2><span class="spec-secid" title="link to this section"><a href="#sec-Producer-Responsibilities">5.2</a></span>Producer Responsibilities</h2>
 <p><a href="https://specs.apollo.dev/core/v0.2/#sec-Actors">Producers</a> <a href="https://tools.ietf.org/html/rfc2119#section-1" class="spec-requirement required">MUST</a> include a definition of the directive compatible with the above definition and all usages in the document.</p>
 </section>
-<section id="sec-Processor-Responsibilities" secid="6.3">
-<h2><span class="spec-secid" title="link to this section"><a href="#sec-Processor-Responsibilities">6.3</a></span>Processor Responsibilities</h2>
+<section id="sec-Processor-Responsibilities" secid="5.3">
+<h2><span class="spec-secid" title="link to this section"><a href="#sec-Processor-Responsibilities">5.3</a></span>Processor Responsibilities</h2>
 <p>The Processor is responsible for excluding all inaccessible elements from the API. Within the API,</p>
 <ul>
 <li>Field Definitions marked with <code>@inaccessible</code> <a href="https://tools.ietf.org/html/rfc2119#section-1" class="spec-requirement required">MUST</a> be excluded</li>
@@ -1217,21 +1212,20 @@ Written in <a href="https://spec-md.com" target="_blank">Spec Markdown</a>.</foo
 <div class="spec-toc">
 <div class="title"><a href="#">inaccessible v0.1</a></div>
 <ol><li id="_sidebar_1"><a href="#sec-How-to-read-this-document"><span class="spec-secid">1</span>How to read this document</a></li>
-<li id="_sidebar_2"><a href="#@inaccessible"><span class="spec-secid">2</span>@inaccessible</a></li>
-<li id="_sidebar_3"><a href="#sec-Definitions"><span class="spec-secid">3</span>Definitions</a>
-<input hidden class="toggle" type="checkbox" id="_toggle_3" /><label for="_toggle_3"></label>
+<li id="_sidebar_2"><a href="#sec-Definitions"><span class="spec-secid">2</span>Definitions</a>
+<input hidden class="toggle" type="checkbox" id="_toggle_2" /><label for="_toggle_2"></label>
 <ol>
-<li id="_sidebar_3.1"><a href="#sec-Processor"><span class="spec-secid">3.1</span>Processor</a></li>
+<li id="_sidebar_2.1"><a href="#sec-Processor"><span class="spec-secid">2.1</span>Processor</a></li>
 </ol>
 </li>
-<li id="_sidebar_4"><a href="#sec-Example-Sensitive-User-Data"><span class="spec-secid">4</span>Example: Sensitive User Data</a></li>
-<li id="_sidebar_5"><a href="#sec-Overview"><span class="spec-secid">5</span>Overview</a></li>
-<li id="_sidebar_6"><a href="#sec-Basic-Requirements"><span class="spec-secid">6</span>Basic Requirements</a>
-<input hidden class="toggle" type="checkbox" id="_toggle_6" /><label for="_toggle_6"></label>
+<li id="_sidebar_3"><a href="#sec-Example-Sensitive-User-Data"><span class="spec-secid">3</span>Example: Sensitive User Data</a></li>
+<li id="_sidebar_4"><a href="#sec-Overview"><span class="spec-secid">4</span>Overview</a></li>
+<li id="_sidebar_5"><a href="#sec-Basic-Requirements"><span class="spec-secid">5</span>Basic Requirements</a>
+<input hidden class="toggle" type="checkbox" id="_toggle_5" /><label for="_toggle_5"></label>
 <ol>
-<li id="_sidebar_6.1"><a href="#@inaccessible"><span class="spec-secid">6.1</span>@inaccessible</a></li>
-<li id="_sidebar_6.2"><a href="#sec-Producer-Responsibilities"><span class="spec-secid">6.2</span>Producer Responsibilities</a></li>
-<li id="_sidebar_6.3"><a href="#sec-Processor-Responsibilities"><span class="spec-secid">6.3</span>Processor Responsibilities</a></li>
+<li id="_sidebar_5.1"><a href="#@inaccessible"><span class="spec-secid">5.1</span>@inaccessible</a></li>
+<li id="_sidebar_5.2"><a href="#sec-Producer-Responsibilities"><span class="spec-secid">5.2</span>Producer Responsibilities</a></li>
+<li id="_sidebar_5.3"><a href="#sec-Processor-Responsibilities"><span class="spec-secid">5.3</span>Processor Responsibilities</a></li>
 </ol>
 </li>
 </ol>
