@@ -1,0 +1,25 @@
+enum Graph
+
+directive @type(
+  graph: Graph!,
+  key: String!,
+  extension: Boolean!
+  resolvable: Boolean!
+) repeatable on OBJECT | INTERFACE
+
+directive @field(
+  graph: Graph,
+  requires: String,
+  provides: String,
+  type: String,
+  external: Boolean,
+  override: String,
+  usedOverridden: Boolean      
+) on FIELD_DEFINITION
+
+directive @graph(name: String!, url: String!) on ENUM_VALUE
+
+directive @implements(
+  graph: Graph!,
+  interface: String!
+) on OBJECT | INTERFACE
