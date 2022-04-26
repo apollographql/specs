@@ -20,7 +20,9 @@ for spec in $SPECS; do
   base=$(dirname $spec)-$(basename $spec)
   md=$spec/$base.md
   gql=$spec/$base.graphql
-  $SPEC_MD $md > $spec/index.html
+  if [ -e $md ]; then
+    $SPEC_MD $md > $spec/index.html
+  fi
   echo "- **[$spec](/$spec)** ([📄 graphql]($gql))" >> __index__.md
 done
 $SPEC_MD index.md > index.html
