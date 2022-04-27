@@ -1,1 +1,5 @@
-core-v0.1.graphql
+directive @core(
+  feature: String!,
+  as: String)
+  repeatable on SCHEMA
+

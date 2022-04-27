@@ -1,1 +1,11 @@
-tag-v0.2.graphql
+directive @tag(name: String!) repeatable on
+  | FIELD_DEFINITION
+  | INTERFACE
+  | OBJECT
+  | UNION
+  | ARGUMENT_DEFINITION
+  | SCALAR
+  | ENUM
+  | ENUM_VALUE
+  | INPUT_OBJECT
+  | INPUT_FIELD_DEFINITION

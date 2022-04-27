@@ -13,7 +13,10 @@ for spec in $SPECS; do
     $SPEC_MD $md > $spec/index.html &
   fi
   if [ -e $gql ]; then
-    ln -s $base.graphql $spec/__schema__.graphql
+    # it's easier to keep track of filenames here if they're
+    # $name-$version.md, but place them at $spec/__schema__.graphql
+    # for automated discovery
+    cp -f $gql $spec/__schema__.graphql
   fi
   echo "- **[$spec](/$spec)** ([📄 graphql]($gql))" >> __index__.md
 done
