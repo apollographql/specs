@@ -12,6 +12,9 @@ for spec in $SPECS; do
   if [ -e $md ]; then
     $SPEC_MD $md > $spec/index.html &
   fi
+  if [ -e $gql ]; then
+    ln -s $base.graphql $spec/__schema__.graphql
+  fi
   echo "- **[$spec](/$spec)** ([📄 graphql]($gql))" >> __index__.md
 done
 wait $(jobs -p)
