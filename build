@@ -1,19 +1,8 @@
 #!/bin/sh
 
 SPEC_MD=node_modules/.bin/spec-md
-SPECS="
-  core/v0.1
-  core/v0.2
-  federation/v1.0
-  federation/v2.0
-  inaccessible/v0.1
-  inaccessible/v0.2
-  join/v0.1
-  join/v0.2
-  link/v1.0
-  tag/v0.1
-  tag/v0.2
-"
+SPECS=*/v*.*
+
 echo > __index__.md
 for spec in $SPECS; do
   echo $spec
