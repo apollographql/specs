@@ -1,4 +1,4 @@
-# federation v2.0
+# federation v1.0
 
 ```raw html
 <table class=spec-data>

@@ -8,7 +8,7 @@ enum core__Purpose {
 
 schema
   @core(feature: "https://specs.apollo.dev/core/v0.2")
-  @core(feature: "https://specs.apollo.dev/inaccessible/v0.1", for: SECURITY)
+  @core(feature: "https://specs.apollo.dev/inaccessible/v0.2", for: SECURITY)
 {
   query: Query
 }

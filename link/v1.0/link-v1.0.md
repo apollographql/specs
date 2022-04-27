@@ -10,9 +10,9 @@
 <script type=module async defer src=/inject-logo.js></script>
 ```
 
-This schema defines [{@link}](#@link), the fundamental linking directive in [core schemas](/core/v1.0).
+This schema defines {@link}, the fundamental linking directive in [core schemas](/core/v1.0).
 
-See the [core schema spec](/core/v1.0) for more details on a document's [Scope](../core/v1.0#sec-Scope) and how {link} and {@id} interact with it.
+See the [core schema spec](/core/v1.0) for more details on a document's [Scope](../core/v1.0#sec-Scope) and how {@link} and {@id} interact with it.
 
 #! @link
 

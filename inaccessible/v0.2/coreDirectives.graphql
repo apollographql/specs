@@ -1,5 +1,5 @@
 schema
   @core(feature: "https://specs.apollo.dev/core/v0.2")
-  @core(feature: "https://specs.apollo.dev/inaccessible/v0.1") {
+  @core(feature: "https://specs.apollo.dev/inaccessible/v0.2") {
   query: Query
 }

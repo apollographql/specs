@@ -1099,7 +1099,7 @@ pre[class*="language-"] {
 
 <span class="token keyword">schema</span>
   <span class="token directive function">@core</span><span class="token punctuation">(</span><span class="token attr-name">feature</span><span class="token punctuation">:</span> <span class="token string">"https://specs.apollo.dev/core/v0.2"</span><span class="token punctuation">)</span>
-  <span class="token directive function">@core</span><span class="token punctuation">(</span><span class="token attr-name">feature</span><span class="token punctuation">:</span> <span class="token string">"https://specs.apollo.dev/inaccessible/v0.1"</span><span class="token punctuation">,</span> <span class="token attr-name">for</span><span class="token punctuation">:</span> <span class="token constant">SECURITY</span><span class="token punctuation">)</span>
+  <span class="token directive function">@core</span><span class="token punctuation">(</span><span class="token attr-name">feature</span><span class="token punctuation">:</span> <span class="token string">"https://specs.apollo.dev/inaccessible/v0.2"</span><span class="token punctuation">,</span> <span class="token attr-name">for</span><span class="token punctuation">:</span> <span class="token constant">SECURITY</span><span class="token punctuation">)</span>
 <span class="token punctuation">{</span>
   <span class="token attr-name">query</span><span class="token punctuation">:</span> Query
 <span class="token punctuation">}</span>
@@ -1175,7 +1175,7 @@ pre[class*="language-"] {
 <p>Here is an example <code>@core</code> usage:</p>
 <figure id="example-required-@core-directives" class="spec-example"><figcaption><a href="#example-required-@core-directives"><span class="spec-example-num">Example № 3</span> required @core directives</a></figcaption><pre class="graphql" data-language="graphql"><code><span class="token keyword">schema</span>
   <span class="token directive function">@core</span><span class="token punctuation">(</span><span class="token attr-name">feature</span><span class="token punctuation">:</span> <span class="token string">"https://specs.apollo.dev/core/v0.2"</span><span class="token punctuation">)</span>
-  <span class="token directive function">@core</span><span class="token punctuation">(</span><span class="token attr-name">feature</span><span class="token punctuation">:</span> <span class="token string">"https://specs.apollo.dev/inaccessible/v0.1"</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token directive function">@core</span><span class="token punctuation">(</span><span class="token attr-name">feature</span><span class="token punctuation">:</span> <span class="token string">"https://specs.apollo.dev/inaccessible/v0.2"</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
   <span class="token attr-name">query</span><span class="token punctuation">:</span> Query
 <span class="token punctuation">}</span></code></pre>
 </figure><p>As described in the <a href="https://specs.apollo.dev/core/v0.2/#sec-Prefixing">core schema specification</a>, your schema may rename the <code>@inaccessible</code> directive by including an <code>as</code> argument to the <code>@core</code> directive which references this specification. All references to <code>@inaccessible</code> in this specification <a href="https://tools.ietf.org/html/rfc2119#section-1" class="spec-requirement required">MUST</a> be interpreted as referring to names with the appropriate prefix chosen within your schema.</p>
