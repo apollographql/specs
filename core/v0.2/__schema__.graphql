@@ -1,7 +1,0 @@
-directive @core(
-  feature: String!,
-  as: String,
-  for: Purpose)
-  repeatable on SCHEMA
-
-enum Purpose { SECURITY EXECUTION }
