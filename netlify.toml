@@ -2,7 +2,7 @@
 # Docs: https://docs.netlify.com/configure-builds/file-based-configuration/
 
 [build]
-  build = "npm run build"
+  command = "npm run build"
   publish = "/"
 
 # Redirects are handled in the ./_redirects file, which has a simple format
