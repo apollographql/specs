@@ -12,6 +12,13 @@ for spec in $SPECS; do
   if [ -e $md ]; then
     $SPEC_MD $md > $spec/index.html &
   fi
+  if [ -e $gql ]; then
+    # it's a slightly nicer editing experience for graphql files
+    # to be named $spec/$name-$version. but it would be slightly
+    # harder for tools to find. put them at $spec.graphql to
+    # support automated discovery.
+    cp -f $gql $spec.graphql
+  fi
   echo "- **[$spec](/$spec)** ([📄 graphql]($gql))" >> __index__.md
 done
 wait $(jobs -p)

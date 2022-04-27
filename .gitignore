@@ -1,3 +1,6 @@
 node_modules
 *.html
-__schema__.graphql
+
+# these are copied from $name-$version.graphql
+# by the build script:
+*/v*.graphql
