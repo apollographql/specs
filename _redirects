@@ -2,56 +2,7 @@
 #
 # Docs: https://docs.netlify.com/routing/redirects/
 
-# The Netlify site URLs are of a known shape, based on the branches of the
-# GitHub repository that they are connected to:
-#
-# Example:
-#   https://{normalized-branch-name}--{netlify-site-name}.netlify.app/
-#
-#  normalized-branch-name: converts dots to dashes, and other transforms.
-#  netlify-site-name: the name defined in the Netlify UI's General settings.
-
-# Core
-# ----------
-# GitHub: https://github.com/apollographql/specs-core
-# Netlify: https://app.netlify.com/sites/apollo-specs-core/
-
-# This represents the official release. It redirects to the branch release below.
-/core/ /core/v0.2/ 302!
-
-# Federation 2.0 spec
+# Federation 2.0 spec is served from the federation repo
+## (note that the graphql definitions are still in this repo, at federation/v2.0/federation-v2.0.graphql)
 /federation/v2.0/* https://www.apollographql.com/docs/federation/federation-spec/:splat 302
 
-# This represents what's on "main" but acts as work in progress.
-/core/draft/* https://apollo-specs-core.netlify.app/:splat 200!
-
-# These are individual branch deploys, but they are intended to live for perpetuity.
-/core/v0.1/* https://v0-1--apollo-specs-core.netlify.app/:splat 200!
-/core/v0.2/* https://v0-2--apollo-specs-core.netlify.app/:splat 200!
-
-# Join
-# ----------
-# GitHub: https://github.com/apollographql/specs-join
-# Netlify: https://app.netlify.com/sites/apollo-specs-join/
-# Follows the same patterns as "core" at the top.
-/join/ /join/v0.1/ 302!
-/join/draft/* https://apollo-specs-join.netlify.app/:splat 200!
-/join/v0.1/* https://v0-1--apollo-specs-join.netlify.app/:splat 200!
-
-# Inaccessible
-# ----------
-# GitHub: https://github.com/apollographql/specs-inaccessible
-# Netlify: https://app.netlify.com/sites/apollo-specs-inaccessible/
-# Follows the same patterns as "core" at the top.
-/inaccessible/ /inaccessible/v0.1/ 302!
-/inaccessible/draft/* https://apollo-specs-inaccessible.netlify.app/:splat 200!
-/inaccessible/v0.1/* https://v0-1--apollo-specs-inaccessible.netlify.app/:splat 200!
-
-# Tag
-# ----------
-# GitHub: https://github.com/apollographql/specs-tag
-# Netlify: https://app.netlify.com/sites/apollo-specs-tag/
-# Follows the same patterns as "core" at the top.
-/tag/ /tag/v0.1/ 302!
-/tag/draft/* https://apollo-specs-tag.netlify.app/:splat 200!
-/tag/v0.1/* https://v0-1--apollo-specs-tag.netlify.app/:splat 200!

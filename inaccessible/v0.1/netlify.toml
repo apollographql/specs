@@ -1,6 +1,0 @@
-# Netlify Admin: https://app.netlify.com/sites/apollo-specs-inaccessible/
-# Docs: https://docs.netlify.com/configure-builds/file-based-configuration/
-
-[build]
-  command = "npm run build"
-  publish = ".dist/"
