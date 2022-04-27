@@ -11,13 +11,41 @@
 <script type=module async defer src=https://specs.apollo.dev/inject-logo.js></script>
 ```
 
-This document defines the `@inaccessible` directive, which marks schema elements which should not be accessible in the public-facing schema. This version of the spec supports Object, Interface, Enum, and Union types along with enum values.
+#! @inaccessible
 
-# How to read this document
+:::[definition](./inaccessible-v0.2.graphql#@inaccessible)
 
-This document uses [RFC 2119](https://www.ietf.org/rfc/rfc2119.txt) guidance regarding normative terms: MUST / MUST NOT / REQUIRED / SHALL / SHALL NOT / SHOULD / SHOULD NOT / RECOMMENDED / MAY / OPTIONAL.
+Mark a location within the schema as inaccessible. Inaccessible types and fields are available internally, but not exposed through the public-facing API:
+
+```graphql example -- input schema
+extend schema
+  @link(url: "https://specs.apollo.dev/link/v1.0")
+  @link(url: "https://specs.apollo.dev/inaccessible/v0.2")
+
+type Query {  
+  myself: User
+  allUsers: [User] @inaccessible
+}
+
+type User {
+  id: ID!
+  secret: String! @inaccessible
+}
+```
+
+```graphql example -- API schema for input
+type Query {
+  myself: User
+}
+
+type User {
+  id: ID!
+}
+```
 
 # Definitions
+
+This document uses [RFC 2119](https://www.ietf.org/rfc/rfc2119.txt) guidance regarding normative terms: MUST / MUST NOT / REQUIRED / SHALL / SHALL NOT / SHOULD / SHOULD NOT / RECOMMENDED / MAY / OPTIONAL.
 
 ## Processor
 
@@ -39,35 +67,9 @@ The schema above contains both a field (`User.id`) and type (`BankAccount`) that
 
 :::[example](./processedSchema.graphql) -- Core schema after processing
 
-# Overview
+# Determining the public API
 
-*This section is non-normative.* It describes the motivation behind the directives defined by this specification.
-
-A core schema which has been processed according to the inaccessible spec is a queryable graph, intended to be served by a [Data Core](https://specs.apollo.dev/core/v0.2/#sec-Actors). Various use cases require that fields and types should not be visible to or queried for by clients. The `@inaccessible` directive fulfills this requirement, providing schema authors a mechanism to specify which fields and types should be omitted from the processed schema.
-
-# Basic Requirements
-
-Schemas using {@inaccessible} must be valid [core schema documents](https://specs.apollo.dev/core/v0.2) and must reference [this specification](#).
-
-Here is an example `@core` usage:
-
-:::[example](./coreDirectives.graphql) -- required @core directives
-
-As described in the [core schema specification](https://specs.apollo.dev/core/v0.2/#sec-Prefixing), your schema may rename the `@inaccessible` directive by including an `as` argument to the `@core` directive which references this specification. All references to `@inaccessible` in this specification MUST be interpreted as referring to names with the appropriate prefix chosen within your schema.
-
-##! @inaccessible
-
-In order to use the directive described by this specification, GraphQL requires you to include the definition in your schema.
-
-:::[definition](./inaccessible-v0.2.graphql)
-
-## Producer Responsibilities
-
-[Producers](https://specs.apollo.dev/core/v0.2/#sec-Actors) MUST include a definition of the directive compatible with the above definition and all usages in the document.
-
-## Processor Responsibilities
-
-The Processor is responsible for excluding all inaccessible elements from the API. Within the API,
+The processor implementing {@inaccessible} MUST ensure that it returns a public-facing API with all {@inaccessible} items removed:
 
 - Field Definitions marked with `@inaccessible` MUST be excluded
 - Object types marked with `@inaccessible` MUST be excluded
@@ -75,5 +77,7 @@ The Processor is responsible for excluding all inaccessible elements from the AP
 - Interfaces marked with `@inaccessible` MUST be excluded
 - Interfaces marked with `@inaccessible` MUST be excluded from the `extends` clause of all other interfaces
 - Union types marked with `@inaccessible` MUST be excluded
+- Enum types marked with `@inaccessible` MUST be excluded
+- Enum values marked with `@inaccessible` MUST be excluded and MUST not be returned to users or accepted as input
 
-Note applying this process may result in an invalid schema. For example, fields which return `@inaccessible` types which are not themselves marked `@inaccessible` will now return an invalid type which is not present in the schema. This is intentional. `@inaccessible` does NOT cascade. If applying `@inaccessible` results in an invalid schema, the serving process SHOULD apply standard polices to determine whether or how to serve it. Generally, invalid schemas SHOULD NOT be served, though some server configurations—particularly those used for development—may OPTIONALLY elect to serve such schemas in a degraded mode. The semantics of such a mode are not within the scope of this spec.
+Note: Applying this process may result in an invalid schema. For example, fields which return `@inaccessible` types which are not themselves marked `@inaccessible` will now return an invalid type which is not present in the schema. This is intentional. `@inaccessible` does NOT cascade. If applying `@inaccessible` results in an invalid schema, the serving process SHOULD apply standard polices to determine whether or how to serve it. Generally, invalid schemas SHOULD NOT be served, though some server configurations—particularly those used for development—may OPTIONALLY elect to serve such schemas in a degraded mode. The semantics of such a mode are not within the scope of this spec.
