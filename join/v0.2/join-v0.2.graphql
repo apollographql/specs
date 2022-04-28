@@ -6,8 +6,8 @@ enum Graph
 directive @type(
   graph: Graph!,
   key: federation__FieldSet,
-  extension: Boolean!
-  resolvable: Boolean!
+  extension: Boolean = false,
+  resolvable: Boolean = true
 ) repeatable on OBJECT | INTERFACE | UNION | ENUM | INPUT_OBJECT | SCALAR
 
 directive @field(
@@ -18,7 +18,7 @@ directive @field(
   external: Boolean,
   override: String,
   usedOverridden: Boolean      
-) on FIELD_DEFINITION
+) on FIELD_DEFINITION | INPUT_FIELD_DEFINITION
 
 directive @graph(name: String!, url: String!) on ENUM_VALUE
 
