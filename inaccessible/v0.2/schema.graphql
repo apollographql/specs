@@ -1,0 +1,38 @@
+directive @core(as: String, feature: String!, for: core__Purpose) repeatable on SCHEMA
+directive @inaccessible on FIELD_DEFINITION | OBJECT | INTERFACE | UNION
+
+enum core__Purpose {
+  EXECUTION
+  SECURITY
+}
+
+schema
+  @core(feature: "https://specs.apollo.dev/core/v0.2")
+  @core(feature: "https://specs.apollo.dev/inaccessible/v0.2", for: SECURITY)
+{
+  query: Query
+}
+
+type Query {
+  user(id: String!): User
+}
+
+type User {
+  id: String! @inaccessible
+  name: String!
+  email: String!
+  bankAccount: BankAccount @inaccessible
+  accounts: [Account]
+}
+
+type BankAccount @inaccessible {
+  id: String!
+  accountNumber: String!
+}
+
+type ForumAccount {
+  handle: String!
+}
+
+union Account = BankAccount | ForumAccount
+

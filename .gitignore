@@ -1,3 +1,6 @@
 node_modules
-core
-join
+*.html
+
+# these are copied from $name-$version.graphql
+# by the build script:
+*/v*.graphql

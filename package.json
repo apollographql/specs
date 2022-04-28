@@ -2,22 +2,15 @@
   "name": "@apollo/specs.apollo.dev",
   "version": "1.0.0",
   "description": "Apollo Specifications Library",
-  "main": "index.js",
-  "type": "module",
-  "bin": "./bin/library",
   "scripts": {
+    "build": "./build",
     "start": "http-server -c-1"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "express": "^4.17.1",
-    "http-server": "^0.12.3",
-    "jsdom": "^16.4.0",
-    "puppeteer": "^5.5.0"
-  },
-  "dependencies": {
-    "commonmark": "^0.29.3"
+    "@queerviolet/speck": "github:queerviolet/speck",
+    "http-server": "^14"
   }
 }

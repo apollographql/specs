@@ -1,0 +1,15 @@
+type Image @key(fields: "url") {
+  url: Url
+  type: MimeType
+}
+
+type Query {
+  images: [Image]
+}
+
+extend type User {
+  favorite: Image
+}
+
+scalar Url
+scalar MimeType

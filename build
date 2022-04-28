@@ -1,0 +1,34 @@
+#!/bin/bash
+
+SPEC_MD=node_modules/.bin/spec-md
+SPECS=( "${@: 1}" )
+if [ ${#SPECS[@]} -eq 0 ]; then
+  SPECS=(*/v*.*)
+fi
+
+echo > __index__.md
+for spec in ${SPECS[*]}; do
+  if [ ! -d $spec ]; then continue; fi
+  echo $spec
+  base=$(dirname $spec)-$(basename $spec)
+  md=$spec/$base.md
+  gql=$spec/$base.graphql
+  automated_gql=$spec.graphql
+  if [ -e $md ]; then
+    $SPEC_MD $md > $spec/index.html &
+  fi
+  if [ -e $gql ]; then
+    # it's a slightly nicer editing experience for graphql files
+    # to be named $spec/$name-$version. but it would be slightly
+    # harder for tools to find. put them at $spec.graphql to
+    # support automated discovery.
+    cp -f $gql $automated_gql
+  else
+    if [ ! -e $automated_gql ]; then
+      echo >&2 $md not found, create it for automated schema discovery
+    fi
+  fi
+  echo "- **[$spec](/$spec)** ([📄 graphql]($gql))" >> __index__.md
+done
+wait $(jobs -p)
+$SPEC_MD index.md > index.html

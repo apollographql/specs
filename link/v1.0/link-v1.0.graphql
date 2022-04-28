@@ -1,0 +1,16 @@
+extend schema
+  @link(url: "https://specs.apollo.dev/link/v1.0")
+
+directive @link(
+  url: String!,  
+  as: String,
+  import: [Import],
+  for: Purpose)
+  repeatable on SCHEMA
+
+scalar Import
+
+enum Purpose {
+  SECURITY
+  EXECUTION
+}

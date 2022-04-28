@@ -1,0 +1,9 @@
+schema
+  @core(feature: "https://specs.apollo.dev/core/v0.1")
+  @core(feature: "https://specs.example.com/A/1.0") # name is A
+  @core(feature: "https://specs.example.com/A/2.0") # name is A
+{
+  query: Query
+}
+
+directive @core(feature: String!, as: String) repeatable on SCHEMA

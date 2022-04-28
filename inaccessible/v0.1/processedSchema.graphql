@@ -1,0 +1,28 @@
+directive @core(as: String, feature: String!, for: core__Purpose) repeatable on SCHEMA
+
+enum core__Purpose {
+  EXECUTION
+  SECURITY
+}
+
+schema
+  @core(feature: "https://specs.apollo.dev/core/v0.2")
+{
+  query: Query
+}
+
+type Query {
+  user(id: String!): User
+}
+
+type User {
+  name: String!
+  email: String!
+  accounts: [Account]
+}
+
+type ForumAccount {
+  handle: String!
+}
+
+union Account = ForumAccount

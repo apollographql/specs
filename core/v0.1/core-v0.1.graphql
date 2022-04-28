@@ -1,0 +1,5 @@
+directive @core(
+  feature: String!,
+  as: String)
+  repeatable on SCHEMA
+
