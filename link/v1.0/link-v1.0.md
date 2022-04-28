@@ -21,7 +21,7 @@ Link a foreign schema and optionally import definitions.
 ```graphql example -- {@link} usage
 extend schema
   @link(url: "https://example.com/otherSchema",
-    # @link infers a name from the URL 🖕🏽 
+    # @link infers a name from the URL 🖕🏽
     #   (use as: to set it explicitly)
     import: ["SomeType", "@someDirective", {
       name: "@someRenamedDirective",
@@ -46,7 +46,9 @@ Link URLs serve two main purposes:
 
 Link URLs SHOULD be [RFC 3986 URLs](https://tools.ietf.org/html/rfc3986). When viewed, the URL SHOULD provide schema documentation in some human-readable form—a human reader should be able to click the link and go to the correct version of the docs. This is not an absolute functional requirement—as far as the core schema machinery is concerned, the URL is simply a globally unique namespace identifier with a particular form.
 
-Link URLs MAY contain information about the spec's [name](#Name-Conventions) and [version](#Versioning):
+If [`url:`](#@link.url) is not a valid [RFC 3986](https://tools.ietf.org/html/rfc3986) url, then it MUST be treated as an opaque identifier for the foreign schema. Such non-URL inputs to [`url:`](#@link.url) SHOULD NOT have [name](#Name-Conventions) and [version](#Versioning) information extracted from them—both are {null}.
+
+Link URLs which *are* [valid urls](https://tools.ietf.org/html/rfc3986) MAY contain information about the spec's [name](#Name-Conventions) and [version](#Versioning):
 
 ```html diagram -- Basic anatomy of a link URL
 <code class=anatomy>
