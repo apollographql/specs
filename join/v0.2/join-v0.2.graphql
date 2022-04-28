@@ -1,16 +1,19 @@
+extend schema
+  @link(url: "https://specs.apollo.dev/federation/v2.0")
+
 enum Graph
 
 directive @type(
   graph: Graph!,
-  key: String!,
+  key: federation__FieldSet,
   extension: Boolean!
   resolvable: Boolean!
-) repeatable on OBJECT | INTERFACE
+) repeatable on OBJECT | INTERFACE | UNION | ENUM | INPUT_OBJECT | SCALAR
 
 directive @field(
   graph: Graph,
-  requires: String,
-  provides: String,
+  requires: federation__FieldSet,
+  provides: federation__FieldSet,
   type: String,
   external: Boolean,
   override: String,

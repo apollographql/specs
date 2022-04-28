@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 SPEC_MD=node_modules/.bin/spec-md
 SPECS=( "${@: 1}" )
