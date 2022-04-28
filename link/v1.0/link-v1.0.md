@@ -1,7 +1,7 @@
 # link v1.0
 
 ```raw html
-<h2>for linking core schemas together</h2>
+<h2>for linking schemas together</h2>
 <table class=spec-data>
   <tr><td>Status</td><td>Draft</td>
   <tr><td>Version</td><td>1.0</td>
@@ -10,19 +10,31 @@
 <script type=module async defer src=/inject-logo.js></script>
 ```
 
-This schema defines [{@link}](#@link), the fundamental linking directive in [core schemas](/core/v1.0).
-
-See the [core schema spec](/core/v1.0) for more details on a document's [Scope](../core/v1.0#sec-Scope) and how {link} and {@id} interact with it.
+{@link} other schemas by their URL and [`import:`](#@link.import) definitions from them.
 
 #! @link
 
-```graphql definition
-directive @link(url: String!, as: String, import: [Import])
+:::[definition](./link-v1.0.graphql#@link)
+
+Link a foreign schema and optionally import definitions.
+
+```graphql example -- {@link} usage
+extend schema
+  @link(url: "https://example.com/otherSchema",
+    # @link infers a name from the URL 🖕🏽
+    #   (use as: to set it explicitly)
+    import: ["SomeType", "@someDirective", {
+      name: "@someRenamedDirective",
+      as: "@renamed"
+    }])
+
+type Query
+  # 👇🏽 imported definitions are available by their name
+  @someDirective
+  @renamed
+  # 👇🏽 non-imported definitions are available with prefixes
+  @otherSchema__nonImportedDirective
 ```
-
-Link a foreign schema by its URL.
-
-{@link} [introduces one or more items](/core/v1.0#sec-Entries-added-by-@link) into the document's [Scope](#core/Scope).
 
 ##! url: String!
 
@@ -102,9 +114,11 @@ directive @link(url: String!, as: String) repeatable on SCHEMA
 
 ##! import: [Import]
 
-A list of names, possibly with aliases, to import from the foreign schema into the document.
+A list of elements, possibly with aliases, to import from the foreign schema into the document.
 
-See the [Import](#Import) scalar for a description of the format.
+Importing an element gives it a local, non-namespaced name.
+
+See the [Import](#Import) scalar for a description of the argument format.
 
 ##! for: Purpose
 
@@ -115,16 +129,6 @@ By default, {@link}s SHOULD fail open. This means that {@link}s to unknown schem
 This behavior is different for {@link}s with a specified purpose:
   - `SECURITY` links convey metadata necessary to compute the API schema and securely resolve fields within it
   - `EXECUTION` links convey metadata necessary to correctly resolve fields within the schema
-
-#! @id
-
-```graphql definition
-directive @id(url: String!) on SCHEMA
-```
-
-Identify the current document by its URL. The URL is interpreted identically to [`@link`'s `url:` argument](#@link.as).
-
-{@id} [introduces an item](/core/v1.0#sec-Entry-added-by-@id) into the document's [Scope](#Scope).
 
 #! Import
 

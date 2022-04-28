@@ -2,20 +2,6 @@
 #
 # Docs: https://docs.netlify.com/routing/redirects/
 
-# The Netlify site URLs are of a known shape, based on the branches of the
-# GitHub repository that they are connected to:
-#
-# Example:
-#   https://{normalized-branch-name}--{netlify-site-name}.netlify.app/
-#
-#  normalized-branch-name: converts dots to dashes, and other transforms.
-#  netlify-site-name: the name defined in the Netlify UI's General settings.
-
-# Core
-# ----------
-# GitHub: https://github.com/apollographql/specs-core
-# Netlify: https://app.netlify.com/sites/apollo-specs-core/
-
-# This represents the official release. It redirects to the branch release below.
-/core/ /core/v1.0/ 302!
-/link/ /link/v1.0/ 302!
+# Federation 2.0 spec is served from the federation repo
+## (note that the graphql definitions are still in this repo, at federation/v2.0/federation-v2.0.graphql)
+/federation/v2.0/* https://www.apollographql.com/docs/federation/federation-spec/:splat 302

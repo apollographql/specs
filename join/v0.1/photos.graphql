@@ -1,0 +1,62 @@
+schema
+  @core(feature: "https://specs.apollo.dev/core/v1.0")
+  @core(feature: "https://specs.apollo.dev/join/v1.0") {
+  query: Query
+}
+
+directive @core(feature: String!) repeatable on SCHEMA
+
+directive @join__owner(graph: join__Graph!) on OBJECT
+
+directive @join__type(
+  graph: join__Graph!
+  key: String!
+) repeatable on OBJECT | INTERFACE
+
+directive @join__field(
+  graph: join__Graph
+  requires: String
+  provides: String
+) on FIELD_DEFINITION
+
+directive @join__graph(name: String!, url: String!) on ENUM_VALUE
+
+enum join__Graph {
+  AUTH @join__graph(name: "auth", url: "https://auth.api.com")
+  ALBUMS @join__graph(name: "albums", url: "https://albums.api.com")
+  IMAGES @join__graph(name: "images", url: "https://images.api.com")
+}
+
+type Query {
+  me: User @join__field(graph: AUTH)
+  images: [Image] @join__field(graph: IMAGES)
+}
+
+type User
+    @join__owner(graph: AUTH)
+    @join__type(graph: AUTH, key: "id")
+    @join__type(graph: ALBUMS, key: "id") {
+  id: ID! @join__field(graph: AUTH)
+  name: String @join__field(graph: AUTH)
+  albums: [Album!] @join__field(graph: ALBUMS)
+}
+
+type Album
+    @join__owner(graph: ALBUMS)
+    @join__type(graph: ALBUMS, key: "id") {
+  id: ID!
+  user: User
+  photos: [Image!]
+}
+
+type Image
+    @join__owner(graph: IMAGES)
+    @join__type(graph: ALBUMS, key: "url")
+    @join__type(graph: IMAGES, key: "url") {
+  url: Url @join__field(graph: IMAGES)
+  type: MimeType @join__field(graph: IMAGES)
+  albums: [Album!] @join__field(graph: ALBUMS)
+}
+
+scalar Url
+scalar MimeType

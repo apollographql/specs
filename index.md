@@ -11,24 +11,28 @@
 
 # Current Specs
 
-## Core Schemas v1.0
-
-[Core Schemas](/core/v1.0) are schemas for the global graph. Core schemas know their position in the global graph and use [specified conventions](/core/v1.0) to link definitions from other schemas in the global graph. Core schemas not a new syntax or document type—they are a set of namespacing conventions and algorithms applied to standard GraphQL schemas.
-
 ## link v1.0
 
 [link v1.0](/link/v1.0) provides {@link} and {@id}, the fundamental core schema linking directives.
 
-## join v0.1
+## federation v2.0
 
-[join v0.1](/join/v0.1) declaratively describes joins between types in a supergraph.
+[federation v2.0](/federation/v2.0) provides graph composition primitives for use in subgraphs.
 
-## tag v0.1
+## join v0.2
 
-[tag v0.1](tag/v0.1) attaches a single piece of string metadata to various GraphQL definitions (it is mainly used for contracts)
+[join v0.2](/join/v0.2) declaratively describes joins between types in a supergraph.
 
-## inaccessible v0.1
+## tag v0.2
 
-[inaccessible v0.1](inaccessible/v0.1) masks fields and types from a graph's public API
+[tag v0.2](tag/v0.2) attaches a single piece of string metadata to various locations in a schema
 
+## inaccessible v0.2
 
+[inaccessible v0.2](inaccessible/v0.2) masks fields and types from a graph's public API
+
+# All Schemas
+
+Everything in this library:
+
+[everything](__index__.md)

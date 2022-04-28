@@ -1,0 +1,16 @@
+enum Graph
+
+directive @owner(graph: Graph!) on OBJECT
+
+directive @type(
+  graph: Graph!,
+  key: String!,
+) repeatable on OBJECT | INTERFACE
+
+directive @field(
+  graph: Graph,
+  requires: String,
+  provides: String,
+) on FIELD_DEFINITION
+
+directive @graph(name: String!, url: String!) on ENUM_VALUE
