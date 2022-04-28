@@ -5,3 +5,7 @@ directive @inaccessible on
   | UNION
   | ENUM
   | ENUM_VALUE
+  | SCALAR
+  | INPUT_OBJECT
+  | INPUT_FIELD_DEFINITION
+  | ARGUMENT_DEFINITION
