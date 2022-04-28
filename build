@@ -1,6 +1,6 @@
 #!/bin/bash
 
-SPEC_MD=node_modules/.bin/spec-md
+SPEC_MD="node_modules/.bin/spec-md -m biblio.json"
 SPECS=( "${@: 1}" )
 if [ ${#SPECS[@]} -eq 0 ]; then
   SPECS=(*/v*.*)

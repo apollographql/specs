@@ -10,7 +10,7 @@
 <script type=module async defer src=/inject-logo.js></script>
 ```
 
-Core schemas provide tools for linking definitions from different GraphQL schemas together into one.
+Core schemas provide tools for linking and importing definitions from different GraphQL schemas together into one.
 
 ```graphql example -- linking a directive from another schema
 extend schema
@@ -37,30 +37,48 @@ type Query {
 
 This document introduces a set of conventions for linking and namespacing within GraphQL schemas. Core schemas are not a new kind of document and do not introduce any new syntax—they are just GraphQL schemas which can be interpreted according to the conventions outlined in this doc.
 
-# Global Graph References
+Core schemas solve three main problems:
 
-Within a core schema document, every top-level definition and reference (for example, every named type and directive) has a position in the global graph. This position is captured by a *global graph reference*.
+1. **[Imports](#@link).** The {@link} directive points to definitions. A compiler can insert these if they are not present, producing a [fully valid core schema](#fully-valid-core-schemas).
+3. **[Foreign definitions](#sec-Name-Conventions).** Core schemas can namespace external definitions and type references which are helpful in describing the schema, but are not part of the schema's API. Such definitions may include information about how to [serve](/link/v1.0#Purpose.EXECUTION) and [secure](/link/v1.0#Purpose.SECURITY) the schema.
+2. **[Attribution](#sec-Attribution).** [Fully valid core schemas](#fully-valid-core-schemas) contain all definitions they reference, as GraphQL requires. {@link}s in such documents serve to *attribute* all definitions and references in the document, associating each one with the URL it came from.
+
+# The Global Graph
+
+The global graph is simply the set of all GraphQL schemas in the world, each identified with a URL.
+
+GraphQL provides no way to link between schemas. This means that absent {@link}, the global graph is certainly global, but it a *graph* only in the formal sense that any collection of disconnected points is, technically, a graph.
+
+Core schemas introduce the {@link} directive to fill this gap. {@link} not only allows you to import definitions and types into your document, it retains the knowledge of where those definitions and types came from, creating a linking structure which can span all the schemas in the globe.
+
+## Global Graph References
+
+Within a core schema document, every top-level definition and reference (for example, every named type and directive) has a position in the global graph. This position is captured by a *global graph reference*. You can think of them as URLs without losing much precision (although local references [technically aren't](#note-36269)).
 
 A global graph reference (or *gref*) is a (*[link url](#@link.url)*, *element*) pair.
 
-The URL may be {null}, to represent local definitions within a schema that is not bound to a URL. Otherwise it must be a [valid link url in canonical form](#@link.url).
+The URL may be {null}, to represent local definitions within a schema that is not bound to a URL. Otherwise it must be a [a normalized link url](#@link.url).
 
 The *element* may be:
 - Directive({name}) — a directive
 - Type({name}) — a named type of any kind
 - Schema({name}?) — a further link to yet another schema. {name} may be {null} to indicate the schema itself.
 
-Implementations may represent these internally in a variety of ways. They also have a canonical string form, which is used in [{Import}](#Import)
+Implementations may represent these internally in a variety of ways. They also have a canonical string form, which is used in {Import}.
 
 - Directive({name}) is represented with "@{name}"
 - Type({name}) is simply represented with "{name}"
-- Schema({name}) is represented with "{name}::"
+- Schema({name}) is represented with "{name}::" (note that {Import} does not currently allow you to import an entire schema from another schema, only individual elements)
 
 Types and directives are separated in this way because that's how GraphQL does it—you can have a `User` type and a `@User` directive in the same schema (though GraphQL naming conventions would suggest againt it).
 
 ## URL representation
 
 Since [link urls](#Url) explicitly cannot have fragments, we can represent global graph references as a URL with a fragment. For example, a reference to {@link} from the schema `https://specs.apollo.dev/link/v1.0` can be rendered as `https://specs.apollo.dev/link/v1.0#@link`. A reference to the same spec's {Import} scalar can be rendered as `https://specs.apollo.dev/link/v1.0#Import`.
+
+Local references—where the schema is {null}—are rendered as hrefs containing only a fragment, e.g. `#SomeType` and `#@someDirective`.
+
+Note: Technically, `#SomeType` is not a valid URL, but rather an href. Perhaps this section should be titled "href representation", but that seemed unlikely to improve the overall readability of this document.
 
 This is particularly convenient for providing links to documentation. We'll use this form in examples throughout this document.
 
@@ -125,34 +143,9 @@ type Query {
 directive @admin on FIELD_DEFINITION
 ```
 
-## Identifying the document's own URL
-
-The document's own URL can be specified with the [`@id` directive](#@id):
-
-```graphql example -- global graph references with {@id}
-extend schema
-# 👇🏽 🌍 https://specs.apollo.dev/link/v1.0/#@id
-  @id(url: "https://api.example.com/myself")
-
-# 👇🏽 🌍 https://specs.apollo.dev/link/v1.0/#@link
-  @link(url: "https://specs.apollo.dev/link/v1.0", import: ["@id"])
-
-# 👇🏽 🌍 https://specs.apollo.dev/link/v1.0/#@link
-  @link(url: "https://internal.example.com/admin", import: [{ name: "@adminOnly", as: "@admin" }])
-
-#   👇🏽 🌍 https://api.example.com/myself#Query
-type Query {
-  #               👇🏽 🌍 https://internal.example.com/admin#@adminOnly
-  allUsers: [User] @admin
-  #         🖕🏽 🌍 https://api.example.com/myself#User
-}
-```
-
-Using `@id` is not, strictly speaking, necessary. A URL can be associated with a document in any number of ways (for example, a processor could associate the schema with the URL where it found it. However, using [{@id}](#@id) makes the document self-describing; core-aware processors will correctly attribute definitions and references within such documents, regardless of where they were found.
-
 # Scope
 
-Core schemas have a document-wide *scope*. A document's scope is a map of {Element} ==> {Binding}. The scope is constructed from a document's [{@link}](../../link/v1.0#@link) and [{@id}](../../link/v1.0#@id) directives and is used to [attribute](#sec-Attribution) definitions and references within the document.
+Core schemas have a document-wide *scope*. A document's scope is a map of {Element} ==> {Binding}. The scope is constructed from a document's {@link} directives and is used to [attribute](#sec-Attribution) definitions and references within the document.
 
 Elements are the same as in [global graph references](#sec-Global-Graph-References). When used as scope keys, they carry the following meanings:
 - Schema({name}) — a schema {@link}ed from the document. {name} can be used as a [prefix](#sec-Name-Conventions) for definitions and references within the document, and {name} MUST either be a valid prefix or {null}, indicating the present schema.
