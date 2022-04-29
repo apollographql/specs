@@ -340,11 +340,11 @@ Emit all scope bindings produced by a @link directive.
 Note: This algorithm is specified as a generator. This is deemed to produce the clearest psuedocode, but implementations may choose other approaches, such as collecting bindings into a list.
 
 BindingsFromLink(directive) :
-  1. **If** {directive} does not have a `url` argument or its `url` argument is an [invalid URL](#@link.url)
-    1. **Fail** ❌ BadLinkUrl
-  1. **Let** {url} be the canonical form of the {directive}'s `url` argument, with [all meaningless components stripped](#@link.url)    
+  1. **If** {directive} does not have a `url` argument or `url` is {null},
+    1. **Fail** ❌ BadLink
+  1. **Let** {url} be the normalized form of the {directive}'s `url` argument (with [all meaningless components stripped](#@link.url))
   2. **If** {url} does not have a name...
-    2. ...and {directive} does not have an `as` argument...
+    2. ...and {directive} does not have an `as` argument or `as` is invalid...
     3. ...and {directive} does not have an `import` argument or `import` is an empty list **Then**
       1. **Fail** ❌ UselessLink
   2. **If** {url} has a name, **Then**
@@ -353,8 +353,9 @@ BindingsFromLink(directive) :
     2. **Emit** the schema binding (Schema({localName}), Binding(gref: GRef({url}, Schema()), implicit: {false}))
     2. **Emit** the root directive binding (Directive({localName}), Binding(gref: GRef({url}, Directive({name})), implicit: {true}))
   3. ...**Else**
-    2. **Let** {localName} be {directive}'s `as` argument if present and valid
-    2. **Emit** the schema binding (Schema({localName}), Binding(gref: GRef({url}, Schema()), implicit: {false}))
+    1. **If** {directive} has an `as` argument which is a valid namespace identifier,
+      1. **Let** {localName} be {directive}'s `as` argument
+      2. **Emit** the schema binding (Schema({localName}), Binding(gref: GRef({url}, Schema()), implicit: {false}))
   4. **For each** {import} **from** {directive}'s `import` argument:
     1. **If** {import} is a string directive name starting with `@`,
       0. **Let** {name} be the name of the directive specified by {import}
