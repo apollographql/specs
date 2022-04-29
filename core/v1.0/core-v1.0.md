@@ -230,15 +230,6 @@ Document processors MAY reject schemas with such errors outright.
 
 Permissive processors (for example, a language server which wants to provide best-effort attribution even in the face of document errors) MAY choose to process such documents even in the face of conflicts. Such processors SHOULD include the first (in document order) binding in the scope, and reject subsequent bindings. Such processors SHOULD also provide error messages listing *all* {@link}s which are in conflict.
 
-## Entry added by @id
-
-[@id](#@id) adds just one entry into the scope, binding the current document to the given URL:
-
-```graphql example -- {@id} adds a self-binding into the scope
-  @id(url: "https://example.com/myself")
-  # 1. Schema() -> https://example.com/myself (explicit)
-```
-
 # Name Conventions
 
 Within a core schema, type names and directives which begin with a valid namespace identifier followed by two underscores (`__`) will be [attributed](#sec-Attribution) to the foreign schema bound to that name in the document [scope](#sec-Scope) if one exists.
@@ -261,16 +252,7 @@ extend schema
 # 1. Schema("link") -> "https://specs.apollo.dev/link/v1.0" (explicit)
 # 2. Directive("link") -> "https://specs.apollo.dev/link/v1.0#@link" (implicit)
 
-#    👇🏽 🌍 #myOwn__Purpose (note, this document has no @id, so the url of this gref is null)
-enum myOwn__Purpose { SECURITY EXECUTION }
-```
-
-```graphql example -- a strange local name in a document with an id
-extend schema
-  @id(url: "https://api.example.com")
-  @link(url: "https://specs.apollo.dev/link/v1.0", import: ["@id"]
-
-#    👇🏽 🌍 https://api.example.com#myOwn__Purpose
+#    👇🏽 🌍 #myOwn__Purpose
 enum myOwn__Purpose { SECURITY EXECUTION }
 ```
 
@@ -287,12 +269,6 @@ extend schema
 
 The {@link} directive for {@link} itself—the "bootstrap"—MUST be the first {@link} in the document. Other directives may precede it, including directives which have been {@link}ed. 
 
-```graphql example -- bootstrapping {@link} and using {@id} before doing so
-extend schema
-  @id(url: "https://api.example.com")
-  @link(url: "https://specs.apollo.dev/link/v1.0", import: ["@id"])
-```
-
 There is otherwise nothing special or restricted about bootstraps. Documents MAY use them to rename {@link}—either with [`as:`](#@link.as) or [`import:`](#@link.import) or both:
 
 ```graphql example -- bootstrapping {@link} with a different name
@@ -305,12 +281,10 @@ extend schema
   @core(url: "https://specs.apollo.dev/link/v1.0", import: [{ name: "@link", as: "@core" }])
 ```
 
-```graphql example -- importing {@link} and other things simultaneously
+```graphql example -- importing the {@link} directive directly
 extend schema
-  @id(url: "https://api.example.com")
   @foo(url: "https://specs.apollo.dev/link/v1.0", import: [
-    {name: "@link", as: "@core"},
-    "@id"
+    {name: "@link", as: "@foo"},
   ])
 ```
 
@@ -320,7 +294,6 @@ For a document to be a fully valid core schema:
 
 1. It MUST be a valid GraphQL schema. Amongst other things, this means that it MUST contain definitions for all types and directives it references, including those from foreign schemas
 2. If it includes any {@link}s, it MUST include a [bootstrap](#sec-Bootstrapping) which MUST precede all other {@link}s in the document
-3. It MAY include an {@id}, particularly if other schemas are meant to link to it (e.g. if the document provide directives for use on other schemas)
 
 Good news: this means that every valid GraphQL schema which *does not* use {@link} is automatically a fully valid core schema. Otherwise-valid schemas which use {@link} simply have to include a [bootstrap](#sec-Bootstrapping) to become fully valid core schemas.
 
@@ -342,7 +315,7 @@ Note: It may seem that this is the perfect use case for the HTTP `Accept:` heade
 
 ## Constructing the document's scope
 
-Visit every {@link} and {@id} within the document to construct the document's scope.
+Visit every {@link} within the document to construct the document's scope.
 
 Note: This algorithm **Report**s errors. Depending on their needs, implementations MAY decide to fail immediately in the face of these errors, or may elect to continue processing the document
 
@@ -358,13 +331,6 @@ ConstructScope(document, baseScope) :
           3. **Or If** {binding} is explicit and {element} exists in {scope} and is explicit **Then**
             1. **Report** ❌ NameConflict
           1. **Insert** {element} ==> {binding} **into** {scope}
-  2. **For each** SchemaDefinition or SchemaExtension {schemaDef} in {document},
-    1. **For each** Directive {idCandidate} on {schemaDef},
-      1. **If** {Locate(scope, idCandidate)} is the [GRef](#sec-Url-Representation) `https://specs.apollo.dev/link/v1.0#@id`...
-        1. **If** {idCandidate} does not have a `url` argument or its `url` argument is an [invalid URL](#@link.url)
-          1. **Fail** ❌ BadId
-        2. **Let** {url} be the canonical form of {idCandidate}'s `url`
-        1. **Insert** Schema() ==> Binding(gref: GRef({url}, Schema()), implicit: {false})
   3. **Return** {scope}
 
 ## Get all bindings from a @link directive
