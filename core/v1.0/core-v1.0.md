@@ -326,6 +326,18 @@ Good news: this means that every valid GraphQL schema which *does not* use {@lin
 
 Note: The bootstrap link is required in order to properly identify the [version](#sec-Versioning) of the link spec in use.
 
+## Partial Schemas
+
+Partial schemas are schemas which use {@link} to reference definitions which they do not necessarily include. Partial schemas are invalid GraphQL, but can be turned into valid GraphQL by a [compiler](#sec-Appendix-Compilation) which inserts the appropriate definitions.
+
+# Schema discovery
+
+Tools (such as [compilers](#sec-Appendix-Compilation)) which want to obtain the source of a core schema via its URL SHOULD try to fetch it in the simplest protocol-appropriate way from "{url}.graphql". For example, the text of `https://specs.apollo.dev/link/v1.0` is available by issuing a `GET` request to [`https://specs.apollo.dev/link/v1.0.graphql`](https://specs.apollo.dev/link/v1.0.graphql). Publishers SHOULD put the text of their schemas in the appropriate `.graphql` location for automatic fetching by tools. `GET` requests against the unmodified URL itself SHOULD take the viewer to human-readable documentation for the schema; `POST` requests SHOULD execute GraphQL queries and return their results, if the schema has any root types.
+
+Tools MAY try other mechanisms, such as introspection. However, introspection requires a running endpoint, which is unnecessary for some schemas ([link](/link/v1.0), for example, does not define any root types, and so has no use for an endpoint).
+
+Note: It may seem that this is the perfect use case for the HTTP `Accept:` header, and it is. The file extension approach is deemed to be more practical for a few reasons: (1) CDNs generally have poor support for varying the response based on `Accept:`, (2) the appropriate MIME type for GraphQL schemas is surprisingly controversial, and (3) `Accept:` is HTTP/HTTPS-specific, whereas "append .graphql to the URL" works across a range of protocols.
+
 # Validations & Algorithms
 
 ## Constructing the document's scope
@@ -463,7 +475,6 @@ GetPath(node) :
     1. **Return** (Schema({prefix}), Directive({base}))
   4. ...**Else Return** (Schema({prefix}), Type({base}))
 
-
 # Appendix: Versioning
 
 VersionTag : "v" Version
@@ -512,3 +523,39 @@ Satisfies(requested, available) :
   2. If {requested}.{Major} = 0, return {requested}.{Minor} = {available}.{Minor}
   3. Return {requested}.{Minor} <= {available}.{Minor}
 
+# Appendix: Compilation
+
+A *compiler* takes a [partial schema](#sec-Partial-Schemas) and emits a [fully valid core schema](#sec-Fully-Valid-Core-Schemas) by inserting definitions from a *corpus*.
+
+The complete implementation of a compiler is outside the scope of this spec. An approximate algorithm for the fundamental definition-fill operation follows. This 
+
+Note: this algorithm assumes that the corpus is able to return both the definitions and the scope of those definitions; this is necessary to be able to {Locate} nodes from the corpus. An alternate approach is for the corpus to return definitions with their (and their descendants') global references attached.
+
+Fill(document, scope, corpus) :
+  1. **Let** {queue} be a queue of GRefs to process
+  2. **Let** {oldDocument} be {null}
+  3. **Loop Until** {oldDocument} is {document},
+    1. **Set** {oldDocument} to {document}
+    1. **For each** Named Type, Directive, or Import {reference} in {document},
+      1. **Let** {gref} be the location of {reference} from {Locate(reference, scope)}
+      2. **If** {document} does not contain a definition for {gref},
+        1. **If** {corpus} contains definitions for {gref},
+          1. **For each** ({definition}, {srcScope}) for {gref} in {corpus},
+            1. **Let** {moved} be the result of {Move(definition, srcScope, newScope)}
+            2. **Set** {document} to {document} with {moved} inserted
+        2. ...**Else Report** ❌ NoDefinition for {gref} in {document} or {corpus}
+
+{Move} takes a {subtree} and source and destination scopes and returns a ({newScope}, {newNode}) pair. {newScope} will be the same as {destScope}, but may have been expanded to include bindings necessary to support {node}. {newNode} may have been renamed to conform to existing bindings in {destScope}.
+
+Move(subtree, srcScope, destScope) :
+  1. **Let** {newNode} be a clone of {subtree}
+  2. **Let** {newScope} be a clone of {destScope}
+  1. **For each** Named Type, Directive, or Import {reference} in {newNode},
+    1. **Let** {gref} be the result of {Locate(srcScope, reference)}
+    2. **If** {newScope} contains a binding for {gref},
+      1. **Set** {reference}'s Name to the binding's Element
+    3. ...**Else**,
+      1. **If** {newScope} does not contain a binding whose {gref} is Schema({gref}'s {url}),
+        1. **Let** {name} be an arbitrary name such that Schema({name}) is not bound {newScope}
+        2. **Insert** Schema({name}) ==> Binding(gref: Schema({gref}'s url), element: Schema({name})) into {newScope}
+      1. **Set** {reference}'s Name to the binding's Element + {"__"} + {gref}'s Element
