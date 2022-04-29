@@ -112,7 +112,7 @@ extend schema
 # 👇🏽 🌍 https://specs.apollo.dev/link/v1.0/#@link
   @link(url: "https://internal.example.com/admin", import: [{ name: "@adminOnly", as: "@admin" }])
 
-#   👇🏽 🌍 #Query (note: this schema has no url, so the url part is null)
+#   👇🏽 🌍 #Query (note: this is a local definition, the url part is null)
 type Query {
   #               👇🏽 🌍 https://internal.example.com/admin#@adminOnly
   allUsers: [User] @admin
