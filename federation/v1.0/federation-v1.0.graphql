@@ -1,5 +1,5 @@
-directive @key(fields: FieldSet!) repeatable on OBJECT | INTERFACE
-directive @requires(fields: FieldSet!) on FIELD_DEFINITION
-directive @provides(fields: FieldSet!) on FIELD_DEFINITION
+directive @key(fields: _FieldSet!) repeatable on OBJECT | INTERFACE
+directive @requires(fields: _FieldSet!) on FIELD_DEFINITION
+directive @provides(fields: _FieldSet!) on FIELD_DEFINITION
 directive @external on OBJECT | FIELD_DEFINITION
 scalar _FieldSet
