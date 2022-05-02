@@ -10,7 +10,7 @@
 <script type=module async defer src=/inject-logo.js></script>
 ```
 
-Core schemas provide tools for linking and importing definitions from different GraphQL schemas together into one.
+Core schemas provide tools for linking foreign schemas and importing definitions from them.
 
 ```graphql example -- linking a directive from another schema
 extend schema
@@ -40,8 +40,89 @@ This document introduces a set of conventions for linking and namespacing within
 Core schemas solve three main problems:
 
 1. **[Imports](#@link).** The {@link} directive points to definitions. A compiler can insert these if they are not present, producing a [fully valid core schema](#fully-valid-core-schemas).
-3. **[Foreign definitions](#sec-Name-Conventions).** Core schemas can namespace external definitions and type references which are helpful in describing the schema, but are not part of the schema's API. Such definitions may include information about how to [serve](/link/v1.0#Purpose.EXECUTION) and [secure](/link/v1.0#Purpose.SECURITY) the schema.
-2. **[Attribution](#sec-Attribution).** [Fully valid core schemas](#fully-valid-core-schemas) contain all definitions they reference, as GraphQL requires. {@link}s in such documents serve to *attribute* all definitions and references in the document, associating each one with the URL it came from.
+3. **[Foreign definitions](#sec-Name-Conventions).** Core schemas can include namespaced external definitions and type references which are helpful in describing or implementing the schema, but are not part of the schema's API. For example, the [join schema](https://specs.apollo.dev/join/v0.2) introduces a {@field} directive which helps gateways plan and resolve supergraph fields. It provides metadata necessary to serve the schema, but which should not be visible in the public API. 
+2. **[Attribution](#sec-Attribution).** [Fully valid core schemas](#fully-valid-core-schemas) contain all definitions they reference, as GraphQL requires. {@link}s in such documents serve to *attribute* all definitions and references in the document, associating each one with the URL it came from. This allows documents to rename definitions 
+
+# Usage
+
+## Basic Linking
+
+Each {@link} directive on a schema has the effect of:
+  1. binds a namespace for the foreign schema. Definitions from that schema are accessible as `name__`
+  2. binds a directive with the same name as the schema to `@name`. This is an authoring affordance, aimed at making it simpler to write small schemas which export one directive and a few related input types.
+
+Given this example schema,
+
+```graphql example -- https://example.com/private.graphql
+directive @private
+
+directive @semiPrivate(visibility: Friend)
+
+enum Friend
+```
+
+We can reference it with `@link` like so:
+
+```graphql example -- basic linking
+extend schema
+  @link(url: "https://specs.apollo.dev/link/v1.0")
+  #   1. associates link__* with definitions from "https://specs.apollo.dev/link/v1.0"
+  #   2. associates @link with directive @link from "https://specs.apollo.dev/link/v1.0"
+  #
+  #   (this is what's known as a "bootstrap" — it @links link itself, so tools know what
+  #   version of link the document expects)
+
+  @link(url: "https://example.com/private")    
+  #   1. associates private__* with definitions from "https://example.com/private"
+  #   2. associates @private with the directive @private from "https://example.com/private"
+
+
+type Query {
+  allUsers: [User] @private # we could also write @private__private, but why bother?
+  myUsers: [User] @private__semiPrivate
+}
+```
+
+## Imports
+
+{@link} can also [`import:`](#@link.import) specific elements, bringing them into the API and allowing
+them to be referenced without namespaced names:
+
+```graphql example -- linking with imports
+extend schema
+  @link(url: "https://specs.apollo.dev/link/v1.0")
+  @link(url: "https://example.com/private", import: ["@semiPrivate"])    
+  #   1. associates private__* with definitions from "https://example.com/private"
+  #   2. associates @private with the directive @private from "https://example.com/private"
+  #   2. associates @semiPrivate with the directive @semiPrivate from "https://example.com/private"
+
+
+type Query {
+  allUsers: [User] @private
+  myUsers: [User] @semiPrivate
+}
+```
+
+## Renaming
+
+{@link} lets your rename both the schema's namespace, with [`as:`](@link.as), and each individual import:
+
+```graphql example -- linking with imports and renames
+extend schema
+  @link(url: "https://specs.apollo.dev/link/v1.0")
+  @link(url: "https://example.com/private", as: "p", import: [{name: "@semiPrivate", as: "@sp"])
+  #   1. associates p__* with definitions from "https://example.com/private"
+  #   2. associates @p with the directive @private from "https://example.com/private"
+  #   2. associates @sp with the directive @semiPrivate from "https://example.com/private"
+
+
+type Query {
+  allUsers: [User] @p
+  myUsers: [User] @sp
+}
+```
+
+The rest of this document lays out the specific mechanics behind the import mechanism, and suggestions for compilers which implement it.
 
 # The Global Graph
 
