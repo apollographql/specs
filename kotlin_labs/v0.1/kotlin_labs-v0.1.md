@@ -1,4 +1,4 @@
-# kotlin-labs v0.1
+# kotlin_labs v0.1
 
 <h2>Experimental directives supported by Apollo Kotlin</h2>
 
@@ -15,25 +15,25 @@ This specification provides a list of directives supported by the [Apollo Kotlin
 
 #! @optional
 
-:::[definition](kotlin-labs-v0.1.graphql#@optional)
+:::[definition](kotlin_labs-v0.1.graphql#@optional)
 
 #! @nonnull
 
-:::[definition](kotlin-labs-v0.1.graphql#@nonnull)
+:::[definition](kotlin_labs-v0.1.graphql#@nonnull)
 
 #! @typePolicy
 
-:::[definition](kotlin-labs-v0.1.graphql#@typePolicy)
+:::[definition](kotlin_labs-v0.1.graphql#@typePolicy)
 
 #! @fieldPolicy
 
-:::[definition](kotlin-labs-v0.1.graphql#@fieldPolicy)
+:::[definition](kotlin_labs-v0.1.graphql#@fieldPolicy)
 
 #! @experimental
 
-:::[definition](kotlin-labs-v0.1.graphql#@experimental)
+:::[definition](kotlin_labs-v0.1.graphql#@experimental)
 
 #! @targetName
 
-:::[definition](kotlin-labs-v0.1.graphql#@targetName)
+:::[definition](kotlin_labs-v0.1.graphql#@targetName)
 
