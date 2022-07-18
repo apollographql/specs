@@ -29,9 +29,9 @@ This specification provides a list of directives supported by the [Apollo Kotlin
 
 :::[definition](kotlin_labs-v0.1.graphql#@fieldPolicy)
 
-#! @experimental
+#! @requiresOptIn
 
-:::[definition](kotlin_labs-v0.1.graphql#@experimental)
+:::[definition](kotlin_labs-v0.1.graphql#@requiresOptIn)
 
 #! @targetName
 
