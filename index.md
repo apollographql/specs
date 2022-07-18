@@ -31,6 +31,10 @@
 
 [inaccessible v0.2](inaccessible/v0.2) masks fields and types from a graph's public API
 
+## kotlin_labs v0.1
+
+[kotlin_labs v0.1](kotlin_labs/v0.1) incubating directives supported by the Apollo Kotlin client
+
 # All Schemas
 
 Everything in this library:
