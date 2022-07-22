@@ -35,6 +35,10 @@
 
 [kotlin_labs v0.1](kotlin_labs/v0.1) incubating directives supported by the Apollo Kotlin client
 
+## kotlin_labs v0.2
+
+[kotlin_labs v0.1](kotlin_labs/v0.2) incubating directives supported by the Apollo Kotlin client
+
 # All Schemas
 
 Everything in this library:
