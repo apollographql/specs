@@ -1,4 +1,4 @@
-# kotlin_labs v0.1
+# kotlin_labs v0.2
 
 <h2>Experimental directives supported by Apollo Kotlin</h2>
 
