@@ -4,4 +4,4 @@
 
 # Federation 2.0 spec is served from the federation repo
 ## (note that the graphql definitions are still in this repo, at federation/v2.0/federation-v2.0.graphql)
-/federation/v2.0/* https://www.apollographql.com/docs/federation/federation-spec/:splat 302
+/federation/v2.0/* https://www.apollographql.com/docs/federation/subgraph-spec/:splat 302
