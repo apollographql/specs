@@ -21,7 +21,7 @@ Link a foreign schema and optionally import definitions.
 ```graphql example -- {@link} usage
 extend schema
   @link(url: "https://example.com/otherSchema",
-    # @link infers a name from the URL 🖕🏽
+    # @link infers a name from the URL 👆
     #   (use as: to set it explicitly)
     import: ["SomeType", "@someDirective", {
       name: "@someRenamedDirective",
