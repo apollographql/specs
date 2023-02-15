@@ -19,9 +19,9 @@
 
 [federation v2.0](/federation/v2.0) provides graph composition primitives for use in subgraphs.
 
-## join v0.2
+## join v0.3
 
-[join v0.2](/join/v0.2) declaratively describes joins between types in a supergraph.
+[join v0.3](/join/v0.3) declaratively describes joins between types in a supergraph.
 
 ## tag v0.2
 

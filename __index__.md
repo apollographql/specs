@@ -7,6 +7,7 @@
 - **[inaccessible/v0.2](/inaccessible/v0.2)** ([📄 graphql](inaccessible/v0.2/inaccessible-v0.2.graphql))
 - **[join/v0.1](/join/v0.1)** ([📄 graphql](join/v0.1/join-v0.1.graphql))
 - **[join/v0.2](/join/v0.2)** ([📄 graphql](join/v0.2/join-v0.2.graphql))
+- **[join/v0.3](/join/v0.3)** ([📄 graphql](join/v0.3/join-v0.3.graphql))
 - **[link/v1.0](/link/v1.0)** ([📄 graphql](link/v1.0/link-v1.0.graphql))
 - **[tag/v0.1](/tag/v0.1)** ([📄 graphql](tag/v0.1/tag-v0.1.graphql))
 - **[tag/v0.2](/tag/v0.2)** ([📄 graphql](tag/v0.2/tag-v0.2.graphql))

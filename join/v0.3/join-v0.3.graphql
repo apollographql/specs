@@ -1,0 +1,32 @@
+enum Graph
+
+directive @enumValue(graph: join__Graph!) repeatable on ENUM_VALUE
+
+directive @field(
+  graph: Graph,
+  requires: FieldSet,
+  provides: FieldSet,
+  type: String,
+  external: Boolean,
+  override: String,
+  usedOverridden: Boolean      
+) on FIELD_DEFINITION | INPUT_FIELD_DEFINITION
+
+directive @graph(name: String!, url: String!) on ENUM_VALUE
+
+directive @implements(
+  graph: Graph!,
+  interface: String!
+) on OBJECT | INTERFACE
+
+directive @type(
+  graph: Graph!,
+  key: FieldSet,
+  extension: Boolean = false,
+  resolvable: Boolean = true,
+  isInterfaceObject: Boolean = false
+) repeatable on OBJECT | INTERFACE | UNION | ENUM | INPUT_OBJECT | SCALAR
+
+directive @unionMember(graph: join__Graph!, member: String!) repeatable on UNION
+
+scalar FieldSet
