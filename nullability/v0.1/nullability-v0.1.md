@@ -14,9 +14,9 @@
 This specification provides a list of directives to help dealing with nullability. For more information, see [the nullability working group GitHub](https://github.com/graphql/nullability-wg)
 
 
-#! @nullOnlyOnError
+#! @semanticNonNull
 
-:::[definition](nullability-v0.1.graphql#@nullOnlyOnError)
+:::[definition](nullability-v0.1.graphql#@semanticNonNull)
 
 #! @catch
 
