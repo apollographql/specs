@@ -51,8 +51,16 @@ The `level` argument can be used to indicate where to catch in case of lists.
 directive @catch(to: CatchTo! = RESULT, level: Int = null) repeatable on FIELD
 
 enum CatchTo {
-    NULL,
+    """
+    Map to a result type that can contain either a value or an error.
+    """
     RESULT,
+    """
+    Map to a nullable type that will be null in the case of error.
+    This does not allow to distinguish between semantic null and error but
+    can be simpler in some cases.
+    """
+    NULL,
 }
 
 """
