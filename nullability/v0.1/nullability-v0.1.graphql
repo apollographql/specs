@@ -48,7 +48,7 @@ for more details.
 The `level` argument can be used to indicate where to catch in case of lists.
 `level` starts at 0 if there is no list. If `level` is null, all levels catch.
 """
-directive @catch(to: CatchTo! = RESULT, level: Int = null) repeatable on FIELD
+directive @catch(to: CatchTo! = RESULT, level: Int = null) repeatable on FIELD | SCHEMA
 
 enum CatchTo {
     """
