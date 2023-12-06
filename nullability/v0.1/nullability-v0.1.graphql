@@ -61,6 +61,10 @@ enum CatchTo {
     can be simpler in some cases.
     """
     NULL,
+    """
+    Do not catch and let any exception through
+    """
+    THROW
 }
 
 """
