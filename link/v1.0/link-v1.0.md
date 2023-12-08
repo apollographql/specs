@@ -149,7 +149,7 @@ An element, possibly aliased, to import into the document.
 or an object with `name` and (optionally `as`):
 
 ```graphql example -- import an aliased name
-  @link(url: "https://example.com/, import: [{
+  @link(url: "https://example.com/", import: [{
     name: "@example",
     as: "@eg"
   }, { name: "Purpose", as: "LinkPurpose" }])
@@ -158,7 +158,7 @@ or an object with `name` and (optionally `as`):
 `name` and `as` MUST be of the same type:
 
 ```graphql counter-example -- incorrectly importing a type as a directive
-  @link(url: "https://example.com/, import: [{
+  @link(url: "https://example.com/", import: [{
     name: "SomeType",
     as: "@someDirective"
   }])
@@ -167,7 +167,7 @@ or an object with `name` and (optionally `as`):
 Imports cannot currently reference transitive schemas:
 
 ```graphql counter-example -- incorrectly importing a transitive schema reference
-  @link(url: "https://example.com/, import: ["otherSchema::"])
+  @link(url: "https://example.com/", import: ["otherSchema::"])
 ```
 
 Note: Future versions may support this.
