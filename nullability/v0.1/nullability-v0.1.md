@@ -11,7 +11,7 @@
 <script type=module async defer src=https://specs.apollo.dev/inject-logo.js></script>
 ```
 
-This specification provides a list of directives to help dealing with nullability. For more information, see [the nullability working group GitHub](https://github.com/graphql/nullability-wg)
+This specification provides a list of directives to help dealing with nullability. For more information, see [the nullability working group GitHub repository.](https://github.com/graphql/nullability-wg)
 
 
 #! @semanticNonNull

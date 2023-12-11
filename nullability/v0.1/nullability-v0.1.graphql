@@ -37,37 +37,34 @@ The `level` argument can be used to indicate what level is semantically non null
 directive @semanticNonNull(field: String = null, level: Int = null) repeatable on FIELD_DEFINITION | OBJECT
 
 """
-Indicates that the given position stops GraphQL errors to propagate up the tree.
+Indicates how clients should handle errors on a given position.
 
-By default, the first GraphQL error stops the parsing and fails the whole response.
-Using `@catch` recovers from this error and allows the parsing to continue.
-
-`@catch` can be used on the schema definition. In this case, it is the default for
-every field that can return an error (nullable fields).
-If no `@catch` is applied to the schema definition, errors are not
-caught by default and the parsing stops at the first error.
-
-The `to` argument can be used to choose how to recover from errors. See `CatchTo`
-for more details.
+When used on the schema definition, `@catch` applies to every position that can return an error.
 
 The `level` argument can be used to indicate where to catch in case of lists.
 `level` starts at 0 if there is no list. If `level` is null, all levels catch.
+
+See `CatchTo` for more details.
 """
 directive @catch(to: CatchTo! = RESULT, level: Int = null) repeatable on FIELD | SCHEMA
 
 enum CatchTo {
     """
-    Map to a result type that can contain either a value or an error.
+    Catch the error and map the position to a result type that can contain either
+    a value or an error.
     """
     RESULT,
     """
-    Map to a nullable type that will be null in the case of error.
-    This does not allow to distinguish between semantic null and error but
+    Catch the error and map the position to a nullable type that will be null
+    in the case of error.
+    This does not allow to distinguish between semantic null and error null but
     can be simpler in some cases.
     """
     NULL,
     """
-    Do not catch and let any exception through
+    Throw the error.
+    Parent fields can recover using `RESULT` or `NULL`.
+    If no parent field recovers, the parsing stops.
     """
     THROW
 }
