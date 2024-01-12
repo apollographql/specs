@@ -42,7 +42,7 @@ Indicates how clients should handle errors on a given position.
 When used on the schema definition, `@catch` applies to every position that can return an error.
 
 The `level` argument can be used to indicate where to catch in case of lists.
-`level` is zero indexed. If `level` is null, all levels are semantically non null.
+`level` is zero indexed. If `level` is null, all levels catch.
 
 See `CatchTo` for more details.
 """
