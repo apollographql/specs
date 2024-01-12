@@ -32,7 +32,7 @@ The `field` argument is the name of the field if `@semanticNonNull` is applied t
 If `@semanticNonNull` is applied to a field definition, `field` must be null.
 
 The `level` argument can be used to indicate what level is semantically non null in case of lists.
-`level` starts at 0 if there is no list. If `level` is null, all levels are semantically non null.
+`level` is zero indexed. If `level` is null, all levels are semantically non null.
 """
 directive @semanticNonNull(field: String = null, level: Int = null) repeatable on FIELD_DEFINITION | OBJECT
 
@@ -42,7 +42,7 @@ Indicates how clients should handle errors on a given position.
 When used on the schema definition, `@catch` applies to every position that can return an error.
 
 The `level` argument can be used to indicate where to catch in case of lists.
-`level` starts at 0 if there is no list. If `level` is null, all levels catch.
+`level` is zero indexed. If `level` is null, all levels are semantically non null.
 
 See `CatchTo` for more details.
 """

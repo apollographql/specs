@@ -22,6 +22,10 @@ This specification provides a list of directives to help dealing with nullabilit
 
 :::[definition](nullability-v0.1.graphql#@catch)
 
+#! @CatchTo
+
+:::[definition](nullability-v0.1.graphql#CatchTo)
+
 #! @ignoreErrors
 
 :::[definition](nullability-v0.1.graphql#@ignoreErrors)
