@@ -18,14 +18,18 @@ This specification provides a list of directives to help dealing with nullabilit
 
 :::[definition](nullability-v0.2.graphql#@semanticNonNull)
 
+#! @semanticNonNullField
+
+:::[definition](nullability-v0.2.graphql#@semanticNonNullField)
+
 #! @catch
 
 :::[definition](nullability-v0.2.graphql#@catch)
 
-#! CatchTo
-
-:::[definition](nullability-v0.2.graphql#@CatchTo)
-
 #! @ignoreErrors
 
 :::[definition](nullability-v0.2.graphql#@ignoreErrors)
+
+#! CatchTo
+
+:::[definition](nullability-v0.2.graphql#CatchTo)
