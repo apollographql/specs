@@ -28,10 +28,10 @@ type User {
     # friends is semantically non null
     friends: [User] @semanticNonNull # same as @semanticNonNull(level: 0)
 
-    # friends[0], ... are semantically non null
+    # every friends[k] is semantically non null
     friends: [User] @semanticNonNull(level: 1)
 
-    # friends, friends[0], ... are all semantically non null
+    # friends as well as every friends[k] is semantically non null
     friends: [User] @semanticNonNull(level: 0) @semanticNonNull(level: 1)
 }
 ```
@@ -55,10 +55,10 @@ The `level` argument indicates where to catch errors in case of lists:
         # friends catches errors
         friends @catch { name } # same as @catch(level:0)
 
-        # friends[0], ... catch errors
+        # every friends[k] catches errors
         friends @catch(level: 0) { name }
 
-        # friends, friends[0], ... all catch errors
+        # friends as well as every friends[k] catches errors
         friends @catch(level: 0) @catch(level: 1) { name }
     }
 }
