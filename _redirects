@@ -2,9 +2,13 @@
 #
 # Docs: https://docs.netlify.com/routing/redirects/
 
-# Federation 2.0 spec is served from the federation repo
+# Federation v2 specs are served from the federation repo
 ## (note that the graphql definitions are still in this repo, at federation/v2.0/federation-v2.0.graphql)
 /federation/v2.0/* https://www.apollographql.com/docs/federation/subgraph-spec/:splat 302
 /federation/v2.1/* https://www.apollographql.com/docs/federation/subgraph-spec/:splat 302
 /federation/v2.2/* https://www.apollographql.com/docs/federation/subgraph-spec/:splat 302
 /federation/v2.3/* https://www.apollographql.com/docs/federation/subgraph-spec/:splat 302
+/federation/v2.4/* https://www.apollographql.com/docs/federation/subgraph-spec/:splat 302
+/federation/v2.5/* https://www.apollographql.com/docs/federation/subgraph-spec/:splat 302
+/federation/v2.6/* https://www.apollographql.com/docs/federation/subgraph-spec/:splat 302
+/federation/v2.7/* https://www.apollographql.com/docs/federation/subgraph-spec/:splat 302
