@@ -15,9 +15,9 @@
 
 [link v1.0](/link/v1.0) provides {@link} and {@id}, the fundamental core schema linking directives.
 
-## federation v2.3
+## federation v2.7
 
-[federation v2.3](/federation/v2.3) provides graph composition primitives for use in subgraphs.
+[federation v2.7](/federation/v2.7) provides graph composition primitives for use in subgraphs.
 
 ## join v0.3
 
@@ -41,6 +41,6 @@
 
 # All Schemas
 
-Everything in this library:
+All specifications:
 
 [everything](__index__.md)
