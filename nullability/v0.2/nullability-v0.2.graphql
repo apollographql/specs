@@ -2,7 +2,7 @@
 Indicates that a position is semantically non null: it is only null if there is a matching error in the `errors` array.
 In all other cases, the position is non-null.
 
-Tools doing code generation may use this information to generate the position as non-null:
+Tools doing code generation may use this information to generate the position as non-null if field errors are handled out of band:
 
 ```graphql
 type User {
