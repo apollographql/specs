@@ -19,5 +19,6 @@
 - **[kotlin_labs/v0.2](/kotlin_labs/v0.2)** ([📄 graphql](kotlin_labs/v0.2/kotlin_labs-v0.2.graphql))
 - **[link/v1.0](/link/v1.0)** ([📄 graphql](link/v1.0/link-v1.0.graphql))
 - **[nullability/v0.1](/nullability/v0.1)** ([📄 graphql](nullability/v0.1/nullability-v0.1.graphql))
+- **[nullability/v0.2](/nullability/v0.2)** ([📄 graphql](nullability/v0.2/nullability-v0.2.graphql))
 - **[tag/v0.1](/tag/v0.1)** ([📄 graphql](tag/v0.1/tag-v0.1.graphql))
 - **[tag/v0.2](/tag/v0.2)** ([📄 graphql](tag/v0.2/tag-v0.2.graphql))
