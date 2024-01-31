@@ -1,0 +1,5 @@
+"""
+Indicates that values of the given type must not be stored in the cache.
+Use this for instance to prevent the caching of error values.
+"""
+directive @doNotStore on OBJECT
