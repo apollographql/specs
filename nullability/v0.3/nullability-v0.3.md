@@ -1,11 +1,11 @@
-# nullability v0.2
+# nullability v0.3
 
 <h2>Experimental nullability directives</h2>
 
 ```raw html
 <table class=spec-data>
   <tr><td>Status</td><td>Release</td>
-  <tr><td>Version</td><td>0.2</td>
+  <tr><td>Version</td><td>0.3</td>
 </table>
 <link rel=stylesheet href=https://specs.apollo.dev/apollo-light.css>
 <script type=module async defer src=https://specs.apollo.dev/inject-logo.js></script>
@@ -16,20 +16,24 @@ This specification provides a list of directives to help dealing with nullabilit
 
 #! @semanticNonNull
 
-:::[definition](nullability-v0.2.graphql#@semanticNonNull)
+:::[definition](nullability-v0.3.graphql#@semanticNonNull)
 
 #! @semanticNonNullField
 
-:::[definition](nullability-v0.2.graphql#@semanticNonNullField)
+:::[definition](nullability-v0.3.graphql#@semanticNonNullField)
 
 #! @catch
 
-:::[definition](nullability-v0.2.graphql#@catch)
+:::[definition](nullability-v0.3.graphql#@catch)
+
+#! @catchField
+
+:::[definition](nullability-v0.3.graphql#@catchField)
 
 #! @ignoreErrors
 
-:::[definition](nullability-v0.2.graphql#@ignoreErrors)
+:::[definition](nullability-v0.3.graphql#@ignoreErrors)
 
 #! CatchTo
 
-:::[definition](nullability-v0.2.graphql#CatchTo)
+:::[definition](nullability-v0.3.graphql#CatchTo)
