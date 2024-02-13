@@ -106,7 +106,7 @@ extend type User @catchField(name: "email", to: RESULT)
 
 See `@catch`.
 """
-directive @catchField(to: CatchTo! = RESULT, levels: [Int] = [0]) on INTERFACE | OBJECT
+directive @catchField(to: CatchTo! = RESULT, levels: [Int] = [0]) repeatable on INTERFACE | OBJECT
 
 enum CatchTo {
     """
