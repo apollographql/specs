@@ -1,6 +1,7 @@
 
 - **[core/v0.1](/core/v0.1)** ([📄 graphql](core/v0.1/core-v0.1.graphql))
 - **[core/v0.2](/core/v0.2)** ([📄 graphql](core/v0.2/core-v0.2.graphql))
+- **[core/v1.0](/core/v1.0)** ([📄 graphql](core/v1.0/core-v1.0.graphql))
 - **[federation/v1.0](/federation/v1.0)** ([📄 graphql](federation/v1.0/federation-v1.0.graphql))
 - **[federation/v2.0](/federation/v2.0)** ([📄 graphql](federation/v2.0/federation-v2.0.graphql))
 - **[federation/v2.1](/federation/v2.1)** ([📄 graphql](federation/v2.1/federation-v2.1.graphql))
