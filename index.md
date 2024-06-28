@@ -35,9 +35,9 @@
 
 [kotlin_labs v0.3](kotlin_labs/v0.3) incubating directives supported by the Apollo Kotlin client
 
-## nullability v0.3
+## nullability v0.4
 
-[nullability v0.3](nullability/v0.3) incubating directives to work with nullability
+[nullability v0.4](nullability/v0.4) incubating directives to work with nullability
 
 # All Schemas
 
