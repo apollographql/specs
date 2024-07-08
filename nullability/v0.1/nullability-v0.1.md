@@ -4,7 +4,7 @@
 
 ```raw html
 <table class=spec-data>
-  <tr><td>Status</td><td>Release</td>
+  <tr><td>Status</td><td>Draft</td>
   <tr><td>Version</td><td>0.1</td>
 </table>
 <link rel=stylesheet href=https://specs.apollo.dev/apollo-light.css>
