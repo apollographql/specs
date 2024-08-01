@@ -39,6 +39,11 @@
 
 [nullability v0.4](nullability/v0.4) incubating directives to work with nullability
 
+## cache v0.1
+
+[cache v0.1](cache/v0.1) directives related to caching
+
+
 # All Schemas
 
 All specifications:
