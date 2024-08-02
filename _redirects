@@ -12,3 +12,4 @@
 /federation/v2.5/* https://www.apollographql.com/docs/federation/subgraph-spec/:splat 302
 /federation/v2.6/* https://www.apollographql.com/docs/federation/subgraph-spec/:splat 302
 /federation/v2.7/* https://www.apollographql.com/docs/federation/subgraph-spec/:splat 302
+/federation/v2.8/* https://www.apollographql.com/docs/federation/subgraph-spec/:splat 302

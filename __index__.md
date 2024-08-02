@@ -10,6 +10,7 @@
 - **[federation/v2.5](/federation/v2.5)** ([📄 graphql](federation/v2.5/federation-v2.5.graphql))
 - **[federation/v2.6](/federation/v2.6)** ([📄 graphql](federation/v2.6/federation-v2.6.graphql))
 - **[federation/v2.7](/federation/v2.7)** ([📄 graphql](federation/v2.7/federation-v2.7.graphql))
+- **[federation/v2.8](/federation/v2.8)** ([📄 graphql](federation/v2.8/federation-v2.8.graphql))
 - **[inaccessible/v0.1](/inaccessible/v0.1)** ([📄 graphql](inaccessible/v0.1/inaccessible-v0.1.graphql))
 - **[inaccessible/v0.2](/inaccessible/v0.2)** ([📄 graphql](inaccessible/v0.2/inaccessible-v0.2.graphql))
 - **[join/v0.1](/join/v0.1)** ([📄 graphql](join/v0.1/join-v0.1.graphql))

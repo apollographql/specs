@@ -1,0 +1,56 @@
+directive @authenticated on
+    ENUM
+  | FIELD_DEFINITION
+  | INTERFACE
+  | OBJECT
+  | SCALAR
+directive @composeDirective(name: String!) repeatable on SCHEMA
+directive @context(name: String!) on OBJECT | INTERFACE | UNION;
+directive @extends on OBJECT | INTERFACE
+directive @external on OBJECT | FIELD_DEFINITION
+directive @fromContext(field: ContextFieldValue) on ARGUMENT_DEFINITION;
+directive @key(fields: FieldSet!, resolvable: Boolean = true) repeatable on OBJECT | INTERFACE
+directive @inaccessible on
+  | FIELD_DEFINITION
+  | OBJECT
+  | INTERFACE
+  | UNION
+  | ENUM
+  | ENUM_VALUE
+  | SCALAR
+  | INPUT_OBJECT
+  | INPUT_FIELD_DEFINITION
+  | ARGUMENT_DEFINITION
+directive @interfaceObject on OBJECT
+directive @override(from: String!, label: String) on FIELD_DEFINITION
+directive @policy(policies: [[Policy!]!]!) on
+    ENUM
+  | FIELD_DEFINITION
+  | INTERFACE
+  | OBJECT
+  | SCALAR
+directive @provides(fields: FieldSet!) on FIELD_DEFINITION
+directive @requires(fields: FieldSet!) on FIELD_DEFINITION
+directive @requiresScopes(scopes: [[Scope!]!]!) on
+    ENUM
+  | FIELD_DEFINITION
+  | INTERFACE
+  | OBJECT
+  | SCALAR
+directive @shareable repeatable on FIELD_DEFINITION | OBJECT
+directive @tag(name: String!) repeatable on
+  | FIELD_DEFINITION
+  | INTERFACE
+  | OBJECT
+  | UNION
+  | ARGUMENT_DEFINITION
+  | SCALAR
+  | ENUM
+  | ENUM_VALUE
+  | INPUT_OBJECT
+  | INPUT_FIELD_DEFINITION
+
+scalar ContextFieldValue
+scalar FieldSet
+scalar Policy
+scalar Scope
