@@ -69,6 +69,10 @@ a {
   color: var(--indigo-dark);
 }
 
+.spec-call > a {
+  color: var(--indigo-dark);
+}
+
 .spec-note {
   background: none;
   border-color: var(--yellow-base);
