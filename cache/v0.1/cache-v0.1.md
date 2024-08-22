@@ -13,6 +13,10 @@
 
 This specification provides a list of directives related to caching. 
 
-#! @doNotStore
+#! @cacheControl
 
-:::[definition](cache-v0.1.graphql#@doNotStore)
+:::[definition](cache-v0.1.graphql#@cacheControl)
+
+#! @cacheControlField
+
+:::[definition](cache-v0.1.graphql#@cacheControlField)
