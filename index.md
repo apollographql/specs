@@ -15,9 +15,9 @@
 
 [link v1.0](/link/v1.0) provides {@link} and {@id}, the fundamental core schema linking directives.
 
-## federation v2.8
+## federation v2.9
 
-[federation v2.8](/federation/v2.8) provides graph composition primitives for use in subgraphs.
+[federation v2.9](/federation/v2.9) provides graph composition primitives for use in subgraphs.
 
 ## join v0.3
 
@@ -38,6 +38,10 @@
 ## nullability v0.4
 
 [nullability v0.4](nullability/v0.4) incubating directives to work with nullability
+
+## cost v0.1
+
+[cost v0.1](cost/v0.1) adds cost metadata to a schema for demand control
 
 # All Schemas
 

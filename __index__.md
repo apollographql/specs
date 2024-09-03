@@ -1,6 +1,7 @@
 
 - **[core/v0.1](/core/v0.1)** ([📄 graphql](core/v0.1/core-v0.1.graphql))
 - **[core/v0.2](/core/v0.2)** ([📄 graphql](core/v0.2/core-v0.2.graphql))
+- **[cost/v0.1](/cost/v0.1)** ([📄 graphql](cost/v0.1/cost-v0.1.graphql))
 - **[federation/v1.0](/federation/v1.0)** ([📄 graphql](federation/v1.0/federation-v1.0.graphql))
 - **[federation/v2.0](/federation/v2.0)** ([📄 graphql](federation/v2.0/federation-v2.0.graphql))
 - **[federation/v2.1](/federation/v2.1)** ([📄 graphql](federation/v2.1/federation-v2.1.graphql))
@@ -11,6 +12,7 @@
 - **[federation/v2.6](/federation/v2.6)** ([📄 graphql](federation/v2.6/federation-v2.6.graphql))
 - **[federation/v2.7](/federation/v2.7)** ([📄 graphql](federation/v2.7/federation-v2.7.graphql))
 - **[federation/v2.8](/federation/v2.8)** ([📄 graphql](federation/v2.8/federation-v2.8.graphql))
+- **[federation/v2.9](/federation/v2.9)** ([📄 graphql](federation/v2.9/federation-v2.9.graphql))
 - **[inaccessible/v0.1](/inaccessible/v0.1)** ([📄 graphql](inaccessible/v0.1/inaccessible-v0.1.graphql))
 - **[inaccessible/v0.2](/inaccessible/v0.2)** ([📄 graphql](inaccessible/v0.2/inaccessible-v0.2.graphql))
 - **[join/v0.1](/join/v0.1)** ([📄 graphql](join/v0.1/join-v0.1.graphql))
