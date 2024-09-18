@@ -31,9 +31,9 @@
 
 [inaccessible v0.2](inaccessible/v0.2) masks fields and types from a graph's public API
 
-## kotlin_labs v0.3
+## kotlin_labs v0.4
 
-[kotlin_labs v0.3](kotlin_labs/v0.3) incubating directives supported by the Apollo Kotlin client
+[kotlin_labs v0.4](kotlin_labs/v0.4) incubating directives supported by the Apollo Kotlin client
 
 ## nullability v0.4
 
