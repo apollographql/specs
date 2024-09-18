@@ -15,21 +15,21 @@ This specification provides a list of directives supported by the [Apollo Kotlin
 
 #! @optional
 
-:::[definition](kotlin_labs-v0.3.graphql#@optional)
+:::[definition](kotlin_labs-v0.4.graphql#@optional)
 
 #! @typePolicy
 
-:::[definition](kotlin_labs-v0.3.graphql#@typePolicy)
+:::[definition](kotlin_labs-v0.4.graphql#@typePolicy)
 
 #! @fieldPolicy
 
-:::[definition](kotlin_labs-v0.3.graphql#@fieldPolicy)
+:::[definition](kotlin_labs-v0.4.graphql#@fieldPolicy)
 
 #! @requiresOptIn
 
-:::[definition](kotlin_labs-v0.3.graphql#@requiresOptIn)
+:::[definition](kotlin_labs-v0.4.graphql#@requiresOptIn)
 
 #! @targetName
 
-:::[definition](kotlin_labs-v0.3.graphql#@targetName)
+:::[definition](kotlin_labs-v0.4.graphql#@targetName)
 
