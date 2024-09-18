@@ -17,10 +17,6 @@ This specification provides a list of directives supported by the [Apollo Kotlin
 
 :::[definition](kotlin_labs-v0.3.graphql#@optional)
 
-#! @nonnull
-
-:::[definition](kotlin_labs-v0.3.graphql#@nonnull)
-
 #! @typePolicy
 
 :::[definition](kotlin_labs-v0.3.graphql#@typePolicy)
