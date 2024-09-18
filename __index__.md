@@ -1,4 +1,5 @@
 
+- **[cache/v0.1](/cache/v0.1)** ([📄 graphql](cache/v0.1/cache-v0.1.graphql))
 - **[core/v0.1](/core/v0.1)** ([📄 graphql](core/v0.1/core-v0.1.graphql))
 - **[core/v0.2](/core/v0.2)** ([📄 graphql](core/v0.2/core-v0.2.graphql))
 - **[cost/v0.1](/cost/v0.1)** ([📄 graphql](cost/v0.1/cost-v0.1.graphql))

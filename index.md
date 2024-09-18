@@ -43,6 +43,11 @@
 
 [cost v0.1](cost/v0.1) adds cost metadata to a schema for demand control
 
+## cache v0.1
+
+[cache v0.1](cache/v0.1) directives related to caching
+
+
 # All Schemas
 
 All specifications:
