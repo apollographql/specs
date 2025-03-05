@@ -1,11 +1,11 @@
-# kotlin_labs v0.4
+# kotlin_labs v0.5
 
 <h2>Experimental directives supported by Apollo Kotlin</h2>
 
 ```raw html
 <table class=spec-data>
   <tr><td>Status</td><td>Draft</td>
-  <tr><td>Version</td><td>0.4</td>
+  <tr><td>Version</td><td>0.5</td>
 </table>
 <link rel=stylesheet href=https://specs.apollo.dev/apollo-light.css>
 <script type=module async defer src=https://specs.apollo.dev/inject-logo.js></script>
@@ -15,21 +15,28 @@ This specification provides a list of directives supported by the [Apollo Kotlin
 
 #! @optional
 
-:::[definition](kotlin_labs-v0.4.graphql#@optional)
+:::[definition](kotlin_labs-v0.5.graphql#@optional)
 
 #! @typePolicy
 
-:::[definition](kotlin_labs-v0.4.graphql#@typePolicy)
+:::[definition](kotlin_labs-v0.5.graphql#@typePolicy)
 
 #! @fieldPolicy
 
-:::[definition](kotlin_labs-v0.4.graphql#@fieldPolicy)
+:::[definition](kotlin_labs-v0.5.graphql#@fieldPolicy)
 
 #! @requiresOptIn
 
-:::[definition](kotlin_labs-v0.4.graphql#@requiresOptIn)
+:::[definition](kotlin_labs-v0.5.graphql#@requiresOptIn)
 
 #! @targetName
 
-:::[definition](kotlin_labs-v0.4.graphql#@targetName)
+:::[definition](kotlin_labs-v0.5.graphql#@targetName)
 
+#! @map
+
+:::[definition](kotlin_labs-v0.5.graphql#@map)
+
+#! @mapTo
+
+:::[definition](kotlin_labs-v0.5.graphql#@mapTo)
