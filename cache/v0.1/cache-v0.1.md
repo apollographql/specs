@@ -13,7 +13,7 @@
 
 This specification provides a list of directives related to caching. 
 
-Some of the definitions directly comes from [Apollo Server](https://www.apollographql.com/docs/apollo-server/performance/caching/).
+Some of the definitions directly come from [Apollo Server](https://www.apollographql.com/docs/apollo-server/performance/caching/).
 
 #! @cacheControl
 
@@ -22,3 +22,7 @@ Some of the definitions directly comes from [Apollo Server](https://www.apollogr
 #! @cacheControlField
 
 :::[definition](cache-v0.1.graphql#@cacheControlField)
+
+#! CacheControlScope
+
+:::[definition](cache-v0.1.graphql#CacheControlScope)
