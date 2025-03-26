@@ -61,7 +61,7 @@ directive @cacheControlField(
 """
 Configures behaviour of child object when parent object is deleted from cache.
 
-- `cascade`: Defaults to false. If true, the child object will be deleted from the cache when the parent object is deleted.
+- `cascade`: If true, the child object will be deleted from the cache when the parent object is deleted. 
 
 For example:
 
@@ -81,5 +81,5 @@ type Book {
 Whenever `Author` is deleted from the cache, the associated `Book` is also deleted.
 """
 directive @onDelete(
-    cascade: Boolean
+    cascade: Boolean!
 ) on OBJECT_FIELD
