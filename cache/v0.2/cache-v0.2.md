@@ -30,3 +30,7 @@ Some of the definitions directly come from [Apollo Server](https://www.apollogra
 #! @onDelete
 
 :::[definition](cache-v0.2.graphql#@onDelete)
+
+#! @onDeleteField
+
+:::[definition](cache-v0.2.graphql#@onDeleteField)

@@ -100,7 +100,7 @@ extend type Author @onDeleteField(name: "book", cascade: true)
 ```
 Whenever `Author` is deleted from the cache, the associated `Book` is also deleted.
 """
-directive @onDelete(
+directive @onDeleteField(
     name: String!
     cascade: Boolean!
-) repeatable on FIELD_DEFINITION
+) repeatable on OBJECT | INTERFACE
