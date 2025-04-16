@@ -1,0 +1,75 @@
+enum Type {
+    zipCode
+    city
+    streetName
+    streetAddress
+    secondaryAddress
+    country
+    countryCode
+    state
+    stateAbbr
+    latitude
+    longitude
+
+    colorName
+    productName
+    money
+    productMaterial
+
+    companyName
+    companyCatchPhrase
+    companyBS
+
+    date
+    pastDate
+    futureDate
+
+    currencyCode
+    currencyName
+    currencySymbol
+    internationalBankAccountNumber
+    bankIdentifierCode
+
+    hackerAbbreviation
+
+    imageUrl
+    avatarUrl
+    email
+    url
+    domainName
+    ipv4Address
+    ipv6Address
+    userAgent
+    colorHex
+    macAddress
+    password
+    lorem
+
+    firstName
+    lastName
+    fullName
+    jobTitle
+
+    phoneNumber
+
+    number
+    uuid
+    word
+    words
+    locale
+
+    filename
+    mimeType
+    fileExtension
+    semver
+}
+
+directive @fake(
+    type: Type!
+) on FIELD_DEFINITION | SCALAR
+
+directive @listSize(level: Int! = 0, min: Int!, max: Int!) repeatable on FIELD_DEFINITION
+
+scalar Value
+
+directive @examples(values: [Value]!) on FIELD_DEFINITION | SCALAR
