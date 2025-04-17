@@ -1,74 +1,74 @@
 enum Type {
-    zipCode
-    city
-    streetName
-    streetAddress
-    secondaryAddress
-    country
-    countryCode
-    state
-    stateAbbr
-    latitude
-    longitude
+    ZIP_CODE
+    CITY
+    STREET_NAME
+    STREET_ADDRESS
+    SECONDARY_ADDRESS
+    COUNTRY
+    COUNTRY_CODE
+    STATE
+    STATE_ABBR
+    LATITUDE
+    LONGITUDE
 
-    colorName
-    productName
-    money
-    productMaterial
+    COLOR_NAME
+    PRODUCT_NAME
+    MONEY
+    PRODUCT_MATERIAL
 
-    companyName
-    companyCatchPhrase
-    companyBS
+    COMPANY_NAME
+    COMPANY_CATCH_PHRASE
+    COMPANY_BS
 
-    date
-    pastDate
-    futureDate
+    DATE
+    PAST_DATE
+    FUTURE_DATE
 
-    currencyCode
-    currencyName
-    currencySymbol
-    internationalBankAccountNumber
-    bankIdentifierCode
+    CURRENCY_CODE
+    CURRENCY_NAME
+    CURRENCY_SYMBOL
+    INTERNATIONAL_BANK_ACCOUNT_NUMBER
+    BANK_IDENTIFIER_CODE
 
-    hackerAbbreviation
+    HACKER_ABBREVIATION
 
-    imageUrl
-    avatarUrl
-    email
-    url
-    domainName
-    ipv4Address
-    ipv6Address
-    userAgent
-    colorHex
-    macAddress
-    password
-    lorem
+    IMAGE_URL
+    AVATAR_URL
+    EMAIL
+    URL
+    DOMAIN_NAME
+    IPV4_ADDRESS
+    IPV6_ADDRESS
+    USER_AGENT
+    COLOR_HEX
+    MAC_ADDRESS
+    PASSWORD
+    LOREM
 
-    firstName
-    lastName
-    fullName
-    jobTitle
+    FIRST_NAME
+    LAST_NAME
+    FULL_NAME
+    JOB_TITLE
 
-    phoneNumber
+    PHONE_NUMBER
 
-    number
-    uuid
-    word
-    words
-    locale
+    NUMBER
+    UUID
+    WORD
+    WORDS
+    LOCALE
 
-    filename
-    mimeType
-    fileExtension
-    semver
+    FILENAME
+    MIME_TYPE
+    FILE_EXTENSION
+    SEMVER
 }
 
 directive @fake(
     type: Type!
 ) on FIELD_DEFINITION | SCALAR
 
-directive @listSize(level: Int! = 0, min: Int!, max: Int!) repeatable on FIELD_DEFINITION
+directive @fakeList(level: Int! = 0, minSize: Int!, maxSize: Int!) repeatable on FIELD_DEFINITION
 
 scalar Value
 
