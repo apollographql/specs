@@ -1,4 +1,4 @@
-enum Type {
+enum FakeType {
     ZIP_CODE
     CITY
     STREET_NAME
@@ -65,11 +65,11 @@ enum Type {
 }
 
 directive @fake(
-    type: Type!
+    type: FakeType!
 ) on FIELD_DEFINITION | SCALAR
 
 directive @fakeList(level: Int! = 0, minSize: Int!, maxSize: Int!) repeatable on FIELD_DEFINITION
 
-scalar Value
+scalar FakeValue
 
-directive @examples(values: [Value]!) on FIELD_DEFINITION | SCALAR
+directive @fakeExamples(values: [FakeValue]!) on FIELD_DEFINITION | SCALAR
