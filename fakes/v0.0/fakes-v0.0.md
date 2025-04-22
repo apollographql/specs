@@ -17,14 +17,14 @@ This specification provides a list of directives to help dealing with fakes.
 
 :::[definition](fakes-v0.0.graphql#@fake)
 
-#! @Type
+#! FakeType
 
-:::[definition](fakes-v0.0.graphql#Type)
+:::[definition](fakes-v0.0.graphql#FakeType)
 
-#! @examples
+#! @fakeExamples
 
-:::[definition](fakes-v0.0.graphql#@examples)
+:::[definition](fakes-v0.0.graphql#@fakeExamples)
 
-#! @listSize
+#! @fakeList
 
-:::[definition](fakes-v0.0.graphql#@listSize)
+:::[definition](fakes-v0.0.graphql#@fakeList)
