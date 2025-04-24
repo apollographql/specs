@@ -47,6 +47,9 @@
 
 [cache v0.2](cache/v0.2) directives related to caching
 
+## fakes v0.0
+
+[fakes v0.0](fakes/v0.0) fakes your GraphQL data
 
 # All Schemas
 

@@ -1,0 +1,75 @@
+enum FakeType {
+    ZIP_CODE
+    CITY
+    STREET_NAME
+    STREET_ADDRESS
+    SECONDARY_ADDRESS
+    COUNTRY
+    COUNTRY_CODE
+    STATE
+    STATE_ABBR
+    LATITUDE
+    LONGITUDE
+
+    COLOR_NAME
+    PRODUCT_NAME
+    MONEY
+    PRODUCT_MATERIAL
+
+    COMPANY_NAME
+    COMPANY_CATCH_PHRASE
+    COMPANY_BS
+
+    DATE
+    PAST_DATE
+    FUTURE_DATE
+
+    CURRENCY_CODE
+    CURRENCY_NAME
+    CURRENCY_SYMBOL
+    INTERNATIONAL_BANK_ACCOUNT_NUMBER
+    BANK_IDENTIFIER_CODE
+
+    HACKER_ABBREVIATION
+
+    IMAGE_URL
+    AVATAR_URL
+    EMAIL
+    URL
+    DOMAIN_NAME
+    IPV4_ADDRESS
+    IPV6_ADDRESS
+    USER_AGENT
+    COLOR_HEX
+    MAC_ADDRESS
+    PASSWORD
+    LOREM
+
+    FIRST_NAME
+    LAST_NAME
+    FULL_NAME
+    JOB_TITLE
+
+    PHONE_NUMBER
+
+    NUMBER
+    UUID
+    WORD
+    WORDS
+    LOCALE
+
+    FILENAME
+    MIME_TYPE
+    FILE_EXTENSION
+    SEMVER
+}
+
+directive @fake(
+    type: FakeType!
+) on FIELD_DEFINITION | SCALAR
+
+directive @fakeList(level: Int! = 0, minSize: Int!, maxSize: Int!) repeatable on FIELD_DEFINITION
+
+scalar FakeValue
+
+directive @fakeExamples(values: [FakeValue]!) on FIELD_DEFINITION | SCALAR
