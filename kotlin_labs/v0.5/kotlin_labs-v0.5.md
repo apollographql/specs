@@ -37,6 +37,10 @@ This specification provides a list of directives supported by the [Apollo Kotlin
 
 :::[definition](kotlin_labs-v0.5.graphql#@map)
 
+#! BuiltIn
+
+:::[definition](kotlin_labs-v0.5.graphql#BuiltIn)
+
 #! @mapTo
 
 :::[definition](kotlin_labs-v0.5.graphql#@mapTo)
