@@ -18,6 +18,7 @@
 - **[federation/v2.9](/federation/v2.9)** ([📄 graphql](federation/v2.9/federation-v2.9.graphql))
 - **[inaccessible/v0.1](/inaccessible/v0.1)** ([📄 graphql](inaccessible/v0.1/inaccessible-v0.1.graphql))
 - **[inaccessible/v0.2](/inaccessible/v0.2)** ([📄 graphql](inaccessible/v0.2/inaccessible-v0.2.graphql))
+- **[incrementalDelivery/v0.1](/incrementalDelivery/v0.1)** ([📄 graphql](incrementalDelivery/v0.1/incrementalDelivery-v0.1.graphql))
 - **[join/v0.1](/join/v0.1)** ([📄 graphql](join/v0.1/join-v0.1.graphql))
 - **[join/v0.2](/join/v0.2)** ([📄 graphql](join/v0.2/join-v0.2.graphql))
 - **[join/v0.3](/join/v0.3)** ([📄 graphql](join/v0.3/join-v0.3.graphql))
