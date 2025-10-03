@@ -12,7 +12,7 @@
   "license": "ISC",
   "dependencies": {
     "@queerviolet/speck": "git://github.com/queerviolet/speck.git#main",
-    "chokidar-cli": "^2.1.0",
+    "chokidar-cli": "^3.0.0",
     "watch": "^1.0.2"
   }
 }
