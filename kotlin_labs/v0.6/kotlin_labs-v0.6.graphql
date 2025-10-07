@@ -1,0 +1,168 @@
+"""
+Marks a field or variable definition as optional or required
+By default Apollo Kotlin generates all variables of nullable types as optional, in compliance with the GraphQL specification,
+but this can be configured with this directive, because if the variable was added in the first place, it's usually to pass a value
+Since: 3.0.0
+"""
+directive @optional(if: Boolean = true) on FIELD | VARIABLE_DEFINITION
+
+"""
+Attach extra information to a given type
+Since: 3.0.0
+"""
+directive @typePolicy(
+    """
+    A selection set containing fields used to compute the cache key of an object.
+    Nested selection sets are currently not supported. Order is important.
+
+    Key fields can be defined on interfaces. In that case, the key fields apply to all sub-types and sub-types are not allowed to define their own key fields.
+    If a type implements multiple interfaces with keyfields, the keyfields must match across all interfaces with keyfields.
+
+    The key fields are automatically added to the operations by the compiler.
+    Aliased key fields are not recognized and the compiler adds a non-aliased version of the field if that happens.
+    If a type is queried through an interface/union, this may add fragments.
+
+    For an example, this query:
+
+    ```graphql
+    query {
+        product {
+            price
+        }
+    }
+    ```
+
+    is turned into this one after compilation:
+
+    ```graphql
+    query {
+        product {
+            ... on Book {
+                isbn
+            }
+            ... on Movie {
+                id
+            }
+            price
+        }
+    }
+    ```
+
+    """
+    keyFields: String! = "",
+    """
+    (experimental) a selection set containing fields that shouldn't create a new cache Record and should be
+    embedded in their parent instead. Order is unimportant.
+    """
+    embeddedFields: String! = "",
+    """
+    (experimental) a selection set containing fields that should be treated as [Relay Connection](https://relay.dev/graphql/connections.htm) fields.
+    Order is unimportant.
+    This works in conjunction with `ConnectionMetadataGenerator` and `ConnectionRecordMerger` which must be configured on the `ApolloStore`.
+    Since: 3.4.1
+    """
+    connectionFields: String! = "" @deprecated(reason: "Use @connection from https://specs.apollo.dev/cache/ instead")
+) on OBJECT | INTERFACE
+
+"""
+Attach extra information to a given field
+Since: 3.3.0
+"""
+directive @fieldPolicy(
+    forField: String!,
+    """
+    a list of arguments used to compute the cache key of the object this field is pointing to.
+    The list is parsed as a selection set: both spaces and comas are valid separators.
+    """
+    keyArgs: String! = "",
+    """
+    (experimental) a list of arguments that vary when requesting different pages.
+    These arguments are omitted when computing the cache key of this field.
+    The list is parsed as a selection set: both spaces and comas are valid separators.
+    Since: 3.4.1
+    """
+    paginationArgs: String! = ""
+) repeatable on OBJECT
+
+"""
+Indicates that the given field, argument, input field or enum value requires
+giving explicit consent before being used.
+Since: 3.3.1
+"""
+directive @requiresOptIn(feature: String!) repeatable
+on FIELD_DEFINITION
+    | ARGUMENT_DEFINITION
+    | INPUT_FIELD_DEFINITION
+    | ENUM_VALUE
+
+"""
+Use the specified name in the generated code instead of the GraphQL name.
+Use this for instance when the name would clash with a reserved keyword or field in the generated code.
+This directive is experimental.
+Since: 3.3.1
+"""
+directive @targetName(name: String!)
+on OBJECT
+    | INTERFACE
+    | ENUM
+    | ENUM_VALUE
+    | UNION
+    | SCALAR
+    | INPUT_OBJECT
+
+"""
+Configure the Apollo compiler to map the given scalar to the given class.
+"""
+directive @map(
+  """
+  The fully qualified type name to map the scalar to. 
+  Simple generic types without variance or wildcards are also supported. 
+  
+  Examples: 
+    - `java.util.Date`
+    - `kotlin.collections.Map<kotlin.String, java.util.Date>`
+  """
+  to: String!, 
+
+  """
+  A fully qualified expression referencing the adapter used to adapt to/from the type
+  or inline property type, or `null` to specify the adapter at runtime.
+   
+  Examples:
+    - `com.apollographql.adapter.datetime.KotlinxInstantAdapter`
+    - `com.example.MyAdapter()`
+  """
+  with: String = null, 
+  
+  """
+  If non null, contains the name of the property used to wrap/unwrap the inline class.
+  [to] must be an inline class.
+  
+  Only used in Kotlin codegen.
+  """  
+  inlineProperty: String = null
+) on SCALAR
+
+"""
+Built-in types known at compile time. Apollo Kotlin knows the adapters for those types.
+"""
+enum BuiltIn { String, Boolean, Int, Long, Float, Double }
+
+"""
+Use the given builtin type for this scalar.
+"""
+directive @mapTo(
+  """
+  The built-in type to use for this scalar.
+  """
+  builtIn: BuiltIn!, 
+  """
+  Whether to generate a wrapper inline class for this scalar.
+  """
+  inline: Boolean! = true
+) on SCALAR
+
+"""
+Tells the Apollo compiler to generate Data Builders
+"""
+directive @generateDataBuilders on SCHEMA
