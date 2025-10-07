@@ -81,7 +81,7 @@ directive @fieldPolicy(
     The list is parsed as a selection set: both spaces and comas are valid separators.
     Since: 3.4.1
     """
-    paginationArgs: String! = ""
+    paginationArgs: String! = "" @deprecated(reason: "Use a FieldKeyGenerator instead")
 ) repeatable on OBJECT
 
 """
