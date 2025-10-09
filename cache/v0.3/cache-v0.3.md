@@ -15,6 +15,12 @@ This specification provides a list of directives related to caching.
 
 Some of the definitions directly come from [Apollo Server](https://www.apollographql.com/docs/apollo-server/performance/caching/).
 
+#! @typePolicy
+:::[definition](cache-v0.3.graphql#@typePolicy)
+
+#! @fieldPolicy
+:::[definition](cache-v0.3.graphql#@fieldPolicy)
+
 #! @cacheControl
 
 :::[definition](cache-v0.3.graphql#@cacheControl)
