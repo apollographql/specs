@@ -43,9 +43,9 @@
 
 [cost v0.1](cost/v0.1) adds cost metadata to a schema for demand control
 
-## cache v0.2
+## cache v0.3
 
-[cache v0.2](cache/v0.2) directives related to caching
+[cache v0.2](cache/v0.3) directives related to caching
 
 ## fakes v0.0
 
