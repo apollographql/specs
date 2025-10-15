@@ -4,4 +4,4 @@ In order for the server to know that the client can parse the incremental delive
 
 ## Accept
 
-`multipart/mixed;incrementalDeliverySpec=graphql/incremental/v0.1`
+`multipart/mixed;incrementalSpec=v0.1`
