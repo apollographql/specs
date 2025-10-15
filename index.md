@@ -19,6 +19,10 @@
 
 [federation v2.9](/federation/v2.9) provides graph composition primitives for use in subgraphs.
 
+## incremental v0.1
+
+[incremental v0.1](/incremental/v0.1) provides specification and client usage details for the response format used with the {@defer} and {@stream} directives.
+
 ## join v0.3
 
 [join v0.3](/join/v0.3) declaratively describes joins between types in a supergraph.
