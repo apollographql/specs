@@ -45,7 +45,7 @@
 
 ## cache v0.3
 
-[cache v0.2](cache/v0.3) directives related to caching
+[cache v0.3](cache/v0.3) directives related to caching
 
 ## fakes v0.0
 
