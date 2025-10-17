@@ -19,6 +19,7 @@
 - **[inaccessible/v0.1](/inaccessible/v0.1)** ([📄 graphql](inaccessible/v0.1/inaccessible-v0.1.graphql))
 - **[inaccessible/v0.2](/inaccessible/v0.2)** ([📄 graphql](inaccessible/v0.2/inaccessible-v0.2.graphql))
 - **[incremental/v0.1](/incremental/v0.1)** ([📄 graphql](incremental/v0.1/incremental-v0.1.graphql))
+- **[incremental/v0.2](/incremental/v0.2)** ([📄 graphql](incremental/v0.2/incremental-v0.2.graphql))
 - **[join/v0.1](/join/v0.1)** ([📄 graphql](join/v0.1/join-v0.1.graphql))
 - **[join/v0.2](/join/v0.2)** ([📄 graphql](join/v0.2/join-v0.2.graphql))
 - **[join/v0.3](/join/v0.3)** ([📄 graphql](join/v0.3/join-v0.3.graphql))

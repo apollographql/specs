@@ -4,4 +4,4 @@ In order for the server to know that the client can parse the incremental delive
 
 ## Accept
 
-`multipart/mixed;deferSpec=20220824`
+`multipart/mixed;incrementalSpec=v0.2`
