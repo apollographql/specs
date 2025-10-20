@@ -1,4 +1,4 @@
-# incremental v0.1
+# incremental v0.2
 
 **Source: [Working Draft - September 2024](https://github.com/graphql/graphql-wg/blob/f22ea7748c6ebdf88fdbf770a8d9e41984ebd429/rfcs/DeferStream.md)**
 
