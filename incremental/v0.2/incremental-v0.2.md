@@ -1,6 +1,6 @@
 # incremental v0.2
 
-**Source: [Working Draft - September 2024](https://github.com/graphql/graphql-wg/blob/f22ea7748c6ebdf88fdbf770a8d9e41984ebd429/rfcs/DeferStream.md)**
+Note: This document is a snapshot of the incremental delivery RFC used for reference purposes. It is based on the [September 2024 Working Draft](https://github.com/graphql/graphql-wg/blob/f22ea7748c6ebdf88fdbf770a8d9e41984ebd429/rfcs/DeferStream.md). 
 
 # Introduction
 
