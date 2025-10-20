@@ -1,8 +1,6 @@
 # incremental v0.1
 
-**Source: [Working Draft - July 2020](https://github.com/graphql/graphql-wg/blob/e4ef5f9d5997815d9de6681655c152b6b7838b4c/rfcs/DeferStream.md)**
-
-Note: This RFC refers to both the `@defer` and `@stream` directives but Apollo Router only implemented the `@defer` directive.
+Note: This document is a snapshot of the incremental delivery RFC used for reference purposes. It is based on the [July 2020 - Working Draft](https://github.com/graphql/graphql-wg/blob/e4ef5f9d5997815d9de6681655c152b6b7838b4c/rfcs/DeferStream.md). The original RFC refers to both the `@defer` and `@stream` directives but Apollo Router only implemented the `@defer` directive.
 
 # Introduction
 
