@@ -117,12 +117,12 @@ Notes in this document are non-normative, and are presented to clarify intent, d
 
 Note: This is an example of a non-normative note.
 
-- 1. [Overview](./Section-1-Overview.md)
-- 2. [Language](./Section-2-Language.md)
-- 3. [Type System](./Section-3-Type%20System.md)
-- 4. [Introspection](./Section-4-Introspection.md)
-- 5. [Validation](./Section-5-Validation.md)
-- 6. [Execution](./Section-6-Execution.md)
-- 7. [Response](./Section-7-Response.md)
-- 8. [Appendix: Notation Conventions](./Appendix-A-Notation%20Conventions.md)
-- 9. [Appendix: Grammar Summary](./Appendix-B-Grammar%20Summary.md)
+1. [Overview](./Section-1-Overview.md)
+2. [Language](./Section-2-Language.md)
+3. [Type System](./Section-3-Type-System.md)
+4. [Introspection](./Section-4-Introspection.md)
+5. [Validation](./Section-5-Validation.md)
+6. [Execution](./Section-6-Execution.md)
+7. [Response](./Section-7-Response.md)
+8. [Appendix: Notation Conventions](./Appendix-A-Notation-Conventions.md)
+9. [Appendix: Grammar Summary](./Appendix-B-Grammar-Summary.md)
