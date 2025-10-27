@@ -1,16 +1,16 @@
-## incremental v0.2
+# incremental v0.2
 
-## Usage
+# Usage
 
-### HTTP header
+## HTTP header
 
 In order for the server to know that the client can parse the incremental delivery response format, the HTTP request must include the following header:
 
-#### Accept
+### Accept
 
 `multipart/mixed;incrementalSpec=v0.2`
 
-### GraphQL directive
+## GraphQL directive
 
 ```graphql
 """
@@ -49,7 +49,7 @@ directive @stream(
 ) on FIELD
 ```
 
-## RFC
+# RFC
 
 Note: This document is a snapshot of the incremental delivery RFC used for reference purposes. It is based on the [September 2024 Working Draft](https://github.com/graphql/graphql-wg/blob/f22ea7748c6ebdf88fdbf770a8d9e41984ebd429/rfcs/DeferStream.md). 
 
