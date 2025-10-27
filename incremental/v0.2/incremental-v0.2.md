@@ -1,8 +1,59 @@
-# incremental v0.2
+## incremental v0.2
+
+## Usage
+
+### HTTP header
+
+In order for the server to know that the client can parse the incremental delivery response format, the HTTP request must include the following header:
+
+#### Accept
+
+`multipart/mixed;incrementalSpec=v0.2`
+
+### GraphQL directive
+
+```graphql
+"""
+Used to imply de-prioritization, that causes the fragment to be omitted in the initial response, and delivered as a subsequent response afterward.
+
+Arguments:
+* `if: Boolean`
+  * When `true` fragment may be deferred, if omitted defaults to `true`.
+* `label: String`
+  * A unique label across all `@defer` and `@stream` directives in an operation.
+  * This `label` should be used by GraphQL clients to identify the data from patch responses and associate it with the correct fragment.
+  * If provided, the GraphQL Server must add it to the payload.
+"""
+directive @defer(
+  label: String
+  if: Boolean! = true
+) on FRAGMENT_SPREAD | INLINE_FRAGMENT
+
+"""
+This directive may be provided for a field of `List` type so that the backend can leverage technology such asynchronous iterators to provide a partial list in the initial response, and additional list items in subsequent responses.
+
+Arguments:
+* `if: Boolean`
+  * When `true` field may be streamed, if omitted defaults to `true`.
+* `label: String`
+  * A unique label across all `@defer` and `@stream` directives in an operation.
+  * This `label` should be used by GraphQL clients to identify the data from patch responses and associate it with the correct fragments.
+  * If provided, the GraphQL Server must add it to the payload.
+* `initialCount: Int`
+  * The number of list items the server should return as part of the initial response.
+"""
+directive @stream(
+  label: String
+  if: Boolean! = true
+  initialCount: Int = 0
+) on FIELD
+```
+
+## RFC
 
 Note: This document is a snapshot of the incremental delivery RFC used for reference purposes. It is based on the [September 2024 Working Draft](https://github.com/graphql/graphql-wg/blob/f22ea7748c6ebdf88fdbf770a8d9e41984ebd429/rfcs/DeferStream.md). 
 
-# Introduction
+## Introduction
 
 One of the disadvantages of GraphQL’s request/response model is that applications which retrieve large datasets may suffer from latency. However not all requested data may be of equal importance, and in some use cases it may be possible for applications to act on a subset of the requested data.  
 
@@ -13,7 +64,7 @@ Today applications which seek to ensure that data of high importance can be retr
 
 However each of these solutions imposes some undesirable trade-offs on applications.
 
-## Splitting queries
+### Splitting queries
 
 Given a query where some fields are expensive and non-essential, non-essential fields can be fetched in a separate query issued after an initial query. In the context of lists, this may mean fetching only the first few items in a list and issuing a follow-up pagination request for additional items. By separating the requests based on data priority, we have achieved a faster delivery time to essential data. However, query splitting imposes several **trade-offs** on applications:
 
@@ -21,11 +72,11 @@ Given a query where some fields are expensive and non-essential, non-essential f
 **Client resource contention.** Issuing multiple requests can increase contention on scarce resources like battery and antenna. 
 **Increased cost.** Processing additional requests can increase server costs by putting pressure on both the middle tier and the data layer. For example a follow-up query may need to load a subset of the same data loaded by the initial query, putting additional pressure on data stores.
 
-## Prefetching
+### Prefetching
 
 This technique involves optimistically fetching data based on a prediction that a user will execute an action. Prefetching can be one of the most effective ways of reducing latency. However, a significant tradeoff with prefetching that a lot of applications cannot afford is **increased server cost due to incorrect predictions.** With an unsophisticated prefetch algorithm, applications can easily overfetch by a factor of 10 fold.
 
-# Proposal: Incrementally deliver data with `@defer` and `@stream`
+## Proposal: Incrementally deliver data with `@defer` and `@stream`
 
 This proposal would introduce `@stream` and `@defer` directives which clients could use to communicate the relative priority of requested data to GraphQL implementations. Furthermore this proposal would enable GraphQL APIs to split requested data across multiple response payloads in order of priority. The goal of this proposal is to enable applications to reduce latency without increasing server cost or resource contention.
 
@@ -35,11 +86,11 @@ Facebook has been using Incremental Delivery at scale since 2017, including on m
 
 GraphQL servers will not be required to implement `@defer` and/or `@stream`. If they are implemented, they will be required to follow the proposed specification. Servers that do not implement `@defer` and/or `@stream` should not expose these directives in their schema. Queries containing these directives that are sent to an unsupported server should fail validation.
 
-## `@defer`
+### `@defer`
 
 The `@defer` directive may be specified on a fragment spread to imply de-prioritization, that causes the fragment to be omitted in the initial response, and delivered as a subsequent response afterward. A query with `@defer` directive will cause the request to potentially return multiple responses, where non-deferred data is delivered in the initial response and data deferred delivered in a subsequent response. `@include` and `@skip` take precedence over `@defer`.
 
-### `@defer` arguments
+#### `@defer` arguments
 
 * `if: Boolean`
   * When `true` fragment may be deferred, if omitted defaults to `true`.
@@ -48,11 +99,11 @@ The `@defer` directive may be specified on a fragment spread to imply de-priorit
   * This `label` should be used by GraphQL clients to identify the data from patch responses and associate it with the correct fragment.
   * If provided, the GraphQL Server must add it to the payload.
 
-## `@stream`
+### `@stream`
 
 The `@stream` directive may be provided for a field of `List` type so that the backend can leverage technology such asynchronous iterators to provide a partial list in the initial response, and additional list items in subsequent responses. `@include` and `@skip` take precedence over `@stream`.
 
-### `@stream` arguments
+#### `@stream` arguments
 
 * `if: Boolean`
   * When `true` field may be streamed, if omitted defaults to `true`.
@@ -63,7 +114,7 @@ The `@stream` directive may be provided for a field of `List` type so that the b
 * `initialCount: Int`
   * The number of list items the server should return as part of the initial response.
 
-## Payload format
+### Payload format
 
 When an operation contains `@defer` or `@stream` directives, the GraphQL execution will return multiple payloads. The first payload is the same shape as a standard GraphQL response. Any fields that were only requested on a fragment that is deferred will not be present in this payload. Any list fields that are streamed will only contain the initial list items.
 
@@ -77,13 +128,13 @@ Each subsequent payload will be an object with the following properties:
 
 Note: The `label` field is not a unique identifier for payloads. There may be multiple payloads with the same label for either payloads for `@stream`, or payloads from a `@defer` fragment under a list field. The combination of `label` and `path` will be unique among all payloads.
 
-## Server requirements for `@defer` and `@stream`
+### Server requirements for `@defer` and `@stream`
 
 The ability to defer/stream parts of a response can have a potentially significant impact on application performance. Developers generally need clear, predictable control over their application's performance. It is highly recommended that the GraphQL server honor the `@defer` and `@stream` directives on each execution. However, the specification will allow advanced use-cases where the server can determine that it is more performant to not defer/stream. Therefore, GraphQL clients should be able to process a response that ignores the defer/stream directives.
 
 This also applies to the `initialCount` argument on the `@stream` directive. Clients should be able to process a streamed response that contains a different number of initial list items than what was specified in the `initialCount` argument.
 
-## Example Query with `@defer` and `@stream`
+### Example Query with `@defer` and `@stream`
 
 ```graphql
 query {
@@ -162,7 +213,7 @@ Payload 3
 
 See more examples in https://github.com/graphql/defer-stream-wg/discussions/69
 
-## Benefits of incremental delivery
+### Benefits of incremental delivery
 
 * Make GraphQL a great choice for applications which demand responsiveness.
 * Enable interoperability between different GraphQL clients and servers without restricting implementation.
@@ -170,33 +221,33 @@ See more examples in https://github.com/graphql/defer-stream-wg/discussions/69
 * Provide concrete guidance to implementers.
 * Provide guidance to developers evaluating whether to adopt incremental delivery.
 
-## Use case guidance:
+### Use case guidance:
 
 The goal of incremental delivery is to prioritize the delivery of essential data. Even though incremental delivery delivers data over time, the response describes the data at a particular point in time. Therefore, it is not necessary to reflect real time changes to the data model in incremental delivery. Implementers of `@defer` and `@stream` are not obligated to address interleaving mutations during the execution of `@defer` and `@stream`. 
 
 GraphQL Subscription is an event-oriented approach to capture real time data changes. It intends to describe interesting events that happen over a period of time and delivers updated values that “invalidate” previous values.
 
-## Implementation details of `@stream` and `@defer`
+### Implementation details of `@stream` and `@defer`
 
 For GraphQL communications built on top of HTTP, a natural and compatible technology to leverage is HTTP chunked encoding to implement a stream of responses for incremental delivery.
 
-## Caveats
+### Caveats
 
-### Type Generation
+#### Type Generation
 
 Supporting `@defer` can add complexity to type-generating clients. Separate types will need to be generated for the different deferred fragments. These clients will need to use the `pending` and `completed` fields to determine which fragments have been fulfilled to ensure the application is using the correct types. 
 
-### Object Consistency
+#### Object Consistency
 
 The GraphQL spec does not currently support object identification or consistency. It is currently possible for the same object to be returned in multiple places in a query. If that object changes while the resolvers are running, the query could return inconsistent results. `@defer`/`@stream` does not increase the likelihood of this, as the server still attempts to resolve everything as fast as it can. The only difference is some results can be returned to the client sooner. This proposal does not attempt to address this issue.
 
-### Can `@defer`/`@stream` increase risk of a denial of service attack?
+#### Can `@defer`/`@stream` increase risk of a denial of service attack?
 
 This is currently a risk in GraphQL servers that do not implement any kind of query limiting as arbitrarily complex queries can be sent. Adding `@defer` may add some overhead as the server will now send parts of the query earlier than it would have without `@defer`, but it does not allow for any additional resolving that was not previously possible.
 
-## Frequently Asked Questions
+### Frequently Asked Questions
 
-### Why is `@defer` supported on fragments instead of fields?
+#### Why is `@defer` supported on fragments instead of fields?
 
 The first experimental implementation of `@defer` was in Apollo Server and only supported `@defer` on fields. When applying this to production code, we quickly found that most use-cases were to defer a group of multiple fields, and block the corresponding UI from rendering until all fields in the group have been resolved. This requires the client to track the loading state of each individual field, showing the loading indicator until it receives the asynchronous payloads for each field. Alternatively, a client could render the UI for each individual field as soon as it's ready. However, this could lead to a bad user experience, with the UI repainting and reflowing many times as the data is loaded.
 
@@ -206,9 +257,9 @@ For these reasons, this proposal only supports `@defer` on fragment spreads and 
 
 The GraphQL WG is not ruling out supporting `@defer` on fields in the future if additional use-cases are discovered, but it is no longer being considered for this proposal.
 
-## Potential concerns, challenges, and drawbacks
+### Potential concerns, challenges, and drawbacks
 
-### Client re-renders
+#### Client re-renders
 
 With incremental delivery, where multiple responses are delivered in one request, client code could re-render its UI multiple times in a short period of time. This could degrade performance of the application, negating the performance gains from using `@defer` or `@stream`. There are a few approaches that the spec allows that could be taken to mitigate this.
 
@@ -216,7 +267,7 @@ With incremental delivery, where multiple responses are delivered in one request
 
 An example batched response:
 
-## Example Query with `@defer` and `@stream`
+### Example Query with `@defer` and `@stream`
 
 ```graphql
 query {
@@ -289,7 +340,7 @@ Payload 2
 
 2. *Server can ignore `@defer`/`@stream`.* This approach allows the GraphQL server to treat `@defer` and `@stream` as hints. The server can ignore these directives and include the deferred data in previous responses. This requires clients to be written with the expectation that deferred data could arrive in either its own incrementally delivered response or part of a previously delivered response. Clients must interpret the lack of a `pending` object for a given `@defer` or `@stream` as an indication that the data has already been delivered and will not be delivered in a future incremental payload.
 
-# Additional material
+## Additional material
 
 - 1. [Lee Byron on idea of `@defer` and `@stream`](https://www.youtube.com/watch?v=ViXL0YQnioU&feature=youtu.be&t=9m4s)
 - 2. [*Proposal* - Introducing `@defer` in Apollo Server](https://blog.apollographql.com/introducing-defer-in-apollo-server-f6797c4e9d6e)
