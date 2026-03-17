@@ -31,6 +31,7 @@
 - **[kotlin_labs/v0.4](/kotlin_labs/v0.4)** ([📄 graphql](kotlin_labs/v0.4/kotlin_labs-v0.4.graphql))
 - **[kotlin_labs/v0.5](/kotlin_labs/v0.5)** ([📄 graphql](kotlin_labs/v0.5/kotlin_labs-v0.5.graphql))
 - **[kotlin_labs/v0.6](/kotlin_labs/v0.6)** ([📄 graphql](kotlin_labs/v0.6/kotlin_labs-v0.6.graphql))
+- **[kotlin_labs/v0.7](/kotlin_labs/v0.7)** ([📄 graphql](kotlin_labs/v0.7/kotlin_labs-v0.7.graphql))
 - **[link/v1.0](/link/v1.0)** ([📄 graphql](link/v1.0/link-v1.0.graphql))
 - **[nullability/v0.1](/nullability/v0.1)** ([📄 graphql](nullability/v0.1/nullability-v0.1.graphql))
 - **[nullability/v0.2](/nullability/v0.2)** ([📄 graphql](nullability/v0.2/nullability-v0.2.graphql))
