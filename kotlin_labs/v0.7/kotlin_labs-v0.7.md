@@ -37,10 +37,6 @@ This specification provides a list of directives supported by the [Apollo Kotlin
 
 :::[definition](kotlin_labs-v0.7.graphql#@generateDataBuilders)
 
-#! @ignore
-
-:::[definition](kotlin_labs-v0.7.graphql#@ignore)
-
 #! @optional
 
 :::[definition](kotlin_labs-v0.7.graphql#@optional)
