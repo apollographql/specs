@@ -1,0 +1,14 @@
+"""
+Tell the Apollo compiler to ignore this directive.
+This can be used when some servers come with directives that would otherwise clash
+with the special Apollo ones.
+
+```graphql
+# Import the Apollo directive under a new name
+extend schema @link(url: "https://specs.apollo.dev/kotlin_labs/v0.3/", import: [name: "@nonnull", as: "@apollo_nonnull"])
+
+# And do not interpret the @nonnull directive
+extend directive @nonnull @ignore
+```
+"""
+directive @ignore on DIRECTIVE_DEFINITION
